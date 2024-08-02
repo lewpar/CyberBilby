@@ -6,28 +6,35 @@
     <description>Recent content in Home on Cyber Bilby</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Mar 2023 11:00:00 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 09 Feb 2024 09:40:57 +1100</lastBuildDate>
     <atom:link href="https://cyberbilby.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Post 3</title>
-      <link>https://cyberbilby.com/posts/post-3/</link>
-      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
-      <guid>https://cyberbilby.com/posts/post-3/</guid>
-      <description>Occaecat aliqua consequat laborum ut ex aute aliqua culpa quis irure esse magna dolore quis. Proident fugiat labore eu laboris officia Lorem enim. Ipsum occaecat cillum ut tempor id sint aliqua incididunt nisi incididunt reprehenderit. Voluptate ad minim sint est aute aliquip esse occaecat tempor officia qui sunt. Aute ex ipsum id ut in est velit est laborum incididunt. Aliqua qui id do esse sunt eiusmod id deserunt eu nostrud aute sit ipsum.</description>
+      <title>How Do You Exchange Encryption Keys Anyway</title>
+      <link>https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:57 +1100</pubDate>
+      <guid>https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/</guid>
+      <description>It is often we talk about encrypting data securely, but how do you transmit it securely over a medium without exposing your encryption key?</description>
     </item>
     <item>
-      <title>Post 2</title>
-      <link>https://cyberbilby.com/posts/post-2/</link>
-      <pubDate>Wed, 15 Feb 2023 10:00:00 -0700</pubDate>
-      <guid>https://cyberbilby.com/posts/post-2/</guid>
-      <description>Anim eiusmod irure incididunt sint cupidatat. Incididunt irure irure irure nisi ipsum do ut quis fugiat consectetur proident cupidatat incididunt cillum. Dolore voluptate occaecat qui mollit laborum ullamco et. Ipsum laboris officia anim laboris culpa eiusmod ex magna ex cupidatat anim ipsum aute. Mollit aliquip occaecat qui sunt velit ut cupidatat reprehenderit enim sunt laborum. Velit veniam in officia nulla adipisicing ut duis officia.&#xA;Exercitation voluptate irure in irure tempor mollit Lorem nostrud ad officia.</description>
+      <title>Setup Wireguard Reverse Proxy</title>
+      <link>https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/</guid>
+      <description>This tutorial shows you how you can overcome port forwarding issues through the issue on an encrypted tunnel through WireGuard.</description>
     </item>
     <item>
-      <title>Post 1</title>
-      <link>https://cyberbilby.com/posts/post-1/</link>
-      <pubDate>Sun, 15 Jan 2023 09:00:00 -0700</pubDate>
-      <guid>https://cyberbilby.com/posts/post-1/</guid>
-      <description>Tempor proident minim aliquip reprehenderit dolor et ad anim Lorem duis sint eiusmod. Labore ut ea duis dolor. Incididunt consectetur proident qui occaecat incididunt do nisi Lorem. Tempor do laborum elit laboris excepteur eiusmod do. Eiusmod nisi excepteur ut amet pariatur adipisicing Lorem.&#xA;Occaecat nulla excepteur dolore excepteur duis eiusmod ullamco officia anim in voluptate ea occaecat officia. Cillum sint esse velit ea officia minim fugiat. Elit ea esse id aliquip pariatur cupidatat id duis minim incididunt ea ea.</description>
+      <title>Spoofing Your MAC</title>
+      <link>https://cyberbilby.com/posts/spoofing-your-mac/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/posts/spoofing-your-mac/</guid>
+      <description>This tutorial will show you how you can spoof your MAC address.</description>
+    </item>
+    <item>
+      <title>First Post</title>
+      <link>https://cyberbilby.com/posts/first-post/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:23 +1100</pubDate>
+      <guid>https://cyberbilby.com/posts/first-post/</guid>
+      <description>This is the first post of Cyber Bilby, my tech blogging website.</description>
     </item>
   </channel>
 </rss>

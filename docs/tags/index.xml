@@ -6,27 +6,111 @@
     <description>Recent content in Tags on Cyber Bilby</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 15 Mar 2023 11:00:00 -0700</lastBuildDate>
+    <lastBuildDate>Fri, 09 Feb 2024 09:40:57 +1100</lastBuildDate>
     <atom:link href="https://cyberbilby.com/tags/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>blue</title>
-      <link>https://cyberbilby.com/tags/blue/</link>
-      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
-      <guid>https://cyberbilby.com/tags/blue/</guid>
+      <title>aes</title>
+      <link>https://cyberbilby.com/tags/aes/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:57 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/aes/</guid>
       <description></description>
     </item>
     <item>
-      <title>green</title>
-      <link>https://cyberbilby.com/tags/green/</link>
-      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
-      <guid>https://cyberbilby.com/tags/green/</guid>
+      <title>asymmetric</title>
+      <link>https://cyberbilby.com/tags/asymmetric/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:57 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/asymmetric/</guid>
       <description></description>
     </item>
     <item>
-      <title>red</title>
-      <link>https://cyberbilby.com/tags/red/</link>
-      <pubDate>Wed, 15 Mar 2023 11:00:00 -0700</pubDate>
-      <guid>https://cyberbilby.com/tags/red/</guid>
+      <title>encryption</title>
+      <link>https://cyberbilby.com/tags/encryption/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:57 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/encryption/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>key exchange</title>
+      <link>https://cyberbilby.com/tags/key-exchange/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:57 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/key-exchange/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>rsa</title>
+      <link>https://cyberbilby.com/tags/rsa/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:57 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/rsa/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>symmetric</title>
+      <link>https://cyberbilby.com/tags/symmetric/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:57 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/symmetric/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>hacking</title>
+      <link>https://cyberbilby.com/tags/hacking/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/hacking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>mac-address</title>
+      <link>https://cyberbilby.com/tags/mac-address/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/mac-address/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>networking</title>
+      <link>https://cyberbilby.com/tags/networking/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/networking/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>port forwarding</title>
+      <link>https://cyberbilby.com/tags/port-forwarding/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/port-forwarding/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>reverse proxy</title>
+      <link>https://cyberbilby.com/tags/reverse-proxy/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/reverse-proxy/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>spoofing</title>
+      <link>https://cyberbilby.com/tags/spoofing/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/spoofing/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>tunnel</title>
+      <link>https://cyberbilby.com/tags/tunnel/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/tunnel/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>wireguard</title>
+      <link>https://cyberbilby.com/tags/wireguard/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/wireguard/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>personal</title>
+      <link>https://cyberbilby.com/tags/personal/</link>
+      <pubDate>Fri, 09 Feb 2024 09:40:23 +1100</pubDate>
+      <guid>https://cyberbilby.com/tags/personal/</guid>
       <description></description>
     </item>
   </channel>
