@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Spoofing Your MAC | Cyber Bilby</title>
+
+      <link rel="stylesheet" href="/css/main.min.1ddaf1a5e8e76dd5850f46e0b1e7f32f344261ef1d683f92850d5d60cd8779fe.css" integrity="sha256-HdrxpejnbdWFD0bgsefzLzRCYe8daD&#43;ShQ1dYM2Hef4=" crossorigin="anonymous">
+
+
+</head>
+<body>
+  <header>
+    <h1>Cyber Bilby</h1>
+
+  <nav>
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">Posts</a>
+    </li>
+    <li>
+      <a href="/tags/">Tags</a>
+    </li>
+    </ul>
+  </nav>
+
+
+  </header>
+  <main>
+    
+  <h1>Spoofing Your MAC</h1>
+
+  
+  
+  <time datetime="2024-02-09T09:40:42&#43;11:00">February 9, 2024</time>
+
+  <h2 id="what-is-a-mac-address">What is a MAC address?</h2>
+<p>A Media Access Control (MAC) address is a 6 byte (48 bits) unique address that is applied to your Network Interface Card (NIC).</p>
+<p>This address is made up of two parts which are 3 bytes (24 bits) each, the Vendor specific bytes and the Interface specific bytes.</p>
+<p><img src="/content/spoofing-your-mac/image1.png" alt="MAC Address"></p>
+<h3 id="vendor-specific-bytes">Vendor Specific Bytes</h3>
+<p>This portion of the MAC address is assigned to allow you to recognize the vendor/manufacturer the NIC originated from.
+<img src="/content/spoofing-your-mac/image2.png" alt="Vendor MAC Portion"></p>
+<h3 id="interface-specific-bytes">Interface Specific Bytes</h3>
+<p>This portion of the MAC address is assigned to ensure each NIC has a Unique Identifier (UID) to differentiate it from other NICs.
+<img src="/content/spoofing-your-mac/image3.png" alt="Interface MAC Portion"></p>
+<h2 id="why-would-you-want-to-spoof-your-mac">Why would you want to spoof your MAC?</h2>
+<p>There is a variety of reasons that you may want to spoof your MAC address which includes but is not limited to:</p>
+<ul>
+<li>Hiding the identity of your NIC</li>
+<li>Accessing MAC protected networks</li>
+<li>Man-in-the-Middle Attacks</li>
+</ul>
+<p>For the purpose of this tutorial we are focusing on Accessing MAC protected networks.</p>
+<div style="display: flex; flex-direction: row;">
+    <div style="display: flex; align-items: center; justify-content: center; background-color: orange; padding: 0.25rem; border-radius: 5px 0px 0px 5px;">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1; border: 1px solid orange; border-radius: 0px 5px 5px 0px; padding: 0.5rem; background-color: white">
+        <div style="display: flex; flex-direction: row; align-items: center; gap: 0.5rem; color: orange; font-weight: 600">
+            <img src="/images/exclaim.png" width="24px" height="24px" style="filter: brightness(50%) sepia() hue-rotate(10deg) saturate(25)">
+            <div>Warning</div>
+        </div>
+        <div style="font-size: 0.9rem">
+            
+It's not illegal to change or spoof your MAC address, but it is illegal to carry out attacks against networks you do not have permission to penetration test using this technique.
+
+        </div>
+    </div>
+</div>
+<h2 id="my-scenario">My Scenario</h2>
+<p>I recently bought a Nintendo Switch and I wanted to connect this directly via Ethernet due to the weak signal strength of the Wi-Fi NIC inside the Nintendo Switch.</p>
+<p>What I decided to do is buy an Ethernet-to-USB Adapter and plug it into my switch, however there was a caveat.
+The building I live in provides internet to the residents which has a <a href="https://en.wikipedia.org/wiki/Captive_portal">Captive Portal</a> on it, which means I have to log in to connect the Nintendo Switch to the internet.</p>
+<p>The Nintendo Switch does support captive portals, however the portal being used by our building has some JavaScript that is being blocked by the browser built into the Switch. This means I cannot log in and connect to the network.</p>
+<h3 id="so-what-do-i-do">So what do I do?</h3>
+<p>Captive Portals save the MAC address of the interface that has successfully logged in, so you do not need to log in again after disconnecting and reconnecting to the network.</p>
+<p>For the astute readers you may realize where this is going.</p>
+<p>If I spoof the MAC address of another device (like my laptop) I can trick the captive portal into thinking my Nintendo Switch has logged into the network and then try to reconnect the switch, bypassing the login.</p>
+<h3 id="how-do-i-spoof-the-mac-address">How do I spoof the MAC address?</h3>
+<h4 id="windows">Windows</h4>
+<p>If you are using Windows, you can access your network adapters by:</p>
+<ul>
+<li>Pressing <code>Windows</code> + <code>R</code> to open the Run utility.</li>
+<li>Typing <code>cmd</code> and pressing <code>Ctrl</code> + <code>Shift</code> + <code>Enter</code> to run the Command Prompt with elevated privileges.</li>
+<li>Typing <code>ncpa.cpl</code> to access the Network Adapters.</li>
+</ul>
+<p>Once you select the network adapter you are currently using:</p>
+<ul>
+<li>Right-click the adapter</li>
+<li>Select <code>Properties</code></li>
+<li>Select <code>Configure</code></li>
+<li>Select the <code>Advanced</code> tab</li>
+<li>Look for and select either <code>Locally Administered Address</code> or <code>Network Address</code></li>
+<li>Change the selection from <code>Not Present</code> to the value above</li>
+<li>Insert the MAC address you gathered from your target device (Nintendo Switch)</li>
+<li>Press OK</li>
+</ul>
+<div style="display: flex; flex-direction: row;">
+    <div style="display: flex; align-items: center; justify-content: center; background-color: dodgerblue; padding: 0.25rem; border-radius: 5px 0px 0px 5px;">
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1; border: 1px solid dodgerblue; border-radius: 0px 5px 5px 0px; padding: 0.5rem; background-color: white">
+        <div style="display: flex; flex-direction: row; align-items: center; gap: 0.5rem; color: dodgerblue; font-weight: 600">
+            <img src="/images/exclaim.png" width="24px" height="24px" style="filter: brightness(50%) sepia() hue-rotate(190deg) saturate(25)">
+            <div>Info</div>
+        </div>
+        <div style="font-size: 0.9rem">
+            
+If you are using an Ethernet-to-USB adapter like I am, you need to read the MAC address on that is written physically (usually on a sticker) on the adapter.
+
+        </div>
+    </div>
+</div>
+<h3 id="connecting--re-connecting">Connecting &amp; Re-connecting</h3>
+<p>I have now spoofed the MAC address of my laptop to be the same as my Nintendo Switch Ethernet-to-USB adapter.</p>
+<p>If I connect to the network I will be greeted by the captive portal, and I can now log in to the network.</p>
+<p>After logging in the captive portal saved my MAC address for the Nintendo Switch into its database of connected devices.</p>
+<p>This means I can now undo the MAC address that I have spoofed in the previous section and reconnect my Nintendo Switch to the network.</p>
+<h2 id="summary">Summary</h2>
+<p>To sum up what you have learned. Media Access Control (MAC) addresses are Unique Identifiers (UIDs) that are sometimes stored when logging into a Captive Portal.</p>
+<p>You can spoof your Network Interface Card (NIC) MAC address to another NIC MAC address to trick the Captive Portal into thinking the other NIC has logged into the network.</p>
+
+  
+  <div>
+    <div>Tags:</div>
+    <ul>
+        <li><a href="/tags/networking/">networking</a></li>
+        <li><a href="/tags/mac-address/">mac-address</a></li>
+        <li><a href="/tags/spoofing/">spoofing</a></li>
+        <li><a href="/tags/hacking/">hacking</a></li>
+    </ul>
+  </div>
+
+
+  </main>
+  <footer>
+    <p>Copyright &copy; 2024. Cyber Bilby</p>
+
+  </footer>
+</body>
+</html>

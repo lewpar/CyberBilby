@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>How Do You Exchange Encryption Keys Anyway | Cyber Bilby</title>
+
+      <link rel="stylesheet" href="/css/main.min.1ddaf1a5e8e76dd5850f46e0b1e7f32f344261ef1d683f92850d5d60cd8779fe.css" integrity="sha256-HdrxpejnbdWFD0bgsefzLzRCYe8daD&#43;ShQ1dYM2Hef4=" crossorigin="anonymous">
+
+
+</head>
+<body>
+  <header>
+    <h1>Cyber Bilby</h1>
+
+  <nav>
+    <ul>
+    <li>
+      <a href="/">Home</a>
+    </li>
+    <li>
+      <a aria-current="true" class="ancestor" href="/posts/">Posts</a>
+    </li>
+    <li>
+      <a href="/tags/">Tags</a>
+    </li>
+    </ul>
+  </nav>
+
+
+  </header>
+  <main>
+    
+  <h1>How Do You Exchange Encryption Keys Anyway</h1>
+
+  
+  
+  <time datetime="2024-02-09T09:40:57&#43;11:00">February 9, 2024</time>
+
+  <p>When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?</p>
+<p>In this article I will touch lightly on the different encryption types used and how they can be used together to ensure your keys are exchanged securely.</p>
+<h2 id="symmetric-vs-asymmetric-encryption">Symmetric vs Asymmetric Encryption</h2>
+<p>Before talking about how to securely exchange encryption keys you must first understand the differences between symmetric and asymmetric encryption and what kind of encryption is available.</p>
+<p>I will try to explain both of these methodologies as simple as possible.</p>
+<h3 id="symmetric">Symmetric</h3>
+<p>Symmetric encryption uses the same key for both encrypting and decrypting data. It can encrypt large blocks of data quickly and efficiently.</p>
+<p>Types of symmetric encryption include:</p>
+<ul>
+<li>AES</li>
+<li>DES</li>
+</ul>
+<h3 id="asymmetric">Asymmetric</h3>
+<p>Asymmetric encryption uses different keys for encryption (public key) and decryption (private key) and is typically used on small blocks of data because it is slower than symmetric encryption.</p>
+<p>The encryption and decryption key is known as the public and private key-pair.</p>
+<p>Types of asymmetric encryption include:</p>
+<ul>
+<li>RSA</li>
+<li>Diffie-Hellman</li>
+<li>Elliptic Curve</li>
+</ul>
+<h2 id="why-use-one-over-the-other">Why use one over the other?</h2>
+<p>Because of the properties of asymmetric encryption it’s very common to use both symmetric and asymmetric encryption for secure communication.</p>
+<p>This is done through something known as the key exchange where the public keys are exchanged with each other and the symmetric key is encrypted and sent back.</p>
+<h2 id="what-does-this-key-exchange-look-like">What does this Key Exchange look like?</h2>
+<p>In this example I am using RSA as the asymmetric and AES encryption as the symmetric encryption.</p>
+<p>Alice and Bob both have generated their asymmetric key-pair.</p>
+<p><img src="./static/bob-alice-gen-keypair.png" alt="Image1"></p>
+<p>To start communication Alice and Bob must first exchange with each other their public asymmetric key:</p>
+<p><img src="./static/bob-alice-exch-keypair.png" alt="Image2"></p>
+<p>Alice and Bob can now encrypt a message using each others public asymmetric key:</p>
+<p><img src="./static/bob-alice-encrypt-key.png" alt="Image3"></p>
+<p>Once they have encrypted their message using each others public asymmetric key they can send the message back to each other:</p>
+<p><img src="./static/bob-alice-exch-encrypted-key.png" alt="Image4"></p>
+<p>Once Alice and Bob have exchanged their encrypted message, they can decrypt the message using their own private asymmetric key:</p>
+<p><img src="./static/bob-alice-decrypt-priv-key.png" alt="Image5"></p>
+<p>Alice and Bob can use this process to exchange a symmetric key to each other without exposing it to a potential man-in-the-middle.</p>
+<p>This concludes the key exchange.</p>
+<h2 id="summary">Summary</h2>
+<p>This article breaks down encryption into two types: symmetric, which uses one key for big data, and asymmetric, which uses two keys for smaller data.</p>
+<p>By combining these methods, secure communication is achieved. The key exchange process, demonstrated with RSA and AES, shows how public keys are shared safely, ensuring a secure way for parties like Alice and Bob to swap important information.</p>
+<p>If you would like to learn about these two methodologies you can <a href="https://www.youtube.com/watch?v=AQDCe585Lnc">watch this video created by Simply Explained</a>.</p>
+
+  
+  <div>
+    <div>Tags:</div>
+    <ul>
+        <li><a href="/tags/encryption/">encryption</a></li>
+        <li><a href="/tags/asymmetric/">asymmetric</a></li>
+        <li><a href="/tags/symmetric/">symmetric</a></li>
+        <li><a href="/tags/rsa/">rsa</a></li>
+        <li><a href="/tags/aes/">aes</a></li>
+        <li><a href="/tags/key-exchange/">key exchange</a></li>
+    </ul>
+  </div>
+
+
+  </main>
+  <footer>
+    <p>Copyright &copy; 2024. Cyber Bilby</p>
+
+  </footer>
+</body>
+</html>

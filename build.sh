@@ -1,0 +1,2 @@
+rm -fr "./docs"
+hugo
