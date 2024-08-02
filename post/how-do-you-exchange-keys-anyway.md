@@ -1,3 +1,4 @@
+## [< Back to Posts](/posts)
 # How do you exchange encryption keys anyway?
 When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?
 
