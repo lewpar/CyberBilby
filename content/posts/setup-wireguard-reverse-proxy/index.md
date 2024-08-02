@@ -15,8 +15,7 @@ tags:
     - port forwarding
     - reverse proxy
 
-params:
-    featured_image: ./static/featured.png
+featured: ./static/featured.png
 ---
 
 ## Why do this?

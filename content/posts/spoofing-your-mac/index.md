@@ -14,8 +14,7 @@ tags:
     - spoofing
     - hacking
 
-params:
-    featured_image: ./static/featured.png
+featured: ./static/featured.png
 ---
 
 ## What is a MAC address?

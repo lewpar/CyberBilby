@@ -11,8 +11,7 @@ categories:
 tags:
     - personal
 
-params:
-    featured_image: ./static/featured.png
+featured: ./static/featured.png
 ---
 
 ## Who am I?

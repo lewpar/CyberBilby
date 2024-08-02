@@ -16,8 +16,7 @@ tags:
     - aes
     - key exchange
 
-params:
-    featured_image: ./static/featured.png
+featured: ./static/featured.png
 ---
 
 When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?
