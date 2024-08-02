@@ -1,1 +1,1 @@
-- ## [Read Posts](/blog)
+- ## [Read Posts](/posts)
