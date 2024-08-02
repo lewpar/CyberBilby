@@ -1,14 +1,19 @@
-+++
-title = 'First Post'
-date = 2024-02-09T09:40:23+11:00
-draft = false
+---
+draft: false
+date: 2024-02-09T09:40:23+11:00
 
-summary = 'This is the first post of Cyber Bilby, my tech blogging website! '
-featured_image = './content/first-post/featured.png'
+title: First Post
+summary: This is the first post of Cyber Bilby, my tech blogging website.
 
-categories = ['Blog']
-tags = ['']
-+++
+categories:
+    - Blog
+
+tags:
+    - personal
+
+params:
+    featured_image: ./static/featured.png
+---
 
 ## Who am I?
 

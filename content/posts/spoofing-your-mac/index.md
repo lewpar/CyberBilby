@@ -1,14 +1,22 @@
-+++
-title = 'Spoofing Your MAC'
-date = 2024-04-09T18:47:45+10:00
-draft = false
+---
+draft: false
+date: 2024-02-09T09:40:42+11:00
 
-summary = 'This tutorial will show you how you can spoof your MAC address.'
-featured_image = './content/spoofing-your-mac/featured.png'
+title: Spoofing Your MAC
+summary: This tutorial will show you how you can spoof your MAC address.
 
-categories = ['Tutorial']
-tags = ['networking', 'mac-address', 'spoofing', 'hacking']
-+++
+categories:
+    - Tutorial
+
+tags:
+    - networking
+    - mac-address
+    - spoofing
+    - hacking
+
+params:
+    featured_image: ./static/featured.png
+---
 
 ## What is a MAC address?
 A Media Access Control (MAC) address is a 6 byte (48 bits) unique address that is applied to your Network Interface Card (NIC).

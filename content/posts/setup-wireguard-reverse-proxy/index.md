@@ -1,14 +1,23 @@
-+++
-title = 'Setup Wireguard Reverse Proxy'
-date = 2024-02-09T09:40:42+11:00
-draft = false
+---
+draft: false
+date: 2024-02-09T09:40:42+11:00
 
-summary = 'This tutorial shows you how you can overcome port forwarding issues through the issue on an encrypted tunnel through WireGuard.'
-featured_image = './content/setup-wireguard-reverse-proxy/featured.png'
+title: Setup Wireguard Reverse Proxy
+summary: This tutorial shows you how you can overcome port forwarding issues through the issue on an encrypted tunnel through WireGuard.
 
-categories = ['Tutorial']
-tags = ['networking', 'wireguard', 'tunnel', 'port forwarding', 'reverse proxy']
-+++
+categories:
+    - Tutorial
+
+tags:
+    - networking
+    - wireguard
+    - tunnel
+    - port forwarding
+    - reverse proxy
+
+params:
+    featured_image: ./static/featured.png
+---
 
 ## Why do this?
 

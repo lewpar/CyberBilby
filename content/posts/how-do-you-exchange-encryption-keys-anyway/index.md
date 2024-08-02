@@ -1,14 +1,24 @@
-+++
-title = 'How Do You Exchange Encryption Keys Anyway'
-date = 2024-02-09T09:40:57+11:00
-draft = false
+---
+draft: false
+date: 2024-02-09T09:40:57+11:00
 
-summary = 'It is often we talk about encrypting data securely, but how do you transmit it securely over a medium without exposing your encryption key?'
-featured_image = './content/how-do-you-exchange-encryption-keys-anyway/featured.png'
+title: How Do You Exchange Encryption Keys Anyway
+summary: It is often we talk about encrypting data securely, but how do you transmit it securely over a medium without exposing your encryption key?
 
-categories = ['Article']
-tags = ['encryption', 'asymmetric', 'symmetric', 'rsa', 'aes', 'key exchange']
-+++
+categories:
+    - Article
+
+tags:
+    - encryption
+    - asymmetric
+    - symmetric
+    - rsa
+    - aes
+    - key exchange
+
+params:
+    featured_image: ./static/featured.png
+---
 
 When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?
 
@@ -46,23 +56,23 @@ In this example I am using RSA as the asymmetric and AES encryption as the symme
 
 Alice and Bob both have generated their asymmetric key-pair.
 
-![Image1](/content/how-do-you-exchange-encryption-keys-anyway/image-1.png)
+![Image1](./static/bob-alice-gen-keypair.png)
 
 To start communication Alice and Bob must first exchange with each other their public asymmetric key:
 
-![Image2](/content/how-do-you-exchange-encryption-keys-anyway/image-2.png)
+![Image2](./static/bob-alice-exch-keypair.png)
 
 Alice and Bob can now encrypt a message using each others public asymmetric key:
 
-![Image3](/content/how-do-you-exchange-encryption-keys-anyway/image-3.png)
+![Image3](./static/bob-alice-encrypt-key.png)
 
 Once they have encrypted their message using each others public asymmetric key they can send the message back to each other:
 
-![Image4](/content/how-do-you-exchange-encryption-keys-anyway/image-4.png)
+![Image4](./static/bob-alice-exch-encrypted-key.png)
 
 Once Alice and Bob have exchanged their encrypted message, they can decrypt the message using their own private asymmetric key:
 
-![Image5](/content/how-do-you-exchange-encryption-keys-anyway/image-5.png)
+![Image5](./static/bob-alice-decrypt-priv-key.png)
 
 Alice and Bob can use this process to exchange a symmetric key to each other without exposing it to a potential man-in-the-middle.
 
