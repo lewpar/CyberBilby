@@ -1,4 +1,5 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://cyberbilby.com/'
 languageCode = 'en-us'
-title = 'My New Hugo Site'
+title = 'Cyber Bilby'
 theme = 'hugo-scriptless'
+publishDir = 'docs'
