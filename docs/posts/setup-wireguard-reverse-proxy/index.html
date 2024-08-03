@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width">
 <title>Setup Wireguard Reverse Proxy | Cyber Bilby</title>
 
-      <link rel="stylesheet" href="/css/main.min.1ddaf1a5e8e76dd5850f46e0b1e7f32f344261ef1d683f92850d5d60cd8779fe.css" integrity="sha256-HdrxpejnbdWFD0bgsefzLzRCYe8daD&#43;ShQ1dYM2Hef4=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.1d2ddc5211331e6e929c03fb7cde96af8d5a809a56e7f58c340c20a223d6448d.css" integrity="sha256-HS3cUhEzHm6SnAP7fN6Wr41agJpW5/WMNAwgoiPWRI0=" crossorigin="anonymous">
 
 
 </head>
 <body>
-  <header>
-    <h1>Cyber Bilby</h1>
+    <div class="main">
+        <header>
+        
+<a href="/">
+    <img src="/images/bilby.png" width="64px" height="64px"/>
+</a>
+
+
 
   <nav>
     <ul>
@@ -28,16 +34,17 @@
   </nav>
 
 
-  </header>
-  <main>
-    
+        </header>
+        <main>
+        
   <h1>Setup Wireguard Reverse Proxy</h1>
 
   
   
   <time datetime="2024-02-09T09:40:42&#43;11:00">February 9, 2024</time>
 
-  <h2 id="why-do-this">Why do this?</h2>
+  <div class="post-content">
+    <h2 id="why-do-this">Why do this?</h2>
 <p>Sometimes you want to host a local server and have it accessible on the wide area network, however sometimes due to
 constraints like CGNAT or lack of access to your networking equipment it’s not possible to forward the ports.</p>
 <p>Instead we need to setup a secure tunnel to forward packets from a cloud server not behind CGNAT to our local machine.</p>
@@ -50,7 +57,7 @@ constraints like CGNAT or lack of access to your networking equipment it’s not
 <div style="display: flex; flex-direction: row;">
     <div style="display: flex; align-items: center; justify-content: center; background-color: orange; padding: 0.25rem; border-radius: 5px 0px 0px 5px;">
     </div>
-    <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1; border: 1px solid orange; border-radius: 0px 5px 5px 0px; padding: 0.5rem; background-color: white">
+    <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1; border: 1px solid orange; border-radius: 0px 5px 5px 0px; padding: 0.5rem; background-color: rgb(30, 30, 30)">
         <div style="display: flex; flex-direction: row; align-items: center; gap: 0.5rem; color: orange; font-weight: 600">
             <img src="/images/exclaim.png" width="24px" height="24px" style="filter: brightness(50%) sepia() hue-rotate(10deg) saturate(25)">
             <div>Warning</div>
@@ -118,7 +125,7 @@ However, It&rsquo;s not a good idea to expose all ports to the user and instead 
 <div style="display: flex; flex-direction: row;">
     <div style="display: flex; align-items: center; justify-content: center; background-color: orange; padding: 0.25rem; border-radius: 5px 0px 0px 5px;">
     </div>
-    <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1; border: 1px solid orange; border-radius: 0px 5px 5px 0px; padding: 0.5rem; background-color: white">
+    <div style="display: flex; flex-direction: column; gap: 0.5rem; flex: 1; border: 1px solid orange; border-radius: 0px 5px 5px 0px; padding: 0.5rem; background-color: rgb(30, 30, 30)">
         <div style="display: flex; flex-direction: row; align-items: center; gap: 0.5rem; color: orange; font-weight: 600">
             <img src="/images/exclaim.png" width="24px" height="24px" style="filter: brightness(50%) sepia() hue-rotate(10deg) saturate(25)">
             <div>Warning</div>
@@ -177,6 +184,7 @@ ping 10.0.0.1
 <p>You have now setup WireGuard as a reverse proxy, which allows you to use your intermediary server as a secure tunnel into your local machine.</p>
 <p>This is useful if you want to host a server on your local hardware, but you don’t have the option to forward ports.</p>
 
+  </div>
   
   <div>
     <div>Tags:</div>
@@ -190,10 +198,11 @@ ping 10.0.0.1
   </div>
 
 
-  </main>
-  <footer>
+        </main>
+    </div>
+    <footer>
     <p>Copyright &copy; 2024. Cyber Bilby</p>
 
-  </footer>
+    </footer>
 </body>
 </html>

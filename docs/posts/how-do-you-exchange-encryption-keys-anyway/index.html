@@ -5,13 +5,19 @@
 <meta name="viewport" content="width=device-width">
 <title>How Do You Exchange Encryption Keys Anyway | Cyber Bilby</title>
 
-      <link rel="stylesheet" href="/css/main.min.1ddaf1a5e8e76dd5850f46e0b1e7f32f344261ef1d683f92850d5d60cd8779fe.css" integrity="sha256-HdrxpejnbdWFD0bgsefzLzRCYe8daD&#43;ShQ1dYM2Hef4=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.1d2ddc5211331e6e929c03fb7cde96af8d5a809a56e7f58c340c20a223d6448d.css" integrity="sha256-HS3cUhEzHm6SnAP7fN6Wr41agJpW5/WMNAwgoiPWRI0=" crossorigin="anonymous">
 
 
 </head>
 <body>
-  <header>
-    <h1>Cyber Bilby</h1>
+    <div class="main">
+        <header>
+        
+<a href="/">
+    <img src="/images/bilby.png" width="64px" height="64px"/>
+</a>
+
+
 
   <nav>
     <ul>
@@ -28,16 +34,17 @@
   </nav>
 
 
-  </header>
-  <main>
-    
+        </header>
+        <main>
+        
   <h1>How Do You Exchange Encryption Keys Anyway</h1>
 
   
   
   <time datetime="2024-02-09T09:40:57&#43;11:00">February 9, 2024</time>
 
-  <p>When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?</p>
+  <div class="post-content">
+    <p>When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?</p>
 <p>In this article I will touch lightly on the different encryption types used and how they can be used together to ensure your keys are exchanged securely.</p>
 <h2 id="symmetric-vs-asymmetric-encryption">Symmetric vs Asymmetric Encryption</h2>
 <p>Before talking about how to securely exchange encryption keys you must first understand the differences between symmetric and asymmetric encryption and what kind of encryption is available.</p>
@@ -64,7 +71,7 @@
 <h2 id="what-does-this-key-exchange-look-like">What does this Key Exchange look like?</h2>
 <p>In this example I am using RSA as the asymmetric and AES encryption as the symmetric encryption.</p>
 <p>Alice and Bob both have generated their asymmetric key-pair.</p>
-<p><img src="./static/bob-alice-gen-keypair.png" alt="Image1"></p>
+<p><img src="./static/bob-alice-gen-keypair.png" alt="Image1" title="{width='200'}"></p>
 <p>To start communication Alice and Bob must first exchange with each other their public asymmetric key:</p>
 <p><img src="./static/bob-alice-exch-keypair.png" alt="Image2"></p>
 <p>Alice and Bob can now encrypt a message using each others public asymmetric key:</p>
@@ -80,6 +87,7 @@
 <p>By combining these methods, secure communication is achieved. The key exchange process, demonstrated with RSA and AES, shows how public keys are shared safely, ensuring a secure way for parties like Alice and Bob to swap important information.</p>
 <p>If you would like to learn about these two methodologies you can <a href="https://www.youtube.com/watch?v=AQDCe585Lnc">watch this video created by Simply Explained</a>.</p>
 
+  </div>
   
   <div>
     <div>Tags:</div>
@@ -94,10 +102,11 @@
   </div>
 
 
-  </main>
-  <footer>
+        </main>
+    </div>
+    <footer>
     <p>Copyright &copy; 2024. Cyber Bilby</p>
 
-  </footer>
+    </footer>
 </body>
 </html>
