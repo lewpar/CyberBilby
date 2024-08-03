@@ -55,7 +55,7 @@ In this example I am using RSA as the asymmetric and AES encryption as the symme
 
 Alice and Bob both have generated their asymmetric key-pair.
 
-![Image1](./static/bob-alice-gen-keypair.png)
+![Image1](./static/bob-alice-gen-keypair.png "{width='200'}")
 
 To start communication Alice and Bob must first exchange with each other their public asymmetric key:
 
