@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <title>Setup Wireguard Reverse Proxy | Cyber Bilby</title>
 
-      <link rel="stylesheet" href="/css/main.min.686cc91ee9622f0d081329db79b2fa3db04db4a54e3a4f57ab0ae6b664eb281c.css" integrity="sha256-aGzJHuliLw0IEynbebL6PbBNtKVOOk9XqwrmtmTrKBw=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.e1daa9a0f818811020b2c19d0141ab920c77f1a3bd471fe324fbdc4a2a1457db.css" integrity="sha256-4dqpoPgYgRAgssGdAUGrkgx38aO9Rx/jJPvcSioUV9s=" crossorigin="anonymous">
 
 
 </head>
@@ -38,14 +38,16 @@
         </header>
         <main>
         
-  <h1>Setup Wireguard Reverse Proxy</h1>
+    <div class="post-header-container" style="background-image: url('./static/featured.png');">
+        <div class="post-header" >
+            <h1>Setup Wireguard Reverse Proxy</h1>
 
-  Posted on
-  
-  
-  <time datetime="2024-02-09T09:40:42&#43;11:00">February 9, 2024</time>
-
-  
+            Posted on
+            
+            
+            <time datetime="2024-02-09T09:40:42&#43;11:00">February 9, 2024</time>
+        
+            
   <div>
     <ul class="tags">
         <li><a href="/tags/networking/">networking</a></li>
@@ -56,9 +58,11 @@
     </ul>
   </div>
 
+        </div>
+    </div>
 
-  <div class="post-content">
-    <h2 id="why-do-this">Why do this?</h2>
+    <div class="post-content">
+        <h2 id="why-do-this">Why do this?</h2>
 <p>Sometimes you want to host a local server and have it accessible on the wide area network, however sometimes due to
 constraints like CGNAT or lack of access to your networking equipment it’s not possible to forward the ports.</p>
 <p>Instead we need to setup a secure tunnel to forward packets from a cloud server not behind CGNAT to our local machine.</p>
@@ -198,7 +202,7 @@ ping 10.0.0.1
 <p>You have now setup WireGuard as a reverse proxy, which allows you to use your intermediary server as a secure tunnel into your local machine.</p>
 <p>This is useful if you want to host a server on your local hardware, but you don’t have the option to forward ports.</p>
 
-  </div>
+    </div>
 
         </main>
     </div>
