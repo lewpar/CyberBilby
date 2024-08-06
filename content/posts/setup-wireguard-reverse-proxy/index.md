@@ -131,7 +131,7 @@ PersistentKeepalive = 15
 #### Note
 - Do not use the public/private keys used here as these keys are important to ensuring your tunnel is secure and private.
 - Replace `my.mediator-server.net` with the IP Address of your mediator server.
-- Add the `PersistentKeepalive` option to the Peer section of the config to allow the peer to keep the TCP connection alive. (The value is how many seconds between Keepalive packets)
+- Add the `PersistentKeepalive` option to the Peer section of the config to allow the peer to keep the UDP connection alive. (The value is how many seconds between Keep-alive packets)
 
 ## Enable/Disable WireGuard Interface
 The wg-quick command allows you to easily bring up or take down a WireGuard interface using the configuration from above.
