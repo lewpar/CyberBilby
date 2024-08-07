@@ -10,3 +10,12 @@ params:
     lewis:
       name: Lewis Parmenter
       image: /images/lewis.jpg
+
+menus:
+  main:
+  - name: Home
+    pageRef: /
+    weight: 10
+  - name: Posts
+    pageRef: /posts
+    weight: 20
