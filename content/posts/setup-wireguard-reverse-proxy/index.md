@@ -2,6 +2,8 @@
 draft: false
 date: 2024-02-09T09:40:42+11:00
 
+author: lewis
+
 title: Setup Wireguard Reverse Proxy
 summary: This tutorial shows you how you can overcome port forwarding issues through the issue on an encrypted tunnel through WireGuard.
 

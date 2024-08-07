@@ -6,3 +6,7 @@ publishDir: docs
 
 params:
   logo: /images/bilby.png
+  authors:
+    lewis:
+      name: Lewis Parmenter
+      image: /images/bilby.png

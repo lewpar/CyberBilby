@@ -2,6 +2,8 @@
 draft: false
 date: 2024-02-09T09:40:42+11:00
 
+author: lewis
+
 title: Spoofing Your MAC
 summary: This tutorial will show you how you can spoof your MAC address.
 

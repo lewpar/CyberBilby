@@ -2,6 +2,8 @@
 draft: false
 date: 2024-02-09T09:40:23+11:00
 
+author: lewis
+
 title: First Post
 summary: This is the first post of Cyber Bilby, my tech blogging website.
 
