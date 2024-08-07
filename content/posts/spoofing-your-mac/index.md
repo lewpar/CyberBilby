@@ -24,15 +24,17 @@ A Media Access Control (MAC) address is a 6 byte (48 bits) unique address that i
 
 This address is made up of two parts which are 3 bytes (24 bits) each, the Vendor specific bytes and the Interface specific bytes.
 
-![MAC Address](/content/spoofing-your-mac/image1.png)
+![MAC Address](./static/mac-address.png)
 
 ### Vendor Specific Bytes
 This portion of the MAC address is assigned to allow you to recognize the vendor/manufacturer the NIC originated from.
-![Vendor MAC Portion](/content/spoofing-your-mac/image2.png)
+
+![Vendor MAC Portion](./static/mac-address-vendor.png)
 
 ### Interface Specific Bytes
 This portion of the MAC address is assigned to ensure each NIC has a Unique Identifier (UID) to differentiate it from other NICs.
-![Interface MAC Portion](/content/spoofing-your-mac/image3.png)
+
+![Interface MAC Portion](./static/mac-address-interface.png)
 
 ## Why would you want to spoof your MAC?
 There is a variety of reasons that you may want to spoof your MAC address which includes but is not limited to:
