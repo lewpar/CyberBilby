@@ -1,8 +1,0 @@
-baseURL = 'https://cyberbilby.com/'
-languageCode = 'en-us'
-title = 'Cyber Bilby'
-theme = 'hugo-scriptless'
-publishDir = 'docs'
-
-[params]
-    logo = '/images/bilby.png'
