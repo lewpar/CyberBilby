@@ -2,12 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://cyberbilby.com/</loc>
-    <lastmod>2023-01-01T08:00:00-07:00</lastmod>
-  </url><url>
-    <loc>https://cyberbilby.com/posts/</loc>
-    <lastmod>2023-01-01T08:00:00-07:00</lastmod>
-  </url><url>
     <loc>https://cyberbilby.com/tags/aes/</loc>
     <lastmod>2024-02-09T09:40:57+11:00</lastmod>
   </url><url>
@@ -79,5 +73,11 @@
   </url><url>
     <loc>https://cyberbilby.com/tags/personal/</loc>
     <lastmod>2024-02-09T09:40:23+11:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/</loc>
+    <lastmod>2023-01-01T08:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/posts/</loc>
+    <lastmod>2023-01-01T08:00:00-07:00</lastmod>
   </url>
 </urlset>
