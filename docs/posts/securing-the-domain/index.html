@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+<head>
+  <meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>Securing the Domain | Cyber Bilby</title>
+
+      <link rel="stylesheet" href="/css/main.min.9bcaf6c13e38366af63b730480ea7695bcd0add055811d4568ff4532c2014f57.css" integrity="sha256-m8r2wT44Nmr2O3MEgOp2lbzQrdBVgR1FaP9FMsIBT1c=" crossorigin="anonymous">
+
+<link rel="icon" type="image/x-icon" href="/images/bilby.png">
+
+</head>
+<body>
+    <div class="main">
+        <header>
+        
+<a href="/" class="site-logo">
+    <img src="/images/bilby.png" width="64px" height="64px"/>
+    <div>Cyber Bilby</div>
+</a>
+
+
+
+
+<nav>
+    <ul class="sidebar-menu">
+        
+
+            <li class="sidebar-menu-item">
+                <a href="/posts/" class="ancestor">
+                    Posts
+                </a>
+            </li>
+        
+    </ul>
+</nav>
+
+        </header>
+        <main>
+        
+    <div class="post-header-container" style="background-image: url('./static/featured.png');">
+        <div class="post-header" >
+            <div class="post-title">Securing the Domain</div>
+
+            
+
+
+
+    
+        <div class="post-author">
+            <img src="/images/lewis.jpg"/>
+            <div>
+                <div>Lewis Parmenter</div>
+                <div class="post-date">
+                    <time datetime="2024-08-14T12:30:42&#43;11:00">August 14, 2024</time>
+                </div>
+            </div>
+        </div>
+    
+
+            
+            
+  <div>
+    <ul class="tags">
+        <li><a href="/tags/networking/">networking</a></li>
+        <li><a href="/tags/dns/">dns</a></li>
+        <li><a href="/tags/dnssec/">dnssec</a></li>
+        <li><a href="/tags/domains/">domains</a></li>
+        <li><a href="/tags/nameservers/">nameservers</a></li>
+        <li><a href="/tags/records/">records</a></li>
+    </ul>
+  </div>
+
+        </div>
+    </div>
+
+    <div class="post-content">
+        <h2 id="introduction">Introduction</h2>
+<p>This report dives under the surface to talk about two technologies that help secure the domain lookup process when you
+are resolving domain names.</p>
+<ul>
+<li>Domain Name System Security Extensions (DNSSEC)</li>
+<li>DNS over HTTPS (DoH)</li>
+</ul>
+<p>Before understanding how DNSSEC works the report first gives a brief overview for how users connect to domains through
+the Domain Name System (DNS) and how domains are resolved to IP addresses through nameserver lookups.</p>
+<p>It also addresses why the traditional method of DNS can be insecure and what types of attacks you are vulnerable to.
+It then talks about how those lookups can be validated with Domain Name System Security Extensions (DNSSEC) to
+ensure when you are resolving domain names that the information you receive is accurate and trustworthy.</p>
+<p>Furthermore,
+it details the implementation complexity, the adoption of DNSSEC globally and a case study on an attack which could
+have been mitigated by DNSSEC.</p>
+<p>To compliment DNSSEC this report also dives into what can be done not just to ensure domains are validated but ensure
+the queries for those domains are protected using encryption for privacy through a technology called DNS over HTTPS
+(DoH).</p>
+<h2 id="what-is-dns">What is DNS?</h2>
+<h3 id="overview">Overview</h3>
+<p>Before delving into the two technologies, you must first under DNS. Domain Names System (DNS) is like the phone book
+for the internet, invented by the Stanford Research Institute in the early 80’s to map hostnames to IP addresses which
+solved the problem of trying to remember numerical addresses (IP Addresses).</p>
+<p>Nowadays, DNS is used everywhere from
+private to public networks and is a widely adopted solution for resolving IP Addresses.</p>
+<h3 id="how-does-it-work">How does it work?</h3>
+<p>When you visit a website like <a href="https://cyberbilby.com/">https://cyberbilby.com/</a> for the first time your computers <strong>DNS Client</strong> checks to see if your
+computer has already cached the IP Address of the domain you are looking for, if not it contacts the <strong>DNS Caching Recursive Resolver</strong> which is typically hosted by your Internet Service Provider (ISP).</p>
+<p>This resolver also has its own caching for retrieving the IP address of the web server and if it’s not cached here, it will contact nameservers and ask for the information. This is known as a <strong>DNS Lookup</strong>.</p>
+<h3 id="nameserver-hierarchy">Nameserver Hierarchy</h3>
+<p>When the DNS resolver contacts the nameservers, it does it in order based on a hierarchy: The root nameserver is where
+the resolving process starts, it contains information about the <strong>Top-Level-Domain (TLD)</strong> nameservers.</p>
+<p>The TLD nameserver contains information about the Authoritative nameservers. The authoritative name servers hold records
+about the domain being resolved</p>
+<p><img src="./static/nameserver-hierarchy.png" alt="Nameserver Hierarchy"></p>
+<h3 id="nameserver-lookup">Nameserver Lookup</h3>
+<p>Information about the domain is stored in these nameservers as <strong>Resource Records</strong>. The two common records returned
+are the <strong>A Record</strong> (IP Address) and the <strong>CNAME Record</strong> (ALIAS/Hostname). If the A record is present, the IP address is
+returned. However, if the CNAME record is present (takes precedence over A record) then the DNS Lookup is started again
+using the value of the CNAME record.</p>
+<p>The user sends a DNS query for cyberbilby.com to the resolver <strong>(1)</strong>, the resolver contacts the root nameserver <strong>(2)</strong>, the root
+name server redirects the resolver to the TLD nameserver for .com <strong>(3)</strong>, the TLD nameserver redirects the resolver to the
+authoritative nameserver for cyberbilby.com <strong>(4)</strong>, the authoritative nameserver returns the A record containing the IP
+address to the resolver which returns it to the user <strong>(5)</strong>.</p>
+<p><img src="./static/nameserver-lookup.png" alt="Nameserver Lookup"></p>
+<h3 id="why-is-this-insecure">Why is this insecure?</h3>
+<p>When an IP address is resolved from a domain name there is no guarantee that the address returned is legitimate or the
+original intended address. This is because the records may have been tampered with by a man-in-the-middle altering
+them which could result in a poisoned DNS cache.</p>
+<p>The resolution process also happens over an unencrypted channel making it so an eavesdropper (man-in-the-middle) can
+read the requests and responses in plain text. (Even when connecting to websites over HTTPS)
+The following two technologies (DNSSEC &amp; DNS over HTTPS) are solutions for these two key areas of concern.</p>
+<h2 id="what-is-dnssec">What is DNSSEC?</h2>
+<h3 id="overview-1">Overview</h3>
+<p><strong>Domain Name System Security Extensions (DNSSEC)</strong> is a feature on top of DNS that was created by the <strong>Internet
+Engineering Task Force (IETF)</strong> in the late 90’s to solve the problem of applications accepting falsified or forged DNS
+records which lead to attacks like <strong>DNS Cache Poisoning</strong>.</p>
+<h3 id="how-does-it-work-1">How does it work?</h3>
+<p><strong>DNSSEC</strong> works by adding an extra layer of trust on top of <strong>DNS</strong> by providing authentication through cryptographic
+signatures of the DNS Resource Records for the domain you are resolving which is stored on the nameservers. <strong>DNSSEC</strong>
+only protects the authenticity of the information being exchanged and is not a protection of privacy solution.</p>
+<p>The cryptographic signatures exist at every level of the resolving process to ensure that none of the information is
+tampered with along the way, creating a chain of trust. This process is possible by providing a new set of record types
+known as:</p>
+<ul>
+<li><strong>Resource Record Signature (RRSIG)</strong> – Holds a Cryptographic signature of an RRSET</li>
+<li><strong>Domain Name System Key (DNSKEY)</strong> – Public signing key of RRSIG</li>
+<li><strong>Delegation Signer (DS)</strong> – Hash of DNSKEY record</li>
+</ul>
+<p>When a client tries to resolve a domain name (e.g. cyberbilby.com) by requesting a record type like the A Record, the
+name server will return the RRSIG of a Resource Record Set (RRSET) which is a set of records with matching types (in this
+case, all the A records). This signature is signed by a private key which is held by the root zone owner, the resolver can
+then pull the public key (DNSKEY) to validate the records. The DS record is also pulled from the upstream nameserver to
+verify it came from the correct nameserver.</p>
+<h3 id="cryptographic-security-chain">Cryptographic Security Chain</h3>
+<p><img src="./static/cypto-security-chain.png" alt="Cryptographic Security Chain"></p>
+<h3 id="implementation-complexity">Implementation Complexity</h3>
+<p>Implementing DNSSEC can be very easy if you use a common registrar like Cloudflare, Namecheap, AWS Route 53, or GoDaddy as it is usually just one toggle button in their respective dashboards for the domain name settings.</p>
+<p>There are not many providers that do not offer DNSSEC, however there may be some cases where it needs to be configured manually which increases the implementation difficulty substantially.</p>
+<h3 id="global-adoption--concerns">Global Adoption &amp; Concerns</h3>
+<p>The adoption of DNSSEC is quite low in many regions of the world, except in some key countries which have over 90%
+adoption: Greenland, Iceland, Mongolia, Central African Republic, Finland.</p>
+<h3 id="dnssec-validation-rate-by-country-">DNSSEC Validation Rate by Country (%)</h3>
+<p><img src="./static/dnssec-validation-rate.png" alt="DNSSEC Validation Rate by Country">
+(DNSSEC Validation Rate by country (%), APNICLABS, 2024)</p>
+<h3 id="why-is-the-adoption-rate-low">Why is the adoption rate low?</h3>
+<p>Despite the ease of implementation for most users , the reason for low adoption could be that people are either not aware
+of the feature, do not think it provides any additional security over HTTPS Certificates, or think the attack surface is too
+rare to implement.</p>
+<p>There is also some concern around the secure implementation for DNSSEC as in the past it has been redesigned for
+reasons related to security &amp; scalability, and vulnerabilities existing such as the KeyTrap vulnerability (patched in some
+providers such as Cloudflare) discovered in December of 2023 that allows attackers to send a Denial of Service (DOS)
+attack to DNS servers with specially crafted packets.</p>
+<h3 id="real-world-example">Real World Example</h3>
+<p>In 2018 hackers used DNS spoofing to redirect traffic from an online cryptocurrency website to an identical version of the
+website which was a phishing login page. This page would capture credentials and then steal the user’s cryptocurrency
+after logging in.</p>
+<p>They did this by abusing the Border Gateway Protocol to convince the AWS core router to reroute traffic to the attackers
+DNS server. This resulted in new DNS Lookups to resolve the attackers IP address instead of the original intended address
+for the cryptocurrency web server.</p>
+<p>This attack could have been mitigated if DNSSEC was enabled for the domain.</p>
+<h2 id="what-is-dns-over-https">What is DNS over HTTPS?</h2>
+<h3 id="overview-2">Overview</h3>
+<p>DNS over HTTPS (DoH) was published (<strong>RFC</strong> 8484) in 2018 by the <strong>Internet Engineering Task Force (IETF)</strong> to solve the
+problem of user privacy for DNS queries, as traditional DNS queries are done over unencrypted channels using UDP/TCP
+whereas the goal of DoH is to use the encrypted HTTPS channel to answer the DNS queries.</p>
+<h3 id="how-does-it-work-2">How does it work?</h3>
+<p>Browsers with DoH support send their DNS queries to a DoH supported DNS server similar to the traditional DNS queries
+but using <strong>HTTP Requests</strong> like <strong>GET</strong> and <strong>POST</strong>. These requests use the application/dns-message <strong>MIME Type</strong> to transfer the
+data to/from the DNS server. This makes the queries very difficult to spot to eavesdroppers as the information is blended
+in with normal HTTPS traffic.</p>
+<h3 id="dns-query-unencrypted-vs-encrypted">DNS Query (Unencrypted vs Encrypted)</h3>
+<p>The user contacts the DNS server <strong>(1)</strong>, and the server responds <strong>(2)</strong>. It then initiates contact with the web server <strong>(3)</strong> and the
+web server responds <strong>(4)</strong>. If DoH is enabled, it will take the left most route over the encrypted HTTPS channel instead of the
+route down through the traditional unencrypted DNS channel.</p>
+<p><img src="./static/dns-query.png" alt="DNS Query"></p>
+<h3 id="how-secure-is-it-really">How secure is it really?</h3>
+<p>Although it is an improvement over unencrypted DNS queries, there is still concern for privacy with the DNS queries
+sender being visible to the DNS server.</p>
+<p>To solve this problem Oblivious DNS over HTTPS (ODoH) was created and is currently deployed and maintained by
+companies like Apple and Cloudflare. This technology works by having a proxy in between the client and the DNS server to
+ensure that the server cannot make a connection between the clients and their queries data</p>
+<h3 id="implementation-complexity-1">Implementation Complexity</h3>
+<p>DNS over HTTPS is enabled by default in Mozilla Firefox and Google Chrome browsers which means any DNS servers that
+have this technology supported can utilize its features. BIND, which is the standard for DNS servers supports DNS over
+HTTPS and is relatively easy to setup through the configuration files and is very similar to setting up HTTPS for a website
+(configuring certificates and TLS).</p>
+<h3 id="global-adoption">Global Adoption</h3>
+<p>The adoption of this technology is evolving as it is still in its early experimental stages and other protocols exist that
+achieve the same result (DNS over TLS, DNS over QUIC), however big names like Google and the Mozilla Foundation have
+picked it up and enabled it in their web browsers (Firefox, Chrome) so the adoption is growing.</p>
+<h3 id="why-use-doh-over-others">Why use DoH over others?</h3>
+<p>There are a few other DNS over encrypted solutions that have a higher adoption than DoH, however due to the nature of
+how it works (over HTTPS) by hiding the traffic among normal HTTPS traffic it is preferred over other methods.</p>
+<p>For instance, if you were using the DNS over TLS (DoT) solution, this traffic looks different to HTTPS traffic and can be
+detected. This is a concern for people with Internet Service Providers (ISP) who are monitoring and/or blocking certain
+domain resolutions.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>While DNS is an essential and powerful tool for internet functionality to make it easier to connect with each other, its
+security limitations necessitate additional measures like DNSSEC and DNS over HTTPS to protect users from potential
+attacks like DNS spoofing or eavesdroppers.</p>
+<p>They both serve different but very similar purposes, and that is to help secure the DNS resolution process. However, they
+can both work in harmony and are not designed to be used one over the other. The purpose of DNSSEC is to ensure the
+DNS responses that are received maintain their integrity by checking if the records have been altered in transit. The
+purpose of DNS over HTTPS is to hide the DNS queries from eavesdroppers through encryption and blending it with normal
+HTTPS traffic.</p>
+<p>The adoption of DNSSEC and DNS over HTTPS is quite low in many regions of the world likely due to ignorance of its
+existence, misunderstanding its importance, concerns around its implementation of security and being in its early stages
+of development. But despite this I can see the drive for DNS over HTTPS by big names like Google and the Mozilla
+Foundation making this a standard for DNS resolution.</p>
+<h2 id="glossary">Glossary</h2>
+<p><strong>DNS Cache</strong> – A DNS Cache is a storage location where your client or server can store information for mapping domain
+names to IP Addresses to avoid repeated nameserver lookups which wastes network resources.</p>
+<p><strong>DNS Cache Poisoning</strong> – DNS Cache Poisoning is when an attacker compromises a DNS response to poison a target DNS
+cache with an attacker IP Address, this ensures the victim connects to the attacker’s server instead of the intended
+server.</p>
+<p><strong>DNS Client</strong> – The service on your computer responsible for sending out DNS queries and caching their results.</p>
+<p><strong>DNS Spoofing</strong> – DNS Spoofing is the result of a DNS poisoning attack.</p>
+<p><strong>Denial of Service (DOS)</strong> – DOS is a common attack which is used to disrupt services and can be done in a variety of ways
+including but not limited to: initiating many connections to a server to fill up the connection queue, exploiting a
+vulnerability in a system to use up resources so further requests cannot be processed.</p>
+<p><strong>HTTP GET/POST</strong> – HTTP GET and POST requests are HTTP methods that allow the getting or submission of data between a
+client and a web server.</p>
+<p><strong>Internet Engineering Task Force (IETF)</strong> – The IETF is an organization that is responsible for the maintenance of the
+internet standards that make up the internet protocol. This organization is made up of volunteers.</p>
+<p><strong>KeyTrap</strong> – KeyTrap (CVE-2023-50387) is a vulnerability in the implementation of DNSSEC that allows an attacker to send a
+specially crafted packet to spike the CPU consumption in the target DNS server which results in a Denial of Service (DOS)
+due to lack of CPU resources to process any more requests.</p>
+<p><strong>Recursive Caching Resolver</strong> – A Recursive Caching Resolver is the first stop in the DNS Lookup process and acts as the
+middleman between the nameservers and the DNS client. When a lookup is completed, it is also responsible for caching
+that result. However, if a nameserver does not contain the record the resolver is looking for it will look move through the
+nameserver hierarchy and repeat the process (recursively).</p>
+<p><strong>WireShark</strong> – Wireshark is a protocol analyser software that allows you to inspect traffic going through your Network
+Interface Card (NIC).</p>
+<h2 id="references">References</h2>
+<ul>
+<li><em>DNS over HTTPS.</em> (2024, June 02). Retrieved 06 06, 2024, from Wikipedia: <a href="https://en.wikipedia.org/wiki/DNS_over_HTTPS">https://en.wikipedia.org/wiki/DNS_over_HTTPS</a></li>
+<li><em>DNS root server.</em> (2024). Retrieved June 01, 2024, from Cloudflare: <a href="https://www.cloudflare.com/learning/dns/glossary/dns-root-server/">https://www.cloudflare.com/learning/dns/glossary/dns-root-server/</a></li>
+<li><em>DNS server types.</em> (2024). Retrieved June 01, 2024, from Cloudflare: <a href="https://www.cloudflare.com/learning/dns/dns-server-types/">https://www.cloudflare.com/learning/dns/dns-server-types/</a></li>
+<li><em>DNSSEC Validation Rate by country (%).</em> (2024, June 05). Retrieved from APNIC LABS: <a href="https://stats.labs.apnic.net/dnssec">https://stats.labs.apnic.net/dnssec</a></li>
+<li><em>Domain Name System.</em> (2024, June 04). Retrieved June 01, 2024, from Wikipedia: <a href="https://en.wikipedia.org/wiki/Domain_Name_System">https://en.wikipedia.org/wiki/Domain_Name_System</a></li>
+<li><em>How DNS Works.</em> (2024). Retrieved June 02, 2024, from Cloudflare: <a href="https://www.cloudflare.com/en-au/dns/dnssec/how-dnssec-works">https://www.cloudflare.com/en-au/dns/dnssec/how-dnssec-works</a></li>
+<li><em>Keytrap: How to break a DNS server with a single packet.</em> (2024, February 19). Retrieved June 05, 2024, from Kaspersky: <a href="https://www.kaspersky.com.au/blog/keytrap-dnssec-vulnerability-dos-attack/33266/">https://www.kaspersky.com.au/blog/keytrap-dnssec-vulnerability-dos-attack/33266/</a></li>
+<li>Nichols, S. (2018, April 24). AWS DNS network hijack turns MyEtherWallet into ThievesEtherWallet. Retrieved June 05, 2024, from The Register: <a href="https://www.theregister.com/2018/04/24/myetherwallet_dns_hijack/">https://www.theregister.com/2018/04/24/myetherwallet_dns_hijack/</a></li>
+<li><em>What are DNS records? (2024).</em> Retrieved June 01, 2024, from Cloudflare: <a href="https://www.cloudflare.com/learning/dns/dns-records/">https://www.cloudflare.com/learning/dns/dns-records/</a></li>
+<li><em>What are DNSKEY and DS records? (2024).</em> Retrieved June 04, 2024, from Cloudflare: <a href="https://www.cloudflare.com/learning/dns/dns-records/dnskey-ds-records">https://www.cloudflare.com/learning/dns/dns-records/dnskey-ds-records</a></li>
+<li><em>Wikipedia. (2024, May 28).</em> Retrieved June 01, 2024, from Domain Name System Security Extensions: <a href="https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions">https://en.wikipedia.org/wiki/Domain_Name_System_Security_Extensions</a></li>
+</ul>
+
+    </div>
+
+        </main>
+    </div>
+    <footer>
+    <p>Copyright &copy; 2024. Cyber Bilby</p>
+
+    </footer>
+</body>
+</html>

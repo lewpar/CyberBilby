@@ -6,8 +6,15 @@
     <description>Recent content in networking on Cyber Bilby</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 09 Feb 2024 09:40:42 +1100</lastBuildDate>
+    <lastBuildDate>Wed, 14 Aug 2024 12:30:42 +1100</lastBuildDate>
     <atom:link href="https://cyberbilby.com/tags/networking/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Securing the Domain</title>
+      <link>https://cyberbilby.com/posts/securing-the-domain/</link>
+      <pubDate>Wed, 14 Aug 2024 12:30:42 +1100</pubDate>
+      <guid>https://cyberbilby.com/posts/securing-the-domain/</guid>
+      <description>The Critical Role of DNSSEC and DNS over HTTPS</description>
+    </item>
     <item>
       <title>Setup Wireguard Reverse Proxy</title>
       <link>https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/</link>
