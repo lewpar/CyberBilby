@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <title>Setup Wireguard Reverse Proxy | Cyber Bilby</title>
 
-      <link rel="stylesheet" href="/css/main.min.f4bbf52f2d945c2c2a3a78f0198949491d9e0c8c56487342b5b3da9c76768342.css" integrity="sha256-9Lv1Ly2UXCwqOnjwGYlJSR2eDIxWSHNCtbPanHZ2g0I=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.f71037bde91b8f7c83612b949322b8f17194d5eb99fb0b148332a1a0acb68470.css" integrity="sha256-9xA3vekbj3yDYSuUkyK48XGU1euZ&#43;wsUgzKhoKy2hHA=" crossorigin="anonymous">
 
 <link rel="icon" type="image/x-icon" href="/images/bilby.png">
 
@@ -80,10 +80,398 @@
 
             </div>
         </div>
-        
-        <div class="post-content">
-            <h2 id="why-do-this">Why do this?</h2>
-<p>Sometimes you want to host a local server and have it accessible on the wide area network, however sometimes due to
+
+        <div style="display: flex; flex-direction: row">
+            <nav class="post-menu">
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                <ul>
+                    <h2>
+                        Table of Contents
+                    </h2>
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#why-do-this">Why do this?</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#setup-wireguard">Setup WireGuard</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#install-wireguard">Install WireGuard</a>
+                        </li>
+                    
+                
+                    
+                    
+                
+                    
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#setup-wireguard-configs">Setup WireGuard Configs</a>
+                        </li>
+                    
+                
+                    
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#mediator-server-configuration">Mediator Server Configuration</a>
+                        </li>
+                    
+                
+                    
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#mediator-server-ip-tables-configuration">Mediator Server IP Tables Configuration</a>
+                        </li>
+                    
+                
+                    
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#peer-configuration">Peer Configuration</a>
+                        </li>
+                    
+                
+                    
+                    
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#enabledisable-wireguard-interface">Enable/Disable WireGuard Interface</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#server">Server</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#peer">Peer</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#test-ping">Test Ping</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#summary">Summary</a>
+                        </li>
+                    
+                
+                </ul>
+            </nav>
+
+            <div class="post-content">
+                
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="why-do-this" data-heading="Why do this?" data-level="2" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h2 id="why-do-this">Why do this?</h2><p>Sometimes you want to host a local server and have it accessible on the wide area network, however sometimes due to
 constraints like CGNAT or lack of access to your networking equipment it’s not possible to forward the ports.</p>
 <p>Instead we need to setup a secure tunnel to forward packets from a cloud server not behind CGNAT to our local machine.</p>
 <p>For this you will need:</p>
@@ -107,21 +495,35 @@ Ensure you have a firewall setup on the mediator server to block any connections
         </div>
     </div>
 </div>
-<h2 id="setup-wireguard">Setup WireGuard</h2>
-<p>Before doing anything you need to setup WireGuard on all of the devices involved in the reverse proxy.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="setup-wireguard" data-heading="Setup WireGuard" data-level="2" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h2 id="setup-wireguard">Setup WireGuard</h2><p>Before doing anything you need to setup WireGuard on all of the devices involved in the reverse proxy.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="install-wireguard" data-heading="Install WireGuard" data-level="3" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
 <h3 id="install-wireguard">Install WireGuard</h3>
-<h4 id="ubuntu">Ubuntu</h4>
-<p>Both my mediator and local machine are running Ubuntu Server.</p>
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="ubuntu" data-heading="Ubuntu" data-level="4" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h4 id="ubuntu">Ubuntu</h4><p>Both my mediator and local machine are running Ubuntu Server.</p>
 <pre tabindex="0"><code>sudo apt install wireguard
-</code></pre><h4 id="other">Other</h4>
-<p>For other WireGuard installations you can follow the official guides <a href="https://www.wireguard.com/install/">https://www.wireguard.com/install/</a></p>
-<h3 id="setup-wireguard-configs">Setup WireGuard Configs</h3>
-<p>I use <a href="https://www.wireguardconfig.com/">https://www.wireguardconfig.com/</a> to generate the configs, as writing these by hand is tedious.</p>
+</code></pre>
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="other" data-heading="Other" data-level="4" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h4 id="other">Other</h4><p>For other WireGuard installations you can follow the official guides <a href="https://www.wireguard.com/install/">https://www.wireguard.com/install/</a></p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="setup-wireguard-configs" data-heading="Setup WireGuard Configs" data-level="3" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h3 id="setup-wireguard-configs">Setup WireGuard Configs</h3><p>I use <a href="https://www.wireguardconfig.com/">https://www.wireguardconfig.com/</a> to generate the configs, as writing these by hand is tedious.</p>
 <p>However, if you would like to get into the nitty gritty of the configuration you can review the <a href="https://github.com/pirate/wireguard-docs">WireGuard Unofficial Documentation</a> which is a great resource for WireGuard in general.</p>
-<h4 id="note">Note</h4>
-<p>Don’t use common ports (80, 443, 27015, 25565, etc..) when generating the config as you might run into a port conflict later. I just use the default port <code>51820</code>.</p>
-<h3 id="mediator-server-configuration">Mediator Server Configuration</h3>
-<p>Create a file in the home directory called <code>wg-server.conf</code> and enter the server config you generated using the WireGuardConfig website.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="note" data-heading="Note" data-level="4" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h4 id="note">Note</h4><p>Don’t use common ports (80, 443, 27015, 25565, etc..) when generating the config as you might run into a port conflict later. I just use the default port <code>51820</code>.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="mediator-server-configuration" data-heading="Mediator Server Configuration" data-level="3" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h3 id="mediator-server-configuration">Mediator Server Configuration</h3><p>Create a file in the home directory called <code>wg-server.conf</code> and enter the server config you generated using the WireGuardConfig website.</p>
 <pre tabindex="0"><code>[Interface]
 Address = 10.0.0.1/24
 ListenPort = 51820
@@ -132,13 +534,17 @@ PostDown = iptables -D FORWARD -i %i -j ACCEPT; iptables -t nat -D POSTROUTING -
 [Peer]
 PublicKey = E7EjICPkwJ2DQ8BYa3I6hX9sbTVriIjjfj4oCAfdHhk=
 AllowedIPs = 10.0.0.2/32
-</code></pre><h4 id="note-1">Note</h4>
-<ul>
+</code></pre>
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="note-1" data-heading="Note" data-level="4" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h4 id="note-1">Note</h4><ul>
 <li>Do not use the public/private keys used here as these keys are important to ensuring your tunnel is secure and private.</li>
 <li>If you would like to generate your own Public  &amp; Private Key Pair you can <a href="https://www.wireguard.com/quickstart/#key-generation">follow this quick-start guide</a>.</li>
 </ul>
-<h3 id="mediator-server-ip-tables-configuration">Mediator Server IP Tables Configuration</h3>
-<p>The default IP Tables rules that WireGuardConfig generates forwards all traffic to the WireGuard Peer.
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="mediator-server-ip-tables-configuration" data-heading="Mediator Server IP Tables Configuration" data-level="3" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h3 id="mediator-server-ip-tables-configuration">Mediator Server IP Tables Configuration</h3><p>The default IP Tables rules that WireGuardConfig generates forwards all traffic to the WireGuard Peer.
 However, It&rsquo;s not a good idea to expose all ports to the user and instead only supply the ports you are going to use.</p>
 <p>In this instance I am using port 80 for a web server.</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-diff" data-lang="diff"><span style="display:flex;"><span>[Interface]
@@ -175,12 +581,16 @@ Ensure you have enabled IPv4 Forwarding, otherwise the mediator server will not 
         </div>
     </div>
 </div>
-<h4 id="note-2">Note</h4>
-<ul>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="note-2" data-heading="Note" data-level="4" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h4 id="note-2">Note</h4><ul>
 <li>Replace <code>10.0.0.2</code> with your local machine (peer) WireGuard interface IPv4 Address.</li>
 </ul>
-<h3 id="peer-configuration">Peer Configuration</h3>
-<p>Create a file in the home directory called <code>wg-peer.conf</code> and enter the peer config you generated using the WireGuardConfig website.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="peer-configuration" data-heading="Peer Configuration" data-level="3" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h3 id="peer-configuration">Peer Configuration</h3><p>Create a file in the home directory called <code>wg-peer.conf</code> and enter the peer config you generated using the WireGuardConfig website.</p>
 <pre tabindex="0"><code>[Interface]
 Address = 10.0.0.2/24
 ListenPort = 51820
@@ -191,37 +601,50 @@ PublicKey = 96o6asr29ZwWCGYB/lpqVdE0Ft4K3KWooIiqKQ1/800=
 AllowedIPs = 0.0.0.0/0, ::/0
 Endpoint = my.mediator-server.net:51820
 PersistentKeepalive = 15
-</code></pre><h4 id="note-3">Note</h4>
-<ul>
+</code></pre>
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="note-3" data-heading="Note" data-level="4" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h4 id="note-3">Note</h4><ul>
 <li>Do not use the public/private keys used here as these keys are important to ensuring your tunnel is secure and private.</li>
 <li>Replace <code>my.mediator-server.net</code> with the IP Address of your mediator server.</li>
 <li>Add the <code>PersistentKeepalive</code> option to the Peer section of the config to allow the peer to keep the UDP connection alive. (The value is how many seconds between Keep-alive packets)</li>
 </ul>
-<h2 id="enabledisable-wireguard-interface">Enable/Disable WireGuard Interface</h2>
-<p>The wg-quick command allows you to easily bring up or take down a WireGuard interface using the configuration from above.</p>
-<h3 id="server">Server</h3>
-<pre tabindex="0"><code># Bring the WireGuard interface up.
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="enabledisable-wireguard-interface" data-heading="Enable/Disable WireGuard Interface" data-level="2" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h2 id="enabledisable-wireguard-interface">Enable/Disable WireGuard Interface</h2><p>The wg-quick command allows you to easily bring up or take down a WireGuard interface using the configuration from above.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="server" data-heading="Server" data-level="3" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h3 id="server">Server</h3><pre tabindex="0"><code># Bring the WireGuard interface up.
 wg-quick up ~/wg-server.conf
 
 # Bring the WireGuard interface down.
 wg-quick down ~/wg-server.conf
-</code></pre><h3 id="peer">Peer</h3>
-<pre tabindex="0"><code># Bring the WireGuard interface up.
+</code></pre>
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="peer" data-heading="Peer" data-level="3" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h3 id="peer">Peer</h3><pre tabindex="0"><code># Bring the WireGuard interface up.
 wg-quick up ~/wg-peer.conf
 
 # Bring the WireGuard interface down.
 wg-quick down ~/wg-peer.conf
-</code></pre><h2 id="test-ping">Test Ping</h2>
-<p>You should now be able to ping your server/peer through the WireGuard interface.</p>
+</code></pre>
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="test-ping" data-heading="Test Ping" data-level="2" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h2 id="test-ping">Test Ping</h2><p>You should now be able to ping your server/peer through the WireGuard interface.</p>
 <pre tabindex="0"><code># Server -&gt; Peer
 ping 10.0.0.2
 
 # Peer -&gt; Server
 ping 10.0.0.1
-</code></pre><h2 id="summary">Summary</h2>
-<p>You have now setup WireGuard as a reverse proxy, which allows you to use your intermediary server as a secure tunnel into your local machine.</p>
+</code></pre>
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="summary" data-heading="Summary" data-level="2" data-permalink="https://cyberbilby.com/posts/setup-wireguard-reverse-proxy/" data-title="Setup Wireguard Reverse Proxy" -->
+<h2 id="summary">Summary</h2><p>You have now setup WireGuard as a reverse proxy, which allows you to use your intermediary server as a secure tunnel into your local machine.</p>
 <p>This is useful if you want to host a server on your local hardware, but you don’t have the option to forward ports.</p>
 
+            </div>
         </div>
     </div>
 

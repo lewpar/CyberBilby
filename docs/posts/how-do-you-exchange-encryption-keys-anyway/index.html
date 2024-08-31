@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width">
 <title>How Do You Exchange Encryption Keys Anyway | Cyber Bilby</title>
 
-      <link rel="stylesheet" href="/css/main.min.f4bbf52f2d945c2c2a3a78f0198949491d9e0c8c56487342b5b3da9c76768342.css" integrity="sha256-9Lv1Ly2UXCwqOnjwGYlJSR2eDIxWSHNCtbPanHZ2g0I=" crossorigin="anonymous">
+      <link rel="stylesheet" href="/css/main.min.f71037bde91b8f7c83612b949322b8f17194d5eb99fb0b148332a1a0acb68470.css" integrity="sha256-9xA3vekbj3yDYSuUkyK48XGU1euZ&#43;wsUgzKhoKy2hHA=" crossorigin="anonymous">
 
 <link rel="icon" type="image/x-icon" href="/images/bilby.png">
 
@@ -81,22 +81,174 @@
 
             </div>
         </div>
-        
-        <div class="post-content">
-            <p>When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?</p>
+
+        <div style="display: flex; flex-direction: row">
+            <nav class="post-menu">
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+                
+
+                
+                
+                
+                
+                
+                
+
+                
+                
+                <ul>
+                    <h2>
+                        Table of Contents
+                    </h2>
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#symmetric-vs-asymmetric-encryption">Symmetric vs Asymmetric Encryption</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#symmetric">Symmetric</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-3">
+                            <a href="#asymmetric">Asymmetric</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#why-use-one-over-the-other">Why use one over the other?</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#what-does-this-key-exchange-look-like">What does this Key Exchange look like?</a>
+                        </li>
+                    
+                
+                    
+                    
+                        <li class="post-toc-2">
+                            <a href="#summary">Summary</a>
+                        </li>
+                    
+                
+                </ul>
+            </nav>
+
+            <div class="post-content">
+                <p>When communicating over the internet it’s generally accepted by everyone that encryption is important to transmitting your data securely. But how does this data get from A to B without exposing your data to potential attackers?</p>
 <p>In this article I will touch lightly on the different encryption types used and how they can be used together to ensure your keys are exchanged securely.</p>
-<h2 id="symmetric-vs-asymmetric-encryption">Symmetric vs Asymmetric Encryption</h2>
-<p>Before talking about how to securely exchange encryption keys you must first understand the differences between symmetric and asymmetric encryption and what kind of encryption is available.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="symmetric-vs-asymmetric-encryption" data-heading="Symmetric vs Asymmetric Encryption" data-level="2" data-permalink="https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/" data-title="How Do You Exchange Encryption Keys Anyway" -->
+<h2 id="symmetric-vs-asymmetric-encryption">Symmetric vs Asymmetric Encryption</h2><p>Before talking about how to securely exchange encryption keys you must first understand the differences between symmetric and asymmetric encryption and what kind of encryption is available.</p>
 <p>I will try to explain both of these methodologies as simple as possible.</p>
-<h3 id="symmetric">Symmetric</h3>
-<p>Symmetric encryption uses the same key for both encrypting and decrypting data. It can encrypt large blocks of data quickly and efficiently.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="symmetric" data-heading="Symmetric" data-level="3" data-permalink="https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/" data-title="How Do You Exchange Encryption Keys Anyway" -->
+<h3 id="symmetric">Symmetric</h3><p>Symmetric encryption uses the same key for both encrypting and decrypting data. It can encrypt large blocks of data quickly and efficiently.</p>
 <p>Types of symmetric encryption include:</p>
 <ul>
 <li>AES</li>
 <li>DES</li>
 </ul>
-<h3 id="asymmetric">Asymmetric</h3>
-<p>Asymmetric encryption uses different keys for encryption (public key) and decryption (private key) and is typically used on small blocks of data because it is slower than symmetric encryption.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="asymmetric" data-heading="Asymmetric" data-level="3" data-permalink="https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/" data-title="How Do You Exchange Encryption Keys Anyway" -->
+<h3 id="asymmetric">Asymmetric</h3><p>Asymmetric encryption uses different keys for encryption (public key) and decryption (private key) and is typically used on small blocks of data because it is slower than symmetric encryption.</p>
 <p>The encryption and decryption key is known as the public and private key-pair.</p>
 <p>Types of asymmetric encryption include:</p>
 <ul>
@@ -104,11 +256,15 @@
 <li>Diffie-Hellman</li>
 <li>Elliptic Curve</li>
 </ul>
-<h2 id="why-use-one-over-the-other">Why use one over the other?</h2>
-<p>Because of the properties of asymmetric encryption it’s very common to use both symmetric and asymmetric encryption for secure communication.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="why-use-one-over-the-other" data-heading="Why use one over the other?" data-level="2" data-permalink="https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/" data-title="How Do You Exchange Encryption Keys Anyway" -->
+<h2 id="why-use-one-over-the-other">Why use one over the other?</h2><p>Because of the properties of asymmetric encryption it’s very common to use both symmetric and asymmetric encryption for secure communication.</p>
 <p>This is done through something known as the key exchange where the public keys are exchanged with each other and the symmetric key is encrypted and sent back.</p>
-<h2 id="what-does-this-key-exchange-look-like">What does this Key Exchange look like?</h2>
-<p>In this example I am using RSA as the asymmetric and AES encryption as the symmetric encryption.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="what-does-this-key-exchange-look-like" data-heading="What does this Key Exchange look like?" data-level="2" data-permalink="https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/" data-title="How Do You Exchange Encryption Keys Anyway" -->
+<h2 id="what-does-this-key-exchange-look-like">What does this Key Exchange look like?</h2><p>In this example I am using RSA as the asymmetric and AES encryption as the symmetric encryption.</p>
 <p>Alice and Bob both have generated their asymmetric key-pair.</p>
 <p><img src="./static/bob-alice-gen-keypair.png" alt="Image1"></p>
 <p>To start communication Alice and Bob must first exchange with each other their public asymmetric key:</p>
@@ -121,11 +277,14 @@
 <p><img src="./static/bob-alice-decrypt-priv-key.png" alt="Image5"></p>
 <p>Alice and Bob can use this process to exchange a symmetric key to each other without exposing it to a potential man-in-the-middle.</p>
 <p>This concludes the key exchange.</p>
-<h2 id="summary">Summary</h2>
-<p>This article breaks down encryption into two types: symmetric, which uses one key for big data, and asymmetric, which uses two keys for smaller data.</p>
+
+<!-- end-chunk -->
+<!-- begin-chunk data-anchor="summary" data-heading="Summary" data-level="2" data-permalink="https://cyberbilby.com/posts/how-do-you-exchange-encryption-keys-anyway/" data-title="How Do You Exchange Encryption Keys Anyway" -->
+<h2 id="summary">Summary</h2><p>This article breaks down encryption into two types: symmetric, which uses one key for big data, and asymmetric, which uses two keys for smaller data.</p>
 <p>By combining these methods, secure communication is achieved. The key exchange process, demonstrated with RSA and AES, shows how public keys are shared safely, ensuring a secure way for parties like Alice and Bob to swap important information.</p>
 <p>If you would like to learn about these two methodologies you can <a href="https://www.youtube.com/watch?v=AQDCe585Lnc">watch this video created by Simply Explained</a>.</p>
 
+            </div>
         </div>
     </div>
 
