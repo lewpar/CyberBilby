@@ -158,7 +158,7 @@ case, all the A records). This signature is signed by a private key which is hel
 then pull the public key (DNSKEY) to validate the records. The DS record is also pulled from the upstream nameserver to
 verify it came from the correct nameserver.</p>
 <h3 id="cryptographic-security-chain">Cryptographic Security Chain</h3>
-<p><img src="./static/cypto-security-chain.png" alt="Cryptographic Security Chain"></p>
+<p><img src="./static/crypto-security-chain.png" alt="Cryptographic Security Chain"></p>
 <h3 id="implementation-complexity">Implementation Complexity</h3>
 <p>Implementing DNSSEC can be very easy if you use a common registrar like Cloudflare, Namecheap, AWS Route 53, or GoDaddy as it is usually just one toggle button in their respective dashboards for the domain name settings.</p>
 <p>There are not many providers that do not offer DNSSEC, however there may be some cases where it needs to be configured manually which increases the implementation difficulty substantially.</p>

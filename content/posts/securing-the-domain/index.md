@@ -118,7 +118,7 @@ verify it came from the correct nameserver.
 
 ### Cryptographic Security Chain
 
-![Cryptographic Security Chain](./static/cypto-security-chain.png)
+![Cryptographic Security Chain](./static/crypto-security-chain.png)
 
 ### Implementation Complexity
 Implementing DNSSEC can be very easy if you use a common registrar like Cloudflare, Namecheap, AWS Route 53, or GoDaddy as it is usually just one toggle button in their respective dashboards for the domain name settings.
