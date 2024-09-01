@@ -7,8 +7,7 @@ author: lewis
 title: Securing the Domain
 summary: The Critical Role of DNSSEC and DNS over HTTPS
 
-categories:
-    - Report
+category: Report
 
 tags:
     - networking

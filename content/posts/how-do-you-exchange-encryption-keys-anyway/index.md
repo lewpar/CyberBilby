@@ -7,8 +7,7 @@ author: lewis
 title: How Do You Exchange Encryption Keys Anyway
 summary: It is often we talk about encrypting data securely, but how do you transmit it securely over a medium without exposing your encryption key?
 
-categories:
-    - Article
+category: Article
 
 tags:
     - encryption

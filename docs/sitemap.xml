@@ -2,9 +2,6 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://cyberbilby.com/categories/</loc>
-    <lastmod>2024-08-14T12:30:42+11:00</lastmod>
-  </url><url>
     <loc>https://cyberbilby.com/tags/dns/</loc>
     <lastmod>2024-08-14T12:30:42+11:00</lastmod>
   </url><url>
@@ -23,9 +20,6 @@
     <loc>https://cyberbilby.com/tags/records/</loc>
     <lastmod>2024-08-14T12:30:42+11:00</lastmod>
   </url><url>
-    <loc>https://cyberbilby.com/categories/report/</loc>
-    <lastmod>2024-08-14T12:30:42+11:00</lastmod>
-  </url><url>
     <loc>https://cyberbilby.com/posts/securing-the-domain/</loc>
     <lastmod>2024-08-14T12:30:42+11:00</lastmod>
   </url><url>
@@ -33,9 +27,6 @@
     <lastmod>2024-08-14T12:30:42+11:00</lastmod>
   </url><url>
     <loc>https://cyberbilby.com/tags/aes/</loc>
-    <lastmod>2024-02-09T09:40:57+11:00</lastmod>
-  </url><url>
-    <loc>https://cyberbilby.com/categories/article/</loc>
     <lastmod>2024-02-09T09:40:57+11:00</lastmod>
   </url><url>
     <loc>https://cyberbilby.com/tags/asymmetric/</loc>
@@ -80,16 +71,10 @@
     <loc>https://cyberbilby.com/tags/tunnel/</loc>
     <lastmod>2024-02-09T09:40:42+11:00</lastmod>
   </url><url>
-    <loc>https://cyberbilby.com/categories/tutorial/</loc>
-    <lastmod>2024-02-09T09:40:42+11:00</lastmod>
-  </url><url>
     <loc>https://cyberbilby.com/tags/wireguard/</loc>
     <lastmod>2024-02-09T09:40:42+11:00</lastmod>
   </url><url>
     <loc>https://cyberbilby.com/tags/blog/</loc>
-    <lastmod>2024-02-09T09:40:23+11:00</lastmod>
-  </url><url>
-    <loc>https://cyberbilby.com/categories/blog/</loc>
     <lastmod>2024-02-09T09:40:23+11:00</lastmod>
   </url><url>
     <loc>https://cyberbilby.com/posts/first-post/</loc>
@@ -106,5 +91,7 @@
   </url><url>
     <loc>https://cyberbilby.com/posts/</loc>
     <lastmod>2023-01-01T08:00:00-07:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/categories/</loc>
   </url>
 </urlset>

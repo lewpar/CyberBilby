@@ -7,8 +7,7 @@ author: lewis
 title: Spoofing Your MAC
 summary: This tutorial will show you how you can spoof your MAC address.
 
-categories:
-    - Tutorial
+category: Tutorial
 
 tags:
     - networking

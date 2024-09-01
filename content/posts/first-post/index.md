@@ -7,8 +7,7 @@ author: lewis
 title: First Post
 summary: This is the first post of Cyber Bilby, the open source tech blogging website.
 
-categories:
-    - Blog
+category: Blog
 
 tags:
     - personal
