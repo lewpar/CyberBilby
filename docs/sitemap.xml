@@ -2,6 +2,24 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://cyberbilby.com/posts/svelte-component-only-one-instance-level/</loc>
+    <lastmod>2024-10-11T13:22:42+11:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/tags/javascript/</loc>
+    <lastmod>2024-10-11T13:22:42+11:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/tags/svelte/</loc>
+    <lastmod>2024-10-11T13:22:42+11:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/tags/</loc>
+    <lastmod>2024-10-11T13:22:42+11:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/tags/typescript/</loc>
+    <lastmod>2024-10-11T13:22:42+11:00</lastmod>
+  </url><url>
+    <loc>https://cyberbilby.com/tags/web/</loc>
+    <lastmod>2024-10-11T13:22:42+11:00</lastmod>
+  </url><url>
     <loc>https://cyberbilby.com/tags/dns/</loc>
     <lastmod>2024-08-14T12:30:42+11:00</lastmod>
   </url><url>
@@ -21,9 +39,6 @@
     <lastmod>2024-08-14T12:30:42+11:00</lastmod>
   </url><url>
     <loc>https://cyberbilby.com/posts/securing-the-domain/</loc>
-    <lastmod>2024-08-14T12:30:42+11:00</lastmod>
-  </url><url>
-    <loc>https://cyberbilby.com/tags/</loc>
     <lastmod>2024-08-14T12:30:42+11:00</lastmod>
   </url><url>
     <loc>https://cyberbilby.com/tags/aes/</loc>
