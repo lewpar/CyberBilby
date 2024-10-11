@@ -1,10 +1,14 @@
 baseURL: https://cyberbilby.com/
 languageCode: en-us
+
 title: Cyber Bilby
+
 theme: hugo-scriptless
 publishDir: docs
 
 params:
+  title: Cyber Bilby
+  summary: Open source tech blog.
   logo: /images/bilby.png
   authors:
     lewis:
