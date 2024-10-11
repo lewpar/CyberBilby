@@ -13,7 +13,7 @@
       <link>https://cyberbilby.com/posts/svelte-component-only-one-instance-level/</link>
       <pubDate>Fri, 11 Oct 2024 13:22:42 +1100</pubDate>
       <guid>https://cyberbilby.com/posts/svelte-component-only-one-instance-level/</guid>
-      <description>Running into issues with adding more than one &lt;!-- raw HTML omitted --&gt; tag in a Svelte component? This tutorial will show you how to fix it.</description>
+      <description>A component can only have one instance-level &lt;!-- raw HTML omitted --&gt; element, but how do you fix this?</description>
     </item>
     <item>
       <title>Securing the Domain</title>

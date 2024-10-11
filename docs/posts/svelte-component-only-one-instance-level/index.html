@@ -3,6 +3,24 @@
 <head>
   <meta charset="utf-8">
 <meta name="viewport" content="width=device-width">
+
+
+    <meta name="title" content="How to have more than one script in a Svelte component">
+    <meta property="og:title" content="How to have more than one script in a Svelte component" />
+    <meta property="twitter:title" content="How to have more than one script in a Svelte component" />
+
+
+
+    <meta name="description" content="A component can only have one instance-level &lt;script&gt; element, but how do you fix this?">
+    <meta property="og:description" content="A component can only have one instance-level &lt;script&gt; element, but how do you fix this?" />
+    <meta property="twitter:description" content="A component can only have one instance-level &lt;script&gt; element, but how do you fix this?" />
+
+
+
+    <meta property="og:image" content="https:/cyberbilby.com/posts/svelte-component-only-one-instance-level/static/featured.png" />
+    <meta property="twitter:image" content="https:/cyberbilby.com/posts/svelte-component-only-one-instance-level/static/featured.png" />
+
+
 <title>How to have more than one script in a Svelte component | Cyber Bilby</title>
 
       <link rel="stylesheet" href="/css/main.min.3294ad3beeff9053b4c3d95ebab7969b1dac8c8d51dd5989c6b971dd870642f9.css" integrity="sha256-MpStO&#43;7/kFO0w9leureWmx2sjI1R3VmJxrlx3YcGQvk=" crossorigin="anonymous">
@@ -169,8 +187,8 @@
 
 <!-- end-chunk -->
 <!-- begin-chunk data-anchor="but-what-if-i-want-to-include-external-scripts" data-heading="But what if I want to include external scripts?" data-level="3" data-permalink="https://cyberbilby.com/posts/svelte-component-only-one-instance-level/" data-title="How to have more than one script in a Svelte component" -->
-<h3 id="but-what-if-i-want-to-include-external-scripts">But what if I want to include external scripts?</h3><p>You can add the scripts to the page template (app.html), however what only want to include those scripts in a single page?</p>
-<p>There is a solution for this, you can import a flag from the app environment that will tell you if you currently running in the browser context or the server context.</p>
+<h3 id="but-what-if-i-want-to-include-external-scripts">But what if I want to include external scripts?</h3><p>You can add the scripts to the page template (app.html), however what if you only want to include those scripts in a single page and not across the entire website?</p>
+<p>There is a solution for this: You can import a flag from the app environment that will tell you if you currently running in the browser context or the server context.</p>
 
 <!-- end-chunk -->
 <!-- begin-chunk data-anchor="rendering-in-the-browser" data-heading="Rendering in the Browser" data-level="2" data-permalink="https://cyberbilby.com/posts/svelte-component-only-one-instance-level/" data-title="How to have more than one script in a Svelte component" -->
