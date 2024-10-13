@@ -1,0 +1,34 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>Home</PageTitle>
+
+<div class="container">
+    <Alert></Alert>
+
+    <h2 class="title">Cyber Bilby Login</h2>
+
+    <div class="login">
+        <div class="login-item">
+            <label>Host</label>
+            <input @bind="Host" type="text" />
+        </div>
+
+        <div class="login-item">
+            <label>Port</label>
+            <input @bind="Port" type="number" />
+        </div>
+
+        <div class="login-item">
+            <label>Identity</label>
+            <select>
+                @foreach(var identity in Identities)
+                {
+                    <option value="@identity.Certificate?.Thumbprint">@identity.Name</option>
+                }
+            </select>
+        </div>
+
+        <button @onclick="ConnectAsync">Connect</button>
+    </div>
+</div>
