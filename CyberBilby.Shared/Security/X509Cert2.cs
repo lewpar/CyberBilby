@@ -50,4 +50,9 @@ public static class X509Cert2
 
         return certificate.CopyWithPrivateKey(rsa);
     }
+
+    public static X509Certificate2 LoadFromFile(string path)
+    {
+        return new X509Certificate2(path);
+    }
 }

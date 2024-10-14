@@ -29,11 +29,12 @@ class Program()
     static void GenerateTestCertificates()
     {
         if(!File.Exists(@"./server.pfx") ||
-            !File.Exists(@"./client.pfx"))
+            !File.Exists(@"./client.pfx") ||
+            !File.Exists(@"./chain.pfx"))
         {
             Console.WriteLine("Generating server and client test certificates..");
 
-            var rootCert = X509Cert2.CreateRootCertificate("cyberbilby.com");
+            var rootCert = X509Cert2.CreateRootCertificate("localhost");
             var clientCert = X509Cert2.CreateCertificate(rootCert, "testuser");
 
             var rootPfx = rootCert.Export(X509ContentType.Pfx);
@@ -41,6 +42,19 @@ class Program()
 
             var clientPfx = clientCert.Export(X509ContentType.Pfx);
             File.WriteAllBytes(@"./client.pfx", clientPfx);
+
+            var chainPfx = new X509Certificate2Collection()
+            {
+                /* Exports the root cert without private key */
+                new X509Certificate2(rootCert.Export(X509ContentType.Cert)),
+
+                clientCert,
+            }.Export(X509ContentType.Pfx);
+
+            if(chainPfx is not null)
+            {
+                File.WriteAllBytes(@"./chain.pfx", chainPfx);
+            }
 
             Console.WriteLine("Generated.");
         }

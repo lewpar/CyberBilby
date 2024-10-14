@@ -59,7 +59,7 @@ public partial class Home : ComponentBase
 
         store.Open(OpenFlags.ReadOnly);
 
-        var certs = store.Certificates.Where(c => c.Issuer == "CN=LIME Intermediate");
+        var certs = store.Certificates.Where(c => c.Issuer == "CN=localhost");
 
         foreach(var cert in certs)
         {
