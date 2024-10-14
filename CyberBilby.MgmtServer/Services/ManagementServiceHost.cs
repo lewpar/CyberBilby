@@ -44,11 +44,20 @@ public class ManagementServiceHost : BackgroundService
 
     private async Task HandleClientConnectAsync(TcpClient client)
     {
-        var sslStream = new SslStream(client.GetStream(), false);
-        await sslStream.AuthenticateAsServerAsync(new SslServerAuthenticationOptions()
+        try
         {
-            ServerCertificate = X509Cert2.LoadFromFile("./server.pfx"),
-            ClientCertificateRequired = true
-        });
+            var sslStream = new SslStream(client.GetStream(), false);
+            await sslStream.AuthenticateAsServerAsync(new SslServerAuthenticationOptions()
+            {
+                ServerCertificate = X509Cert2.LoadFromFile("./server.pfx"),
+                ClientCertificateRequired = true
+            });
+
+            logger.LogInformation("Client passed authentication.");
+        }
+        catch(Exception ex)
+        {
+            logger.LogCritical($"Client failed authentication: {ex.Message}");
+        }
     }
 }

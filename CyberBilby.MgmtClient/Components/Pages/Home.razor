@@ -21,7 +21,7 @@
 
         <div class="login-item">
             <label>Identity</label>
-            <select>
+            <select @bind="SelectedCertificate">
                 @foreach(var identity in Identities)
                 {
                     <option value="@identity.Certificate?.Thumbprint">@identity.Name</option>

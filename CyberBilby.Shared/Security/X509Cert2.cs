@@ -55,4 +55,17 @@ public static class X509Cert2
     {
         return new X509Certificate2(path);
     }
+
+    public static X509Certificate2 LoadFromStore(string thumprint)
+    {
+        var store = new X509Store(StoreName.My, StoreLocation.CurrentUser);
+        store.Open(OpenFlags.ReadOnly);
+
+        if(store.Certificates.Count < 1)
+        {
+            throw new Exception("No certificates found in store.");
+        }
+
+        return store.Certificates.First(c => c.Thumbprint == thumprint);
+    }
 }

@@ -4,6 +4,7 @@ using CyberBilby.MgmtClient.Services;
 using CyberBilby.Shared.Security;
 
 using Microsoft.AspNetCore.Components;
+
 using System.Security.Cryptography.X509Certificates;
 
 namespace CyberBilby.MgmtClient.Components.Pages;
@@ -18,6 +19,7 @@ public partial class Home : ComponentBase
 
     public string? Host { get; set; }
     public int? Port { get; set; }
+    public string? SelectedCertificate { get; set; }
 
     public List<Identity> Identities { get; set; } = new List<Identity>();
 
@@ -40,10 +42,15 @@ public partial class Home : ComponentBase
             return;
         }
 
+        if(string.IsNullOrEmpty(SelectedCertificate))
+        {
+            AlertQueue.Push(AlertType.Error, "You must select a certificate.");
+            return;
+        }
+
         try
         {
-            await ManagementService.ConnectToMgmtServerAsync(Host, Port.Value, 
-                new System.Security.Cryptography.X509Certificates.X509Certificate2());
+            await ManagementService.ConnectToMgmtServerAsync(Host, Port.Value, X509Cert2.LoadFromStore(SelectedCertificate));
         }
         catch(Exception ex)
         {
