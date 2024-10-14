@@ -1,0 +1,26 @@
+﻿@page "/manage"
+@using CyberBilby.MgmtClient.Components.Models
+@rendermode InteractiveServer
+
+
+<div class="container">
+    <div class="sidebar">
+        @foreach (AuthPage page in Enum.GetValues(typeof(AuthPage)))
+        {
+            <div @onclick="() => { UpdatePage(page); }" class="sidebar-item @(CurrentPage == page ? "active" : "")">
+                @(page.ToString())
+            </div>
+        }
+    </div>
+
+    <div class="page">
+        @if(CurrentPage == AuthPage.Dashboard)
+        {
+            <Dashboard></Dashboard>
+        }
+        else if(CurrentPage == AuthPage.Posts)
+        {
+            <Posts></Posts>
+        }
+    </div>
+</div>

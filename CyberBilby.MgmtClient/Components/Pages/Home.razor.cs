@@ -17,15 +17,18 @@ public partial class Home : ComponentBase
     [Inject]
     public ManagementService ManagementService { get; set; } = default!;
 
+    [Inject]
+    public NavigationManager NavigationManager { get; set; } = default!;
+
     public string? Host { get; set; } = "manage.cyberbilby.com";
     public int? Port { get; set; } = 44123;
     public string? SelectedCertificate { get; set; }
 
     public List<Identity> Identities { get; set; } = new List<Identity>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await LoadIdentitiesAsync();
+        LoadIdentities();
     }
 
     public async Task ConnectAsync()
@@ -51,6 +54,8 @@ public partial class Home : ComponentBase
         try
         {
             await ManagementService.ConnectToMgmtServerAsync(Host, Port.Value, X509Cert2.LoadFromStore(SelectedCertificate));
+
+            NavigationManager.NavigateTo("/manage");
         }
         catch(Exception ex)
         {
@@ -58,7 +63,7 @@ public partial class Home : ComponentBase
         }
     }
 
-    private async Task LoadIdentitiesAsync()
+    private void LoadIdentities()
     {
         Identities.Clear();
 

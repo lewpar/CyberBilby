@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberBilby.Web", "CyberBilb
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberBilby.Shared", "CyberBilby.Shared\CyberBilby.Shared.csproj", "{4AABADFC-2853-4B71-897C-0C837B4D569C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberBilby.MgmtClient", "CyberBilby.MgmtClient\CyberBilby.MgmtClient.csproj", "{41DE2235-453C-4950-9FD3-750C8E4FA7D8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CyberBilby.MgmtClient", "CyberBilby.MgmtClient\CyberBilby.MgmtClient.csproj", "{41DE2235-453C-4950-9FD3-750C8E4FA7D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

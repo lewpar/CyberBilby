@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Components\Pages\Auth\Authenticated.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CyberBilby.Shared\CyberBilby.Shared.csproj" />
   </ItemGroup>
 
