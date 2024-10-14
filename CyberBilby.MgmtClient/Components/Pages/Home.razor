@@ -4,31 +4,40 @@
 <PageTitle>Home</PageTitle>
 
 <div class="container">
-    <Alert></Alert>
+    <div class="inner-container">
+        <Alert></Alert>
 
-    <h2 class="title">Cyber Bilby Login</h2>
+        <h2 class="title">Login</h2>
 
-    <div class="login">
-        <div class="login-item">
-            <label>Host</label>
-            <input @bind="Host" type="text" />
+        <div class="login">
+            <div class="login-item">
+                <label>Host</label>
+                <input @bind="Host" type="text" />
+            </div>
+
+            <div class="login-item">
+                <label>Port</label>
+                <input @bind="Port" type="number" />
+            </div>
+
+            <div class="login-item">
+                <label>Identity</label>
+                <select @bind="SelectedCertificate">
+                    @foreach(var identity in Identities)
+                    {
+                        <option value="@identity.Certificate?.Thumbprint">
+                            <div class="identity-option">
+                                <b>Subject</b>
+                                <div>@identity.Certificate?.Subject</div>
+                                <b>Issuer</b>
+                                <div>@identity.Certificate?.Issuer</div>
+                            </div>
+                        </option>
+                    }
+                </select>
+            </div>
+
+            <button @onclick="ConnectAsync">Connect</button>
         </div>
-
-        <div class="login-item">
-            <label>Port</label>
-            <input @bind="Port" type="number" />
-        </div>
-
-        <div class="login-item">
-            <label>Identity</label>
-            <select @bind="SelectedCertificate">
-                @foreach(var identity in Identities)
-                {
-                    <option value="@identity.Certificate?.Thumbprint">@identity.Name</option>
-                }
-            </select>
-        </div>
-
-        <button @onclick="ConnectAsync">Connect</button>
     </div>
 </div>

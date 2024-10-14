@@ -17,8 +17,8 @@ public partial class Home : ComponentBase
     [Inject]
     public ManagementService ManagementService { get; set; } = default!;
 
-    public string? Host { get; set; }
-    public int? Port { get; set; }
+    public string? Host { get; set; } = "manage.cyberbilby.com";
+    public int? Port { get; set; } = 44123;
     public string? SelectedCertificate { get; set; }
 
     public List<Identity> Identities { get; set; } = new List<Identity>();
@@ -72,7 +72,7 @@ public partial class Home : ComponentBase
         {
             Identities.Add(new Identity()
             {
-                Name = cert.Subject,
+                Name = cert.Subject.Split("CN=")[1],
                 Certificate = cert
             });
         }

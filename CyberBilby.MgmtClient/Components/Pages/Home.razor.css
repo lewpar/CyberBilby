@@ -2,20 +2,26 @@
     flex: 1;
 
     display: flex;
+
+    background-image: url('/images/tile.png');
+    background-repeat: repeat;
+}
+
+.inner-container {
+    flex: 1;
+
+    display: flex;
     flex-direction: column;
 
     align-items: center;
     justify-content: center;
 
-    color: white;
-    background-color: #202020;
+    animation-name: dropdown;
+    animation-duration: 1s;
+    animation-fill-mode: both;
 }
 
 .title {
-    opacity: 0;
-    animation-name: fade-in;
-    animation-duration: 2s;
-    animation-fill-mode: both;
 }
 
 .login {
@@ -32,11 +38,6 @@
     background-color: #252525;
 
     box-shadow: rgba(0, 0, 0, 0.25) 2px 2px;
-
-    opacity: 0;
-    animation-name: fade-in;
-    animation-duration: 2s;
-    animation-fill-mode: both;
 }
 
 .login-item {
@@ -75,4 +76,11 @@ button:hover {
 }
 button:active {
     filter: brightness(100%);
+}
+
+.identity-option {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.5rem;
 }
