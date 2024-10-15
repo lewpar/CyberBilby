@@ -14,6 +14,7 @@ namespace CyberBilby.MgmtClient
                 .AddInteractiveServerComponents();
 
             builder.Services.AddSingleton<ManagementService>();
+            builder.Services.AddSingleton<ProfileManager>();
             builder.Services.AddSingleton<AlertQueue>();
 
             var app = builder.Build();

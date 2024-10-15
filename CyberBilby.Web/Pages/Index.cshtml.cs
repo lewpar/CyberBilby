@@ -1,4 +1,4 @@
-using CyberBilby.Shared.Entities;
+using CyberBilby.Shared.Database.Entities;
 using CyberBilby.Shared.Repositories;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;

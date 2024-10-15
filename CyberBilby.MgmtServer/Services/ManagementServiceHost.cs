@@ -1,12 +1,17 @@
 ﻿using CyberBilby.MgmtServer.Network;
+using CyberBilby.Shared.Database;
+using CyberBilby.Shared.Database.Entities;
 using CyberBilby.Shared.Network;
 using CyberBilby.Shared.Security;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
 using System.Net;
 using System.Net.Security;
 using System.Net.Sockets;
-using System.Threading;
+
+using System.Security.Cryptography.X509Certificates;
 
 namespace CyberBilby.MgmtServer.Services;
 
@@ -14,11 +19,13 @@ public class ManagementServiceHost : BackgroundService
 {
     private TcpListener _listener;
     private readonly ILogger<ManagementServiceHost> logger;
+    private readonly BilbyDbContext dbContext;
 
-    public ManagementServiceHost(ILogger<ManagementServiceHost> logger)
+    public ManagementServiceHost(ILogger<ManagementServiceHost> logger, BilbyDbContext dbContext)
     {
         _listener = new TcpListener(IPAddress.Any, 44123);
         this.logger = logger;
+        this.dbContext = dbContext;
     }
 
     private async Task StartListeningAsync(CancellationToken cancellationToken)
@@ -44,6 +51,39 @@ public class ManagementServiceHost : BackgroundService
         await StartListeningAsync(stoppingToken);
     }
 
+    private async Task<bool> ValidateCertificateAsync(X509Certificate2? certificate)
+    {
+        if(certificate is null)
+        {
+            return false;
+        }
+
+        var isRevoked = await dbContext.RevokedCertificates
+            .AnyAsync(c => c.Fingerprint.ToLower() == certificate.Thumbprint.ToLower());
+
+        if(isRevoked)
+        {
+            return false;
+        }
+
+        if(await GetAuthorAsync(certificate) is null)
+        {
+            return false;
+        }
+
+        return true;
+    }
+
+    private async Task<BlogAuthor?> GetAuthorAsync(X509Certificate2 certificate)
+    {
+        return await dbContext.Authors.FirstOrDefaultAsync(a => a.Fingerprint == certificate.Thumbprint);
+    }
+
+    private async Task DisconnectAsync(SslStream stream)
+    {
+        stream.Close();
+    }
+
     private async Task HandleClientConnectAsync(TcpClient client)
     {
         try
@@ -55,11 +95,31 @@ public class ManagementServiceHost : BackgroundService
                 ClientCertificateRequired = true
             });
 
+            var certificate = sslStream.RemoteCertificate as X509Certificate2;
+            if (certificate is null)
+            {
+                return;
+            }
+
+            if(!await ValidateCertificateAsync(certificate))
+            {
+                await DisconnectAsync(sslStream);
+                return;
+            }
+
+            var author = await GetAuthorAsync(certificate);
+            if(author is null)
+            {
+                await DisconnectAsync(sslStream);
+                return;
+            }
+
             sslStream.SendPacket(new AuthPacket()
             {
                 Profile = new AuthProfile()
                 {
-                    Role = AuthRole.Administrator
+                    Name = author.Name,
+                    Role = author.Role
                 }
             });
 

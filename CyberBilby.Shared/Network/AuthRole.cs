@@ -2,6 +2,7 @@
 
 public enum AuthRole
 {
-    Author,
-    Administrator
+    Author = 0,
+    Moderator = 1,
+    Administrator = 2
 }

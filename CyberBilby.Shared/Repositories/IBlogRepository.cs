@@ -1,4 +1,4 @@
-﻿using CyberBilby.Shared.Entities;
+﻿using CyberBilby.Shared.Database.Entities;
 
 namespace CyberBilby.Shared.Repositories;
 

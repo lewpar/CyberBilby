@@ -20,6 +20,9 @@ public partial class Home : ComponentBase
     [Inject]
     public NavigationManager NavigationManager { get; set; } = default!;
 
+    [Inject]
+    public ProfileManager ProfileManager { get; set; } = default!;
+
     public string? Host { get; set; } = "manage.cyberbilby.com";
     public int? Port { get; set; } = 44123;
     public string? SelectedCertificate { get; set; }
@@ -56,7 +59,7 @@ public partial class Home : ComponentBase
             await ManagementService.ConnectToMgmtServerAsync(Host, Port.Value, X509Cert2.LoadFromStore(SelectedCertificate));
             
             var profile = await ManagementService.AuthenticateAsync();
-            //ProfileManager.Update(profile);
+            ProfileManager.UpdateProfile(profile);
 
             NavigationManager.NavigateTo("/manage");
         }

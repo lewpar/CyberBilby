@@ -1,13 +1,14 @@
-﻿using System.Net.Sockets;
-using System.Net;
-using System.Text;
-using System.Security.Cryptography.X509Certificates;
-
-using CyberBilby.Shared.Security;
+﻿using System.Security.Cryptography.X509Certificates;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
+
 using CyberBilby.MgmtServer.Services;
+
+using CyberBilby.Shared.Database;
+using CyberBilby.Shared.Configuration;
+using CyberBilby.Shared.Security;
 
 namespace CyberBilby.MgmtServer;
 
@@ -19,9 +20,19 @@ class Program()
 
         var builder = Host.CreateApplicationBuilder();
 
+        DotEnv.Load(Environment.CurrentDirectory);
+        DotEnv.Ensure("MYSQL_CONNECTION");
+
+        var connectionString = DotEnv.Get("MYSQL_CONNECTION");
+
         builder.Services.AddHostedService<ManagementServiceHost>();
+        builder.Services.AddDbContext<BilbyDbContext>(options =>
+        {
+            options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+        });
 
         var app = builder.Build();
+
         await app.StartAsync();
         await app.WaitForShutdownAsync();
     }

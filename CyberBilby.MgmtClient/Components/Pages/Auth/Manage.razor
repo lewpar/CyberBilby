@@ -2,9 +2,19 @@
 @using CyberBilby.MgmtClient.Components.Models
 @rendermode InteractiveServer
 
+@{
+    var profile = ProfileManager.CurrentProfile;
+}
 
+@if (profile is not null)
+{
 <div class="container">
     <div class="sidebar">
+        <div class="profile">
+            @profile.Name
+            @profile.Role
+        </div>
+
         @foreach (AuthPage page in Enum.GetValues(typeof(AuthPage)))
         {
             <div @onclick="() => { UpdatePage(page); }" class="sidebar-item @(CurrentPage == page ? "active" : "")">
@@ -23,4 +33,9 @@
             <Posts></Posts>
         }
     </div>
-</div>
+    </div>
+}
+else
+{
+    <div>Unauthenticated</div>
+}

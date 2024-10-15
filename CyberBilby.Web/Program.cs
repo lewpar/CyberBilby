@@ -11,7 +11,7 @@ namespace CyberBilby.Web
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            builder.Services.AddSingleton<IBlogRepository>(new SQLiteBlogRepository("Data Source=.\\testdb.db;Version=3"));
+            //builder.Services.AddSingleton<IBlogRepository>(new SQLiteBlogRepository("Data Source=.\\testdb.db;Version=3"));
 
             var app = builder.Build();
 
