@@ -54,6 +54,9 @@ public partial class Home : ComponentBase
         try
         {
             await ManagementService.ConnectToMgmtServerAsync(Host, Port.Value, X509Cert2.LoadFromStore(SelectedCertificate));
+            
+            var profile = await ManagementService.AuthenticateAsync();
+            //ProfileManager.Update(profile);
 
             NavigationManager.NavigateTo("/manage");
         }

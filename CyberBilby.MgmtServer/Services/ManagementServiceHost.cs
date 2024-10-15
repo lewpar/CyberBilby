@@ -1,4 +1,6 @@
-﻿using CyberBilby.Shared.Security;
+﻿using CyberBilby.MgmtServer.Network;
+using CyberBilby.Shared.Network;
+using CyberBilby.Shared.Security;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System.Net;
@@ -51,6 +53,14 @@ public class ManagementServiceHost : BackgroundService
             {
                 ServerCertificate = X509Cert2.LoadFromFile("./server.pfx"),
                 ClientCertificateRequired = true
+            });
+
+            sslStream.SendPacket(new AuthPacket()
+            {
+                Profile = new AuthProfile()
+                {
+                    Role = AuthRole.Administrator
+                }
             });
 
             logger.LogInformation("Client passed authentication.");
