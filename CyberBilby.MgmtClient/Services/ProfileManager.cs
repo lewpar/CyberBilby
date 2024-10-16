@@ -4,7 +4,16 @@ namespace CyberBilby.MgmtClient.Services;
 
 public class ProfileManager
 {
-    public AuthProfile? CurrentProfile { get; private set; }
+    public AuthProfile CurrentProfile { get; private set; }
+
+    public ProfileManager()
+    {
+        CurrentProfile = new AuthProfile()
+        {
+            Name = "Guest",
+            Role = AuthRole.Guest
+        };
+    }
 
     public void UpdateProfile(AuthProfile profile)
     {

@@ -11,8 +11,12 @@
 <div class="container">
     <div class="sidebar">
         <div class="profile">
-            @profile.Name
-            @profile.Role
+            <div>
+                @profile.Name
+            </div>
+            <div>
+                @profile.Role
+            </div>
         </div>
 
         @foreach (AuthPage page in Enum.GetValues(typeof(AuthPage)))

@@ -1,8 +1,11 @@
 ﻿using CyberBilby.MgmtServer.Network;
+
 using CyberBilby.Shared.Database;
 using CyberBilby.Shared.Database.Entities;
 using CyberBilby.Shared.Network;
 using CyberBilby.Shared.Security;
+using CyberBilby.Shared.Extensions;
+
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -12,6 +15,7 @@ using System.Net.Security;
 using System.Net.Sockets;
 
 using System.Security.Cryptography.X509Certificates;
+using CyberBilby.Shared.Repositories;
 
 namespace CyberBilby.MgmtServer.Services;
 
@@ -19,16 +23,23 @@ public class ManagementServiceHost : BackgroundService
 {
     private TcpListener _listener;
     private readonly ILogger<ManagementServiceHost> logger;
-    private readonly BilbyDbContext dbContext;
+    private readonly IBlogRepository blogRepo;
+    private List<SslClient> authenticatedClients;
+    private CancellationToken stoppingToken;
+    private Dictionary<PacketType, Func<SslClient, Task>> packetHandlers;
 
-    public ManagementServiceHost(ILogger<ManagementServiceHost> logger, BilbyDbContext dbContext)
+    public ManagementServiceHost(ILogger<ManagementServiceHost> logger, IBlogRepository blogRepo)
     {
         _listener = new TcpListener(IPAddress.Any, 44123);
+
         this.logger = logger;
-        this.dbContext = dbContext;
+        this.blogRepo = blogRepo;
+
+        authenticatedClients = new List<SslClient>();
+        packetHandlers = new Dictionary<PacketType, Func<SslClient, Task>>();
     }
 
-    private async Task StartListeningAsync(CancellationToken cancellationToken)
+    private async Task StartListeningAsync()
     {
         logger.LogInformation("Starting listen server..");
 
@@ -36,7 +47,7 @@ public class ManagementServiceHost : BackgroundService
 
         logger.LogInformation("Started. Waiting for clients..");
 
-        while(!cancellationToken.IsCancellationRequested)
+        while(!stoppingToken.IsCancellationRequested)
         {
             var client = await _listener.AcceptTcpClientAsync();
 
@@ -48,7 +59,9 @@ public class ManagementServiceHost : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        await StartListeningAsync(stoppingToken);
+        this.stoppingToken = stoppingToken;
+
+        await StartListeningAsync();
     }
 
     private async Task<bool> ValidateCertificateAsync(X509Certificate2? certificate)
@@ -58,30 +71,19 @@ public class ManagementServiceHost : BackgroundService
             return false;
         }
 
-        var isRevoked = await dbContext.RevokedCertificates
-            .AnyAsync(c => c.Fingerprint.ToLower() == certificate.Thumbprint.ToLower());
-
+        var isRevoked = await blogRepo.IsCertificateRevokedAsync(certificate.Thumbprint);
         if(isRevoked)
         {
             return false;
         }
 
-        if(await GetAuthorAsync(certificate) is null)
+        var author = await blogRepo.GetAuthorAsync(certificate.Thumbprint);
+        if (author is null)
         {
             return false;
         }
 
         return true;
-    }
-
-    private async Task<BlogAuthor?> GetAuthorAsync(X509Certificate2 certificate)
-    {
-        return await dbContext.Authors.FirstOrDefaultAsync(a => a.Fingerprint == certificate.Thumbprint);
-    }
-
-    private async Task DisconnectAsync(SslStream stream)
-    {
-        stream.Close();
     }
 
     private async Task HandleClientConnectAsync(TcpClient client)
@@ -103,14 +105,14 @@ public class ManagementServiceHost : BackgroundService
 
             if(!await ValidateCertificateAsync(certificate))
             {
-                await DisconnectAsync(sslStream);
+                sslStream.Close();
                 return;
             }
 
-            var author = await GetAuthorAsync(certificate);
-            if(author is null)
+            var author = await blogRepo.GetAuthorAsync(certificate.Thumbprint);
+            if (author is null)
             {
-                await DisconnectAsync(sslStream);
+                sslStream.Close();
                 return;
             }
 
@@ -123,11 +125,38 @@ public class ManagementServiceHost : BackgroundService
                 }
             });
 
+            var sslClient = new SslClient()
+            {
+                Stream = sslStream,
+                Client = client
+            };
+
+            authenticatedClients.Add(sslClient);
+
             logger.LogInformation("Client passed authentication.");
+
+            await ListenForDataAsync(sslClient);
         }
         catch(Exception ex)
         {
             logger.LogCritical($"Client failed authentication: {ex.Message}");
+        }
+    }
+
+    private async Task ListenForDataAsync(SslClient client)
+    {
+        while(!stoppingToken.IsCancellationRequested)
+        {
+            var stream = client.Stream;
+
+            var packetType = (PacketType)await stream.ReadIntAsync(stoppingToken);
+            if(!packetHandlers.ContainsKey(packetType))
+            {
+                await client.DisconnectAsync("Invalid packet type.");
+                break;
+            }
+
+            await packetHandlers[packetType].Invoke(client);
         }
     }
 }

@@ -31,6 +31,9 @@
     cursor: pointer;
     user-select: none;
 }
+.sidebar-item.active {
+    border: 1px solid red;
+}
 
 .page {
     flex: 1;

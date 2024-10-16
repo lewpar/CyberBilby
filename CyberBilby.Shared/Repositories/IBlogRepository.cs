@@ -10,4 +10,8 @@ public interface IBlogRepository
     Task AddPostAsync(BlogPost post);
     Task UpdatePostAsync(BlogPost post);
     Task DeletePostAsync(int id);
+
+    Task<BlogAuthor?> GetAuthorAsync(string fingerprint);
+
+    Task<bool> IsCertificateRevokedAsync(string fingerprint);
 }

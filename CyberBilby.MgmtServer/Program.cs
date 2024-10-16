@@ -9,6 +9,7 @@ using CyberBilby.MgmtServer.Services;
 using CyberBilby.Shared.Database;
 using CyberBilby.Shared.Configuration;
 using CyberBilby.Shared.Security;
+using CyberBilby.Shared.Repositories;
 
 namespace CyberBilby.MgmtServer;
 
@@ -30,6 +31,7 @@ class Program()
         {
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
         });
+        builder.Services.AddScoped<IBlogRepository, MySqlBlogRepository>();
 
         var app = builder.Build();
 
