@@ -14,13 +14,13 @@ namespace CyberBilby.MgmtClient.Services;
 
 public class ManagementService
 {
+    public event EventHandler<RequestPostsResponseEventArgs>? RequestPostsResponse;
+
     private TcpClient _tcpClient;
     private SslStream? _sslStream;
 
     private Dictionary<PacketType, Func<SslStream, Task>> packetHandlers;
     private readonly ILogger<ManagementService> logger;
-
-    public event EventHandler<RespondPostsEventArgs> OnRespondPosts;
 
     private CancellationTokenSource _cancellationTokenSource;
     private CancellationToken _cancellationToken;
@@ -140,19 +140,12 @@ public class ManagementService
     {
         logger.LogInformation("Received posts from server");
 
-        var dataLength = await stream.ReadIntAsync();
-        byte[] jsonData = new byte[dataLength];
-
-        await stream.ReadAtLeastAsync(jsonData, dataLength);
-
-        var ms = new MemoryStream(jsonData);
-
-        var posts = await JsonSerializer.DeserializeAsync<List<BlogPost>>(ms);
+        var posts = await stream.DeserializeAsync<List<BlogPost>>();
         if(posts is null)
         {
             throw new Exception("Failed to deserialize posts.");
         }
 
-        OnRespondPosts?.Invoke(this, new RespondPostsEventArgs(posts));
+        RequestPostsResponse?.Invoke(this, new RequestPostsResponseEventArgs(posts));
     }
 }

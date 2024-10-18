@@ -1,4 +1,5 @@
-﻿using CyberBilby.MgmtClient.Services;
+﻿using CyberBilby.MgmtClient.Events;
+using CyberBilby.MgmtClient.Services;
 
 using CyberBilby.Shared.Database.Entities;
 
@@ -9,26 +10,31 @@ namespace CyberBilby.MgmtClient.Components.Pages.Auth;
 public partial class Posts : ComponentBase
 {
     [Inject]
-    private ManagementService ManagementService { get; set; } = default!;
+    private ManagementService Manage { get; set; } = default!;
 
     private List<BlogPost>? posts;
     private bool postsLoaded;
 
     protected override void OnInitialized()
     {
-        ManagementService.OnRespondPosts += ManagementService_OnRespondPosts;
+        Manage.RequestPostsResponse += OnRequestPostsResponseReceived;
     }
 
-    private void ManagementService_OnRespondPosts(object? sender, Events.RespondPostsEventArgs e)
+    protected override async Task OnParametersSetAsync()
     {
-        posts = e.Posts;
-        postsLoaded = true;
+        await Task.Delay(500);
 
-        StateHasChanged();
+        await Manage.RequestPostsAsync();
     }
 
-    private async Task LoadPostsAsync()
+    private async void OnRequestPostsResponseReceived(object? sender, RequestPostsResponseEventArgs e)
     {
-        await ManagementService.RequestPostsAsync();
+        await this.InvokeAsync(() =>
+        {
+            posts = e.Posts;
+            postsLoaded = true;
+
+            StateHasChanged();
+        });
     }
 }
