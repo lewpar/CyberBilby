@@ -1,12 +1,9 @@
 ﻿using CyberBilby.MgmtServer.Network;
 
-using CyberBilby.Shared.Database;
-using CyberBilby.Shared.Database.Entities;
 using CyberBilby.Shared.Network;
 using CyberBilby.Shared.Security;
 using CyberBilby.Shared.Extensions;
 
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
@@ -36,7 +33,10 @@ public class ManagementServiceHost : BackgroundService
         this.blogRepo = blogRepo;
 
         authenticatedClients = new List<SslClient>();
-        packetHandlers = new Dictionary<PacketType, Func<SslClient, Task>>();
+        packetHandlers = new Dictionary<PacketType, Func<SslClient, Task>>()
+        {
+            { PacketType.CMSG_POSTS, HandleRequestPostsAsync }
+        };
     }
 
     private async Task StartListeningAsync()
@@ -127,6 +127,7 @@ public class ManagementServiceHost : BackgroundService
 
             var sslClient = new SslClient()
             {
+                Endpoint = client.Client.RemoteEndPoint,
                 Stream = sslStream,
                 Client = client
             };
@@ -139,7 +140,7 @@ public class ManagementServiceHost : BackgroundService
         }
         catch(Exception ex)
         {
-            logger.LogCritical($"Client failed authentication: {ex.Message}");
+            logger.LogCritical($"Client failed authentication: {ex.Message} {ex.StackTrace}");
         }
     }
 
@@ -158,5 +159,18 @@ public class ManagementServiceHost : BackgroundService
 
             await packetHandlers[packetType].Invoke(client);
         }
+    }
+
+    private async Task HandleRequestPostsAsync(SslClient client)
+    {
+        logger.LogInformation($"Client '{client.Endpoint}' is requesting posts.");
+
+        var posts = await blogRepo.GetAllPostsAsync();
+        var response = new RespondPostsPacket()
+        {
+            Posts = posts.ToList()
+        };
+
+        await client.Stream.SendPacketAsync(response);
     }
 }

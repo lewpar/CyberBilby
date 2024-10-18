@@ -17,6 +17,9 @@ public class BlogPost
     [Column("content")]
     public required string Content { get; set; }
 
-    [Column("author")]
+    [ForeignKey(nameof(AuthorId))]
+    [Column("author_id")]
+    public required int AuthorId { get; set; }
+
     public required BlogAuthor Author { get; set; }
 }

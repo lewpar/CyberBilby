@@ -1,4 +1,4 @@
-﻿namespace CyberBilby.Shared;
+﻿namespace CyberBilby.Shared.Extensions;
 
 public static class StreamExtensions
 {

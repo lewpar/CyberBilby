@@ -8,4 +8,9 @@ public static class StreamExtensions
     {
         stream.Write(packet.Serialize());
     }
+
+    public static async Task SendPacketAsync(this SslStream stream, IPacket packet)
+    {
+        await stream.WriteAsync(packet.Serialize());
+    }
 }

@@ -2,5 +2,7 @@
 
 public enum PacketType
 {
-    SMSG_AUTH
+    SMSG_AUTH,
+    CMSG_POSTS,
+    SMSG_POSTS
 }

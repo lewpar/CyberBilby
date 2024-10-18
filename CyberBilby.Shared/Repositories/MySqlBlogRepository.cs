@@ -24,9 +24,9 @@ public class MySqlBlogRepository : IBlogRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<BlogPost>> GetAllPostsAsync()
+    public async Task<IEnumerable<BlogPost>> GetAllPostsAsync()
     {
-        throw new NotImplementedException();
+        return await dbContext.Posts.ToListAsync();
     }
 
     public async Task<BlogAuthor?> GetAuthorAsync(string fingerprint)

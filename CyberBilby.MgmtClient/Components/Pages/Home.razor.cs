@@ -61,6 +61,8 @@ public partial class Home : ComponentBase
             var profile = await ManagementService.AuthenticateAsync();
             ProfileManager.UpdateProfile(profile);
 
+            await ManagementService.StartListeningAsync();
+
             NavigationManager.NavigateTo("/manage");
         }
         catch(Exception ex)

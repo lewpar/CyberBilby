@@ -1,5 +1,23 @@
-﻿<h3>Posts</h3>
-
-@code {
-
+﻿@if(postsLoaded)
+{
+    if(posts is null ||
+        posts.Count < 1)
+    {
+        <div>No posts found..</div>
+    }
+    else
+    {
+        <div style="display: flex; flex-direction: column; gap: 0.5rem">
+            @foreach (var post in posts)
+            {
+                <div style="border: 1px solid black; padding: 0.5rem">
+                    @post.Title
+                </div>
+            }
+        </div>
+    }
+}
+else
+{
+    <button @onclick="LoadPostsAsync">Load Posts</button>
 }
