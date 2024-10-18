@@ -1,22 +1,114 @@
-html {
-  font-size: 14px;
-}
-
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
-
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
-
-html {
-  position: relative;
-  min-height: 100%;
-}
-
 body {
-  margin-bottom: 60px;
+    display: flex;
+    flex-direction: column;
+
+    min-height: 100vh;
+    margin: 0;
+
+    color: white;
+    background-color: #101010;
+
+    font-family: Arial;
+}
+
+.container {
+    flex: 1;
+
+    display: flex;
+    flex-direction: row;
+}
+
+aside {
+    display: flex;
+    flex-direction: column;
+
+    background-color: black;
+
+    border-right: 2px solid #202020;
+}
+
+.site-logo {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 1.25rem;
+
+    padding: 1rem 2rem;
+}
+.site-logo > img {
+    max-width: 64px;
+}
+
+aside > nav > ul {
+    display: flex;
+    flex-direction: column;
+
+    gap: 0.5rem;
+
+    list-style: none;
+
+    padding: 0;
+    margin: 0;
+}
+aside > nav > ul > li {
+    display: flex;
+}
+
+.nav-item {
+    flex: 1;
+
+    border: 4px solid black;
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+
+    padding: 0.5rem;
+
+    color: white;
+    text-decoration: none;
+
+    transition: background-color 0.25s;
+}
+.nav-item:hover {
+    border: 4px solid rgb(40, 40, 40);
+    border-right: 0;
+    border-top: 0;
+    border-bottom: 0;
+
+    background-color: rgb(20, 20, 20);
+}
+.nav-item.selected {
+    border: 1px solid rgb(59 130 246);
+    border-left-width: 4px;
+
+    border-radius: 0px 5px 5px 0px;
+
+    margin-right: 0.5rem;
+    
+    background-color: rgb(29 78 216);
+}
+
+main {
+    display: flex;
+    flex-direction: row;
+
+    padding: 1rem;
+}
+
+footer {
+    display: flex;
+    flex-direction: row;
+
+    gap: 0.5rem;
+
+    align-items: center;
+    justify-content: center;
+
+    background-color: black;
+    border-top: 2px solid #202020;
+
+    padding: 1rem;
 }

@@ -22,7 +22,7 @@ namespace CyberBilby.Web.Pages
 
         public async Task OnGetAsync()
         {
-            //Posts = (await BlogRepository.GetAllPostsAsync()).ToList();
+            Posts = (await BlogRepository.GetAllPostsAsync()).ToList();
         }
     }
 }

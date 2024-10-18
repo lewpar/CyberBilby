@@ -1,4 +1,7 @@
+using CyberBilby.Shared.Configuration;
+using CyberBilby.Shared.Database;
 using CyberBilby.Shared.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace CyberBilby.Web
 {
@@ -8,10 +11,18 @@ namespace CyberBilby.Web
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            DotEnv.Load(Environment.CurrentDirectory);
+            DotEnv.Ensure("MYSQL_CONNECTION");
+
+            var connectionString = DotEnv.Get("MYSQL_CONNECTION");
+
             builder.Services.AddRazorPages();
 
-            //builder.Services.AddSingleton<IBlogRepository>(new SQLiteBlogRepository("Data Source=.\\testdb.db;Version=3"));
+            builder.Services.AddDbContext<BilbyDbContext>(options =>
+            {
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            });
+            builder.Services.AddScoped<IBlogRepository, MySqlBlogRepository>();
 
             var app = builder.Build();
 
