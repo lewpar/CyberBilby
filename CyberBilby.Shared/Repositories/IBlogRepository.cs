@@ -1,10 +1,12 @@
 ﻿using CyberBilby.Shared.Database.Entities;
+using CyberBilby.Shared.Database.Models;
 
 namespace CyberBilby.Shared.Repositories;
 
 public interface IBlogRepository
 {
-    Task<IEnumerable<BlogPost>> GetAllPostsAsync();
+    Task<List<BlogPost>> GetAllPostsAsync();
+    Task<List<ShortBlogPost>> GetAllShortPostsAsync();
 
     Task<BlogPost?> GetPostByIdAsync(int id);
     Task AddPostAsync(BlogPost post);

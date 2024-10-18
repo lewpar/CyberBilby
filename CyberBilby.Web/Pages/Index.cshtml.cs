@@ -1,4 +1,5 @@
 using CyberBilby.Shared.Database.Entities;
+using CyberBilby.Shared.Database.Models;
 using CyberBilby.Shared.Repositories;
 
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -9,7 +10,7 @@ namespace CyberBilby.Web.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public List<BlogPost> Posts { get; set; } = new List<BlogPost>();
+        public List<ShortBlogPost> Posts { get; set; } = new List<ShortBlogPost>();
 
         private IBlogRepository BlogRepository { get; set; }
 
@@ -22,7 +23,7 @@ namespace CyberBilby.Web.Pages
 
         public async Task OnGetAsync()
         {
-            Posts = (await BlogRepository.GetAllPostsAsync()).ToList();
+            Posts = await BlogRepository.GetAllShortPostsAsync();
         }
     }
 }

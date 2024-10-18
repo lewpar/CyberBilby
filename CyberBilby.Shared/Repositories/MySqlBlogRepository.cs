@@ -1,6 +1,6 @@
 ﻿using CyberBilby.Shared.Database;
 using CyberBilby.Shared.Database.Entities;
-
+using CyberBilby.Shared.Database.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberBilby.Shared.Repositories;
@@ -24,9 +24,20 @@ public class MySqlBlogRepository : IBlogRepository
         throw new NotImplementedException();
     }
 
-    public async Task<IEnumerable<BlogPost>> GetAllPostsAsync()
+    public async Task<List<BlogPost>> GetAllPostsAsync()
     {
         return await dbContext.Posts.ToListAsync();
+    }
+
+    public async Task<List<ShortBlogPost>> GetAllShortPostsAsync()
+    {
+        return await dbContext.Posts.Select(p => new ShortBlogPost()
+        {
+            Id = p.Id,
+            Title = p.Title,
+            ShortContent = p.ShortContent,
+            Author = p.Author,
+        }).ToListAsync();
     }
 
     public async Task<BlogAuthor?> GetAuthorAsync(string fingerprint)
