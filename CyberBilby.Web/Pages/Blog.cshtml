@@ -1,0 +1,20 @@
+﻿@page "/blog"
+@model CyberBilby.Web.Pages.BlogModel
+@{
+    ViewData["Title"] = "Blog";
+}
+
+<div class="post-cards">
+    @foreach (var post in this.Model.Posts)
+    {
+        <a href="/blog/@(post.Slug)" class="post-card">
+            <div class="post-card-title">
+                @post.Title
+            </div>
+
+            <div class="post-card-details">
+                @post.ShortContent
+            </div>
+        </a>
+    }
+</div>

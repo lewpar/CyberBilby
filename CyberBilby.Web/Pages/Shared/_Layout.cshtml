@@ -20,11 +20,11 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="#" class="nav-item selected">Home</a>
+                        <a asp-page="Index" class="nav-item @(IsCurrentPath("/") ? "selected" : "")">Home</a>
                     </li>
 
                     <li>
-                        <a href="#" class="nav-item">Posts</a>
+                        <a asp-page="Blog" class="nav-item @(IsCurrentPath("/blog") ? "selected" : "")">Blog</a>
                     </li>
                 </ul>
             </nav>
@@ -44,3 +44,22 @@
     </footer>
 </body>
 </html>
+
+@{
+    bool IsCurrentPath(string path)
+    {
+        var requestPath = this.Context.Request.Path.ToString().ToLower();
+
+        if(requestPath == "/")
+        {
+            if (requestPath == path)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        return path.StartsWith(requestPath);
+    }
+}

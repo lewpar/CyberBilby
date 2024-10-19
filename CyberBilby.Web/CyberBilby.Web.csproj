@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Pages\Posts.cshtml.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CyberBilby.Shared\CyberBilby.Shared.csproj" />
   </ItemGroup>
 

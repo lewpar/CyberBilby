@@ -34,6 +34,7 @@ public class MySqlBlogRepository : IBlogRepository
         return await dbContext.Posts.Select(p => new ShortBlogPost()
         {
             Id = p.Id,
+            Slug = p.Slug,
             Title = p.Title,
             ShortContent = p.ShortContent,
             Author = p.Author,
