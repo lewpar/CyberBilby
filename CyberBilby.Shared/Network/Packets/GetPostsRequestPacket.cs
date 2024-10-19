@@ -2,9 +2,9 @@
 
 namespace CyberBilby.MgmtClient.Network;
 
-public class RequestPostsPacket : IPacket
+public class GetPostsRequestPacket : IPacket
 {
-    public PacketType PacketType => PacketType.CMSG_POSTS;
+    public PacketType PacketType => PacketType.CMSG_GET_POSTS;
 
     public byte[] Serialize()
     {

@@ -3,6 +3,9 @@
 using CyberBilby.Shared.Network;
 using CyberBilby.Shared.Security;
 using CyberBilby.Shared.Extensions;
+using CyberBilby.Shared.Repositories;
+using CyberBilby.Shared.Database.Entities;
+using CyberBilby.Shared.Network.Packets;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -12,7 +15,6 @@ using System.Net.Security;
 using System.Net.Sockets;
 
 using System.Security.Cryptography.X509Certificates;
-using CyberBilby.Shared.Repositories;
 
 namespace CyberBilby.MgmtServer.Services;
 
@@ -35,7 +37,8 @@ public class ManagementServiceHost : BackgroundService
         authenticatedClients = new List<SslClient>();
         packetHandlers = new Dictionary<PacketType, Func<SslClient, Task>>()
         {
-            { PacketType.CMSG_POSTS, HandleRequestPostsAsync }
+            { PacketType.CMSG_GET_POSTS, HandleRequestPostsAsync },
+            { PacketType.CMSG_CREATE_POST, HandleCreatePostAsync }
         };
     }
 
@@ -116,7 +119,7 @@ public class ManagementServiceHost : BackgroundService
                 return;
             }
 
-            sslStream.SendPacket(new AuthPacket()
+            sslStream.SendPacket(new AuthenticateResponsePacket()
             {
                 Profile = new AuthProfile()
                 {
@@ -128,6 +131,7 @@ public class ManagementServiceHost : BackgroundService
             var sslClient = new SslClient()
             {
                 Endpoint = client.Client.RemoteEndPoint,
+                Fingerprint = certificate.Thumbprint,
                 Stream = sslStream,
                 Client = client
             };
@@ -166,11 +170,50 @@ public class ManagementServiceHost : BackgroundService
         logger.LogInformation($"Client '{client.Endpoint}' is requesting posts.");
 
         var posts = await blogRepo.GetAllPostsAsync();
-        var response = new RespondPostsPacket()
+        var response = new GetPostsResponsePacket()
         {
             Posts = posts.ToList()
         };
 
         await client.Stream.SendPacketAsync(response);
+    }
+
+    private async Task HandleCreatePostAsync(SslClient client)
+    {
+        logger.LogInformation($"Client '{client.Endpoint}' is creating post.");
+
+        var post = await client.Stream.DeserializeAsync<BlogPost>();
+        if(post is null)
+        {
+            logger.LogCritical("Failed to deserialize blog post.");
+
+            await client.Stream.SendPacketAsync(new CreatePostResponsePacket() 
+            { 
+                Result = false, 
+                Message = "Internal server error occured" 
+            });
+
+            return;
+        }
+
+        post.Author = await blogRepo.GetAuthorAsync(client.Fingerprint);
+
+        if(await blogRepo.PostWithSlugExistsAsync(post))
+        {
+            await client.Stream.SendPacketAsync(new CreatePostResponsePacket()
+            {
+                Result = false,
+                Message = "A post with that slug already exists."
+            });
+
+            return;
+        }
+
+        await blogRepo.CreatePostAsync(post);
+        await client.Stream.SendPacketAsync(new CreatePostResponsePacket() 
+        { 
+            Result = true,
+            Message = "Post created."
+        });
     }
 }

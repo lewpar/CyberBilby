@@ -17,17 +17,17 @@ public partial class Posts : ComponentBase
 
     protected override void OnInitialized()
     {
-        Manage.RequestPostsResponse += OnRequestPostsResponseReceived;
+        Manage.GetPostsResponse += OnRequestPostsResponseReceived;
     }
 
     protected override async Task OnParametersSetAsync()
     {
         await Task.Delay(500);
 
-        await Manage.RequestPostsAsync();
+        await Manage.RequestGetPostsAsync();
     }
 
-    private async void OnRequestPostsResponseReceived(object? sender, RequestPostsResponseEventArgs e)
+    private async void OnRequestPostsResponseReceived(object? sender, GetPostsResponseEventArgs e)
     {
         await this.InvokeAsync(() =>
         {

@@ -14,7 +14,8 @@ namespace CyberBilby.MgmtClient.Services;
 
 public class ManagementService
 {
-    public event EventHandler<RequestPostsResponseEventArgs>? RequestPostsResponse;
+    public event EventHandler<GetPostsResponseEventArgs>? GetPostsResponse;
+    public event EventHandler<CreatePostResponseEventArgs>? CreatePostResponse;
 
     private TcpClient _tcpClient;
     private SslStream? _sslStream;
@@ -30,7 +31,8 @@ public class ManagementService
         _tcpClient = new TcpClient();
         packetHandlers = new Dictionary<PacketType, Func<SslStream, Task>>()
         {
-            { PacketType.SMSG_POSTS, HandleRespondPostsAsync }
+            { PacketType.SMSG_GET_POSTS, HandleGetPostsResponseAsync },
+            { PacketType.SMSG_CREATE_POST, HandleCreatePostResponseAsync }
         };
         this.logger = logger;
 
@@ -124,19 +126,19 @@ public class ManagementService
         }
     }
 
-    public async Task RequestPostsAsync()
+    public async Task RequestGetPostsAsync()
     {
         if (_sslStream is null)
         {
-            throw new Exception("Tried to authenticate client with unitialize ssl stream.");
+            throw new Exception("Tried to authenticate client with uninitialized ssl stream.");
         }
 
         logger.LogInformation("Requesting posts from server");
 
-        await _sslStream.SendPacketAsync(new RequestPostsPacket());
+        await _sslStream.SendPacketAsync(new GetPostsRequestPacket());
     }
 
-    private async Task HandleRespondPostsAsync(SslStream stream)
+    private async Task HandleGetPostsResponseAsync(SslStream stream)
     {
         logger.LogInformation("Received posts from server");
 
@@ -146,6 +148,28 @@ public class ManagementService
             throw new Exception("Failed to deserialize posts.");
         }
 
-        RequestPostsResponse?.Invoke(this, new RequestPostsResponseEventArgs(posts));
+        GetPostsResponse?.Invoke(this, new GetPostsResponseEventArgs(posts));
+    }
+
+    public async Task RequestCreatePostAsync(BlogPost post)
+    {
+        if (_sslStream is null)
+        {
+            throw new Exception("Tried to request create post with uninitialized ssl stream.");
+        }
+
+        logger.LogInformation("Requesting create post from server");
+
+        await _sslStream.SendPacketAsync(new CreatePostRequestPacket() { Post = post});
+    }
+
+    private async Task HandleCreatePostResponseAsync(SslStream stream)
+    {
+        logger.LogInformation("Received create post response from server");
+
+        var result = await stream.ReadBoolAsync();
+        var message = await stream.ReadStringAsync();
+
+        CreatePostResponse?.Invoke(this, new CreatePostResponseEventArgs(result, message));
     }
 }

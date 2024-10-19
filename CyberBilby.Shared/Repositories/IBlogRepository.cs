@@ -9,9 +9,11 @@ public interface IBlogRepository
     Task<List<ShortBlogPost>> GetAllShortPostsAsync();
 
     Task<BlogPost?> GetPostByIdAsync(int id);
-    Task AddPostAsync(BlogPost post);
+    Task CreatePostAsync(BlogPost post);
     Task UpdatePostAsync(BlogPost post);
     Task DeletePostAsync(int id);
+
+    Task<bool> PostWithSlugExistsAsync(BlogPost post);
 
     Task<BlogAuthor?> GetAuthorAsync(string fingerprint);
 

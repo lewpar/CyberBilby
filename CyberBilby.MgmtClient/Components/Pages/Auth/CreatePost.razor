@@ -1,0 +1,30 @@
+﻿@page "/createpost"
+@rendermode InteractiveServer
+
+<h3>CreatePost</h3>
+
+<Alert></Alert>
+
+<div class="form">
+    <div class="form-item">
+        <label>Title</label>
+        <input type="text" @bind="title" />
+    </div>
+
+    <div class="form-item">
+        <label>Slug</label>
+        <input type="text" @bind="slug" />
+    </div>
+
+    <div class="form-item">
+        <label>Short Content</label>
+        <input type="text" @bind="shortContent" />
+    </div>
+
+    <div class="form-item">
+        <label>Content</label>
+        <input type="text" @bind="content" />
+    </div>
+
+    <button @onclick="CreatePostAsync">Create Post</button>
+</div>

@@ -4,22 +4,21 @@ using CyberBilby.Shared.Network;
 using System.Text.Json;
 using System.Text;
 
-namespace CyberBilby.MgmtServer.Network;
+namespace CyberBilby.MgmtClient.Network;
 
-public class RespondPostsPacket : IPacket
+public class CreatePostRequestPacket : IPacket
 {
-    public PacketType PacketType => PacketType.SMSG_POSTS;
+    public PacketType PacketType => PacketType.CMSG_CREATE_POST;
 
-    public required List<BlogPost> Posts { get; set; }
+    public required BlogPost Post { get; set; }
 
     public byte[] Serialize()
     {
         var ms = new MemoryStream();
 
-        // Packet Type
         ms.Write(BitConverter.GetBytes((int)this.PacketType), 0, sizeof(int));
 
-        var json = JsonSerializer.Serialize<List<BlogPost>>(Posts);
+        var json = JsonSerializer.Serialize<BlogPost>(Post);
         var data = Encoding.UTF8.GetBytes(json);
 
         // Packet Length

@@ -1,6 +1,7 @@
 ﻿using CyberBilby.Shared.Database;
 using CyberBilby.Shared.Database.Entities;
 using CyberBilby.Shared.Database.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace CyberBilby.Shared.Repositories;
@@ -14,9 +15,15 @@ public class MySqlBlogRepository : IBlogRepository
         this.dbContext = dbContext;
     }
 
-    public Task AddPostAsync(BlogPost post)
+    public async Task CreatePostAsync(BlogPost post)
     {
-        throw new NotImplementedException();
+        await dbContext.Posts.AddAsync(post);
+
+        var rows = await dbContext.SaveChangesAsync();
+        if(rows < 0)
+        {
+            throw new Exception("Failed to create post, no rows were written.");
+        }
     }
 
     public Task DeletePostAsync(int id)
@@ -46,9 +53,9 @@ public class MySqlBlogRepository : IBlogRepository
         return await dbContext.Authors.FirstOrDefaultAsync(a => a.Fingerprint.ToLower() == fingerprint.ToLower());
     }
 
-    public Task<BlogPost?> GetPostByIdAsync(int id)
+    public async Task<BlogPost?> GetPostByIdAsync(int id)
     {
-        throw new NotImplementedException();
+        return await dbContext.Posts.FirstOrDefaultAsync(p => p.Id == id);
     }
 
     public async Task<bool> IsCertificateRevokedAsync(string fingerprint)
@@ -57,8 +64,13 @@ public class MySqlBlogRepository : IBlogRepository
             .AnyAsync(c => c.Fingerprint.ToLower() == fingerprint.ToLower());
     }
 
-    public Task UpdatePostAsync(BlogPost post)
+    public async Task<bool> PostWithSlugExistsAsync(BlogPost post)
     {
-        throw new NotImplementedException();
+        return await dbContext.Posts.FirstOrDefaultAsync(p => p.Slug.ToLower() == post.Slug.ToLower()) is not null;
+    }
+
+    public async Task UpdatePostAsync(BlogPost post)
+    {
+        //dbContext.Posts.FirstOrDefaultAsync
     }
 }

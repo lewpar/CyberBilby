@@ -2,11 +2,11 @@
 
 namespace CyberBilby.MgmtClient.Events;
 
-public class RequestPostsResponseEventArgs : EventArgs
+public class GetPostsResponseEventArgs : EventArgs
 {
     public List<BlogPost> Posts { get; set; }
 
-    public RequestPostsResponseEventArgs(List<BlogPost> posts)
+    public GetPostsResponseEventArgs(List<BlogPost> posts)
     {
         Posts = posts;
     }

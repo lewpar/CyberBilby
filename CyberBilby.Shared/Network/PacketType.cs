@@ -3,6 +3,10 @@
 public enum PacketType
 {
     SMSG_AUTH,
-    CMSG_POSTS,
-    SMSG_POSTS
+
+    CMSG_GET_POSTS,
+    SMSG_GET_POSTS,
+
+    CMSG_CREATE_POST,
+    SMSG_CREATE_POST,
 }
