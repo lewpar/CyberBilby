@@ -7,7 +7,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove=".env.example" />
     <None Remove="Pages\Posts.cshtml.css" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include=".env.example">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
