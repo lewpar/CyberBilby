@@ -1,168 +1,106 @@
 ﻿using CyberBilby.MgmtServer.Network;
 
 using CyberBilby.Shared.Network;
-using CyberBilby.Shared.Security;
 using CyberBilby.Shared.Extensions;
 using CyberBilby.Shared.Repositories;
 using CyberBilby.Shared.Database.Entities;
-using CyberBilby.Shared.Network.Packets;
 
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
 using System.Net;
-using System.Net.Security;
 using System.Net.Sockets;
 
+using CyberBilby.MgmtServer.Events;
+using CyberBilby.Shared.Security;
 using System.Security.Cryptography.X509Certificates;
+using CyberBilby.Shared.Network.Packets;
+using System.Net.Security;
 
 namespace CyberBilby.MgmtServer.Services;
 
 public class ManagementServiceHost : BackgroundService
 {
-    private TcpListener _listener;
     private readonly ILogger<ManagementServiceHost> logger;
     private readonly IBlogRepository blogRepo;
-    private List<SslClient> authenticatedClients;
-    private CancellationToken stoppingToken;
-    private Dictionary<PacketType, Func<SslClient, Task>> packetHandlers;
+
+    private ManagementServer _managementServer;
 
     public ManagementServiceHost(ILogger<ManagementServiceHost> logger, IBlogRepository blogRepo)
     {
-        _listener = new TcpListener(IPAddress.Any, 44123);
+        _managementServer = new ManagementServer(IPAddress.Any, 44123, X509Cert2.LoadFromFile("./server.pfx"));
+        _managementServer.CertificateValidationCallback = ValidateCertificateAsync;
+
+        RegisterHandlers();
+        RegisterEvents();
 
         this.logger = logger;
         this.blogRepo = blogRepo;
-
-        authenticatedClients = new List<SslClient>();
-        packetHandlers = new Dictionary<PacketType, Func<SslClient, Task>>()
-        {
-            { PacketType.CMSG_GET_POSTS, HandleRequestPostsAsync },
-            { PacketType.CMSG_CREATE_POST, HandleCreatePostAsync }
-        };
     }
 
-    private async Task StartListeningAsync()
+    private void RegisterHandlers()
     {
-        logger.LogInformation("Starting listen server..");
+        _managementServer.RegisterHandler(PacketType.CMSG_GET_POSTS, HandleRequestPostsAsync);
+        _managementServer.RegisterHandler(PacketType.CMSG_CREATE_POST, HandleCreatePostAsync);
+    }
 
-        _listener.Start();
+    private void RegisterEvents()
+    {
+        _managementServer.ClientConnected += _managementServer_ClientConnected;
+        _managementServer.ClientAuthenticated += _managementServer_ClientAuthenticated;
+        _managementServer.ClientRejected += _managementServer_ClientRejected;
+    }
 
-        logger.LogInformation("Started. Waiting for clients..");
+    private void _managementServer_ClientRejected(object? sender, ClientRejectedEventArgs e)
+    {
+        logger.LogCritical($"Client '{e.Client.Client.RemoteEndPoint}' rejected for reason: {e.Reason}");
+    }
 
-        while(!stoppingToken.IsCancellationRequested)
+    private async void _managementServer_ClientAuthenticated(object? sender, ClientAuthenticatedEventArgs e)
+    {
+        logger.LogInformation($"Client '{e.Client.Client.Client.RemoteEndPoint}' authenticated.");
+
+        var author = await blogRepo.GetAuthorAsync(e.Client.Fingerprint);
+        if (author is null)
         {
-            var client = await _listener.AcceptTcpClientAsync();
-
-            _ = HandleClientConnectAsync(client);
-
-            logger.LogInformation($"Client '{client.Client.RemoteEndPoint}' connected.");
+            return;
         }
+
+        await e.Client.Stream.SendPacketAsync(new AuthenticateResponsePacket()
+        {
+            Profile = new AuthProfile()
+            {
+                Name = author.Name,
+                Role = author.Role
+            }
+        });
+    }
+
+    private void _managementServer_ClientConnected(object? sender, ClientConnectedEventArgs e)
+    {
+        logger.LogInformation($"Client '{e.Client.Client.RemoteEndPoint}' connected.");
     }
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        this.stoppingToken = stoppingToken;
-
-        await StartListeningAsync();
+        await _managementServer.ListenAsync(stoppingToken);
     }
 
-    private async Task<bool> ValidateCertificateAsync(X509Certificate2? certificate)
+    private async Task<bool> ValidateCertificateAsync(X509Certificate2 clientCertificate)
     {
-        if(certificate is null)
+        var isRevoked = await blogRepo.IsCertificateRevokedAsync(clientCertificate.Thumbprint);
+        if (isRevoked)
         {
             return false;
         }
 
-        var isRevoked = await blogRepo.IsCertificateRevokedAsync(certificate.Thumbprint);
-        if(isRevoked)
-        {
-            return false;
-        }
-
-        var author = await blogRepo.GetAuthorAsync(certificate.Thumbprint);
+        var author = await blogRepo.GetAuthorAsync(clientCertificate.Thumbprint);
         if (author is null)
         {
             return false;
         }
 
         return true;
-    }
-
-    private async Task HandleClientConnectAsync(TcpClient client)
-    {
-        try
-        {
-            var sslStream = new SslStream(client.GetStream(), false);
-            await sslStream.AuthenticateAsServerAsync(new SslServerAuthenticationOptions()
-            {
-                ServerCertificate = X509Cert2.LoadFromFile("./server.pfx"),
-                ClientCertificateRequired = true
-            });
-
-            var certificate = sslStream.RemoteCertificate as X509Certificate2;
-            if (certificate is null)
-            {
-                return;
-            }
-
-            if(!await ValidateCertificateAsync(certificate))
-            {
-                sslStream.Close();
-                return;
-            }
-
-            var author = await blogRepo.GetAuthorAsync(certificate.Thumbprint);
-            if (author is null)
-            {
-                sslStream.Close();
-                return;
-            }
-
-            sslStream.SendPacket(new AuthenticateResponsePacket()
-            {
-                Profile = new AuthProfile()
-                {
-                    Name = author.Name,
-                    Role = author.Role
-                }
-            });
-
-            var sslClient = new SslClient()
-            {
-                Endpoint = client.Client.RemoteEndPoint,
-                Fingerprint = certificate.Thumbprint,
-                Stream = sslStream,
-                Client = client
-            };
-
-            authenticatedClients.Add(sslClient);
-
-            logger.LogInformation("Client passed authentication.");
-
-            await ListenForDataAsync(sslClient);
-        }
-        catch(Exception ex)
-        {
-            logger.LogCritical($"Client failed authentication: {ex.Message} {ex.StackTrace}");
-        }
-    }
-
-    private async Task ListenForDataAsync(SslClient client)
-    {
-        while(!stoppingToken.IsCancellationRequested)
-        {
-            var stream = client.Stream;
-
-            var packetType = (PacketType)await stream.ReadIntAsync(stoppingToken);
-            if(!packetHandlers.ContainsKey(packetType))
-            {
-                await client.DisconnectAsync("Invalid packet type.");
-                break;
-            }
-
-            await packetHandlers[packetType].Invoke(client);
-        }
     }
 
     private async Task HandleRequestPostsAsync(SslClient client)
