@@ -22,7 +22,7 @@ public class ManagementServer
     private TcpListener _listener;
     private Dictionary<PacketType, Func<SslClient, Task>> _handlers;
     private List<SslClient> _connectedClients;
-    private readonly X509Certificate2 serverCertificate;
+    private readonly X509Certificate2 _serverCertificate;
     private CancellationToken _stoppingToken;
 
     public ManagementServer(IPAddress ipAddress, int port, X509Certificate2 serverCertificate)
@@ -30,7 +30,7 @@ public class ManagementServer
         _listener = new TcpListener(ipAddress, port);
         _handlers = new Dictionary<PacketType, Func<SslClient, Task>>();
         _connectedClients = new List<SslClient>();
-        this.serverCertificate = serverCertificate;
+        _serverCertificate = serverCertificate;
     }
 
     public void RegisterHandler(PacketType packetType, Func<SslClient, Task> handler)
@@ -65,7 +65,7 @@ public class ManagementServer
             var sslStream = new SslStream(client.GetStream(), false);
             await sslStream.AuthenticateAsServerAsync(new SslServerAuthenticationOptions()
             {
-                ServerCertificate = serverCertificate,
+                ServerCertificate = _serverCertificate,
                 ClientCertificateRequired = true
             });
 
