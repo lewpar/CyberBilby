@@ -72,13 +72,18 @@ public class ManagementServer
             var certificate = sslStream.RemoteCertificate as X509Certificate2;
             if (certificate is null)
             {
+                sslStream.Close();
                 return;
             }
 
-            if (!await ValidateCertificateAsync(certificate))
+            if (CertificateValidationCallback is not null)
             {
-                sslStream.Close();
-                return;
+                if(!await CertificateValidationCallback(certificate))
+                {
+                    // TODO: Send a disconnect message back to the client
+                    sslStream.Close();
+                    return;
+                }
             }
 
             var sslClient = new SslClient()
@@ -99,21 +104,6 @@ public class ManagementServer
         {
             ClientRejected?.Invoke(this, new ClientRejectedEventArgs(client, RejectionReason.AuthenticationFailed));
         }
-    }
-
-    private async Task<bool> ValidateCertificateAsync(X509Certificate2? certificate)
-    {
-        if (certificate is null)
-        {
-            return false;
-        }
-
-        if(CertificateValidationCallback is not null)
-        {
-            return await CertificateValidationCallback(certificate);
-        }
-
-        return true;
     }
 
     private async Task ListenForDataAsync(SslClient client)
