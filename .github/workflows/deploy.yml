@@ -1,9 +1,9 @@
-name: Build
+name: Deploy
 
 on: [workflow_dispatch]
 
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Install Prerequisites
