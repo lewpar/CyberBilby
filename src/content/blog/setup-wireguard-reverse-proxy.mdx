@@ -9,6 +9,8 @@ category: Tutorial
 heroImage: /blog-content/setup-wireguard-reverse-proxy/hero.png
 ---
 
+import CardWarn from '../../components/CardWarn.astro';
+
 ## Why do this?
 
 Sometimes you want to host a local server and have it accessible on the wide area network, however sometimes due to
@@ -23,9 +25,9 @@ For this you will need:
 
 In this example I am using an Ubuntu 22.04 VPS from BinaryLane (not sponsored, I just like their cheap fast deployment servers) for the mediator server and a local Ubuntu 22.04 Server.
 
-{{< card-warn >}}
+<CardWarn>
 Ensure you have a firewall setup on the mediator server to block any connections from IP Addresses other than your own, otherwise anybody will be able to access your local machine through your mediator.
-{{< /card-warn >}}
+</CardWarn>
 
 ## Setup WireGuard
 Before doing anything you need to setup WireGuard on all of the devices involved in the reverse proxy.
@@ -96,9 +98,9 @@ In the above config I have removed the old rules and replaced them with new rule
 - Rewrites the destination address on traffic entering the `eth0` interface on port `80` to the WireGuard peer.
 - Rewrites the source address on the traffic leaving the eth0 interface as the Mediator server.
 
-{{< card-warn >}}
+<CardWarn>
 Ensure you have enabled IPv4 Forwarding, otherwise the mediator server will not forward frames to your local machine. For information on how to enable this feature, you can <a href="https://linuxconfig.org/how-to-turn-on-off-ip-forwarding-in-linux">follow this guide.</a>
-{{< /card-warn >}}
+</CardWarn>
 
 #### Note
 - Replace `10.0.0.2` with your local machine (peer) WireGuard interface IPv4 Address.
