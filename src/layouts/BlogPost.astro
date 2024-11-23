@@ -1,5 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getEntry } from 'astro:content';
+
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
@@ -7,7 +9,12 @@ import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, summary, pubDate, updatedDate, heroImage } = Astro.props;
+const { title, summary, pubDate, author, updatedDate, heroImage } = Astro.props;
+
+let postAuthor = await getEntry('authors', author);
+if(postAuthor === undefined) {
+    postAuthor = await getEntry('authors', 'anonymous');
+}
 ---
 
 <html lang="en">
@@ -44,6 +51,17 @@ const { title, summary, pubDate, updatedDate, heroImage } = Astro.props;
 			.title h1 {
 				margin: 0 0 0.5em 0;
 			}
+            .author {
+                display: flex;
+                flex-direction: row;
+
+                align-items: center;
+
+                gap: 0.5rem;
+            }
+            .author img {
+                max-width: 50px;
+            }
 			.date {
 				margin-bottom: 0.5em;
 				color: rgb(var(--gray));
@@ -63,7 +81,12 @@ const { title, summary, pubDate, updatedDate, heroImage } = Astro.props;
 				</div>
 				<div class="prose">
 					<div class="title">
-						<div class="date">
+						<h1>{title}</h1>
+                        <div class="author">
+                            <img src={postAuthor?.data.avatar} alt={postAuthor?.data.name} />
+                            {postAuthor?.data.name}
+                        </div>
+                        <div class="date">
 							<FormattedDate date={pubDate} />
 							{
 								updatedDate && (
@@ -73,7 +96,6 @@ const { title, summary, pubDate, updatedDate, heroImage } = Astro.props;
 								)
 							}
 						</div>
-						<h1>{title}</h1>
 						<hr />
 					</div>
 					<slot />

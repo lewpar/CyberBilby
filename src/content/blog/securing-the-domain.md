@@ -1,6 +1,8 @@
 ---
 pubDate: 2024-08-14T12:30:42+11:00
 
+author: lewpar
+
 title: Securing the Domain
 summary: The Critical Role of DNSSEC and DNS over HTTPS
 
