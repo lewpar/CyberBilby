@@ -1,0 +1,29 @@
+name: Deploy
+
+on: [workflow_dispatch]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Prerequisites
+        run: sudo apt install nodejs -y
+      
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        
+      - name: Install Package
+        run: npm install
+        
+      - name: Build Astro
+        run: npm run build
+        
+      - name: Upload Artifact
+        id: deployment
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/
+          
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
