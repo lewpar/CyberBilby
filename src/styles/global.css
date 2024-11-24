@@ -127,9 +127,21 @@ hr {
 	border-top: 1px solid rgb(var(--gray-light));
 }
 
+.blog-container {
+    display: flex; 
+    flex-direction: row; 
+    
+    gap: 1rem;
+}
 .blog-toc {
     flex: 2; 
     margin-right: 1rem
+}
+.blog-content {
+    flex: 8;
+}
+.blog-content pre {
+    text-wrap: wrap;
 }
 @media (max-width: 720px) {
 	body {

@@ -16,11 +16,11 @@ const post = Astro.props;
 const { headings, Content } = await post.render();
 ---
 <BlogPost {...post.data}>
-    <div style="display: flex; flex-direction: row; gap: 1rem">
+    <div class="blog-container">
         <div class="blog-toc">
             <TableOfContent headings={headings} />
         </div>
-        <div style="flex: 8">
+        <div class="blog-content">
             <Content />
         </div>
     </div>
