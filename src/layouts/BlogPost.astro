@@ -41,19 +41,22 @@ if(postAuthor === undefined) {
 				padding: 1em;
 				color: rgb(var(--gray-dark));
 			}
-			.title {
+            .title {
+                text-align: center;
+
+                margin-bottom: 2rem;
+            }
+			.header {
 				margin-bottom: 1em;
 				padding: 1em 0;
 				text-align: center;
 				line-height: 1;
 			}
-			.title h1 {
-				margin: 0 0 0.5em 0;
-			}
             .author {
                 display: flex;
                 flex-direction: row;
 
+                justify-content: center;
                 align-items: center;
 
                 gap: 0.5rem;
@@ -61,9 +64,15 @@ if(postAuthor === undefined) {
             .author img {
                 max-width: 50px;
             }
+            .author-details {
+                display: flex;
+                flex-direction: column;
+
+                align-items: start;
+            }
 			.date {
-				margin-bottom: 0.5em;
 				color: rgb(var(--gray));
+                font-size: 1rem;
 			}
 			.last-updated-on {
 				font-style: italic;
@@ -76,27 +85,23 @@ if(postAuthor === undefined) {
 		<main>
 			<article>
 				<div class="hero-image">
-					{heroImage && <img width={1020} height={510} src={heroImage} alt="" />}
+					{heroImage && <img src={heroImage} alt="" />}
 				</div>
 				<div class="prose">
-					<div class="title">
-						<h1>{title}</h1>
+					<div class="header">
                         <div class="author">
                             <img src={postAuthor?.data.avatar} alt={postAuthor?.data.name} />
-                            {postAuthor?.data.name}
+                            
+                            <div class="author-details">
+                                {postAuthor?.data.name}
+                                <div class="date">
+                                    Posted <FormattedDate date={pubDate} />
+                                </div>
+                            </div>
                         </div>
-                        <div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Last updated on <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
 						<hr />
 					</div>
+                    <h1 class="title">{title}</h1>
 					<slot />
 				</div>
 			</article>
