@@ -7,17 +7,61 @@ interface Props {
 
 const { headings } = Astro.props;
 let newHeadings = headings.filter((heading) => {
-    return heading.depth < 3;
+    return heading.depth < 4;
 });
-console.log(newHeadings);
+
+function getHeadingColor(depth: number) {
+    switch(depth) {
+        case 1:
+            return "#000000";
+        
+        case 2:
+            return "dodgerblue";
+
+        case 3:
+            return "limegreen";
+
+        default:
+            return "#000000";
+    }
+}
 ---
 
-<div style="display: block; position: sticky; top: 0">
-    <h3>Table of Contents</h3>
-    <ul>
+<style>
+    .toc {
+        display: block; 
+
+        position: sticky; 
+        top: 0; 
+
+        max-height: 100vh; 
+
+        overflow: auto;
+    }
+    .heading {
+        color: black;
+
+        font-size: 1rem;
+
+        text-decoration: none;
+    }
+    .heading:hover {
+        text-decoration: underline;
+    }
+
+    .toc-header {
+        font-size: 2rem;
+    }
+</style>
+
+<div class="toc">
+    <h2 class="toc-header">Table of Contents</h2>
+    <ul style="list-style: none; margin: 0; padding: 0">
         {
-            newHeadings.map(header => {
-                return <li><a href={`#${header.slug}`}>{header.text}</a></li>
+            newHeadings.map(heading => {
+                return <li style={`padding-left: ${heading.depth - 2}rem`}>
+                        <a class="heading" href={`#${heading.slug}`}><span style={`color: ${getHeadingColor(heading.depth)}`}>•</span> {heading.text}</a>
+                    </li>
             })
         }
     </ul>
