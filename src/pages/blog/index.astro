@@ -5,10 +5,13 @@ import Footer from '../../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import FormattedDate from '../../components/FormattedDate.astro';
+import Author from '../../components/Author.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+
+const authors = await getCollection('authors');
 ---
 
 <!doctype html>
@@ -21,9 +24,14 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul {
 				display: flex;
+                flex-direction: row;
+
 				flex-wrap: wrap;
+
 				gap: 2rem;
+
 				list-style-type: none;
+
 				margin: 0;
 				padding: 0;
 			}
@@ -37,19 +45,23 @@ const posts = (await getCollection('blog')).sort(
 			}
 			ul li img {
 				margin-bottom: 0.5rem;
-				border-radius: 12px;
+				border-radius: 12px 12px 0 0;
 			}
 			ul li a {
-				display: block;
+				display: flex;
+                flex-direction: column;
+
+                border: 1px solid rgb(220, 220, 220);
+                border-radius: 12px 12px 0 0;
+
+                background-color: white;
+
+                box-shadow: rgb(200, 200, 200) 1px 1px 10px;
 			}
 			.title {
 				margin: 0;
 				color: rgb(var(--black));
 				line-height: 1;
-			}
-			.date {
-				margin: 0;
-				color: rgb(var(--gray));
 			}
 			ul li a:hover h4,
 			ul li a:hover .date {
@@ -58,13 +70,23 @@ const posts = (await getCollection('blog')).sort(
 			ul a:hover img {
 				box-shadow: var(--box-shadow);
 			}
+
+            .post-details {
+                display: flex;
+                flex-direction: column;
+
+                padding: 0.5rem;
+            }
+            .post-details p {
+                color: black;
+            }
+
 			@media (max-width: 720px) {
 				ul {
 					gap: 0.5em;
 				}
 				ul li {
 					width: 100%;
-					text-align: center;
 				}
 			}
 		</style>
@@ -76,17 +98,23 @@ const posts = (await getCollection('blog')).sort(
 			<section>
 				<ul>
 					{
-						posts.map((post) => (
-							<li>
+						posts.map((post) => {
+                            let author = authors.find(a => a.id == post.data.author);
+                            if(author === undefined) {
+                                author = authors.find(a => a.id == 'anonymous');
+                            }
+
+							return <li>
 								<a href={`/blog/${post.slug}/`}>
 									<img src={post.data.heroImage} alt="" />
-									<h4 class="title">{post.data.title}</h4>
-									<p class="date">
-										<FormattedDate date={post.data.pubDate} />
-									</p>
+                                    <div class="post-details">
+                                        <h4 class="title">{post.data.title}</h4>
+                                        <p>{post.data.summary}</p>
+                                        <Author name={author!.data.name} avatar={author!.data.avatar} date={post.data.pubDate}></Author>
+                                    </div>
 								</a>
 							</li>
-						))
+						})
 					}
 				</ul>
 			</section>
