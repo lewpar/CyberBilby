@@ -1,0 +1,48 @@
+---
+import FormattedDate from './FormattedDate.astro';
+
+interface Props {
+    name: string;
+    avatar: string;
+    date: Date;
+}
+
+const { name, avatar, date } = Astro.props;
+---
+
+<style>
+    .author {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+
+        gap: 0.5rem;
+    }
+    .author img {
+        max-width: 50px;
+    }
+    .author-details {
+        display: flex;
+        flex-direction: column;
+
+        align-items: start;
+
+        line-height: 1.2;
+    }
+    .date {
+        color: rgb(var(--gray));
+        font-size: 1rem;
+    }
+</style>
+
+<div class="author">
+    <img src={avatar} alt={name} />
+    
+    <div class="author-details">
+        {name}
+        <div class="date">
+            Posted <FormattedDate date={date} />
+        </div>
+    </div>
+</div>
