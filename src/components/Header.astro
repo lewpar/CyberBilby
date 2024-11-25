@@ -3,9 +3,26 @@ import HeaderLink from './HeaderLink.astro';
 import { SITE_TITLE } from '../consts';
 ---
 
+<style>
+    nav {
+        display: flex;
+    }
+    .site-title {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+
+        gap: 0.5rem;
+    }
+</style>
+
 <header>
 	<nav>
-		<h2><a href="/">{SITE_TITLE}</a></h2>
+        <a href="/" class="site-title">
+            <img src="/favicon.png" alt="cyber bilby" width="50" height="50"/>
+            <h2>{SITE_TITLE}</h2>
+        </a>
 		<div class="internal-links">
 			<HeaderLink href="/">Home</HeaderLink>
 			<HeaderLink href="/blog">Blog</HeaderLink>
