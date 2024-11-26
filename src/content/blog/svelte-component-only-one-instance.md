@@ -5,6 +5,7 @@ author: lewpar
 
 title: Having more than one script in a Svelte component
 summary: A component can only have one instance-level <script> element, but how do you fix this?
+category: article
 
 heroImage: /blog-content/svelte-component-only-one-instance/hero.png
 ---
