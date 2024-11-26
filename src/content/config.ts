@@ -6,6 +6,7 @@ const blog = defineCollection({
 	schema: z.object({
 		title: z.string(),
 		summary: z.string(),
+        category: z.string(),
 		// Transform string to Date object
 		pubDate: z.coerce.date(),
         author: z.coerce.string(),

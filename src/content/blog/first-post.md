@@ -5,6 +5,7 @@ author: lewpar
 
 title: First Post
 summary: This is the first post of Cyber Bilby, the open source tech blogging website.
+category: blog
 
 heroImage: /blog-content/first-post/hero.png
 ---

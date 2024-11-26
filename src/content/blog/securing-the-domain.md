@@ -5,8 +5,7 @@ author: lewpar
 
 title: Securing the Domain
 summary: The Critical Role of DNSSEC and DNS over HTTPS
-
-category: Report
+category: article
 
 heroImage: /blog-content/securing-the-domain/hero.png
 ---
