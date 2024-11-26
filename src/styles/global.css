@@ -83,8 +83,12 @@ a {
 a:hover {
 	color: var(--accent);
 }
-p {
-	margin-bottom: 1em;
+.body p {
+	margin: 0;
+}
+.body a {
+    color: white;
+    font-style: italic;
 }
 textarea {
 	width: 100%;
@@ -109,7 +113,9 @@ code {
 pre {
 	padding: 1.5em;
 	border-radius: 8px;
+
     text-wrap: wrap;
+    overflow-wrap: anywhere;
 }
 pre > code {
 	all: unset;
