@@ -109,6 +109,7 @@ code {
 pre {
 	padding: 1.5em;
 	border-radius: 8px;
+    text-wrap: wrap;
 }
 pre > code {
 	all: unset;
