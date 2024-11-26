@@ -1,0 +1,101 @@
+---
+import { getCollection } from "astro:content";
+import { fetchAndParseCommitsWithRegex } from "../libs/lib";
+
+interface Props {
+    max: number;
+}
+
+const { max } = Astro.props;
+
+// Parse all the recent commits from the cyber bilby repository
+let commits = await fetchAndParseCommitsWithRegex("https://github.com/lewpar/cyberbilby/commits/master.atom");
+
+// Filter out boring merge commits
+commits = commits.filter(c => !c.title.toLowerCase().startsWith("merge pull request"));
+
+// Reduce to show only most recent commits
+commits = commits.slice(0, max);
+
+const authors = await getCollection('authors');
+---
+
+<style>
+    .recent-commits-title {
+        font-size: 2rem;
+    }
+    .recent-commits {
+        display: flex;
+        flex-direction: column;
+
+        gap: 0.5rem;
+    }
+    .recent-commits .commit {
+        display: flex;
+        flex-direction: column;
+
+        color: black;
+        background-color: white;
+        
+        text-decoration: none;
+
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 5px;
+
+        padding: 0.5rem;
+
+        transition: color 0.25s;
+    }
+    .recent-commits .commit:hover {
+        color: dodgerblue;
+    }
+
+    .recent-commits .commit .author {
+        display: flex;
+        flex-direction: row;
+
+        gap: 0.5rem;
+
+        align-items: center;
+
+        font-size: 1rem;
+    }
+
+    .recent-commits .commit .author .avatar {
+        width: 40px;
+        height: 40px;
+    }
+
+    .recent-commits .commit .author .details {
+        display: flex;
+        flex-direction: column;
+
+        justify-content: center;
+
+        line-height: 1rem;
+    }
+
+    .recent-commits .commit .author .details .date {
+        font-size: 0.75rem;
+    }
+</style>
+
+<h2 class="recent-commits-title">Recent Commits</h2>
+<div class="recent-commits">
+    {
+        commits.map(c => {
+            let author = authors.find(a => a.id == c.author);
+
+            return <a href={c.link} class="commit">
+                <div class="author">
+                    {author && <img class="avatar" src={author.data.avatar}></div>}
+                    <div class="details">
+                        <div class="name">{author === undefined ? c.author : author.data.name}</div>
+                        <div class="date">{new Date(c.updated).toDateString()}</div>
+                    </div>
+                </div>
+                    <div class="message">{c.title}</div>
+                </a>
+        })
+    }
+</div>
