@@ -48,7 +48,8 @@ const authors = await getCollection('authors');
     }
 
     .recent-posts .post .image {
-        max-width: 250px;
+        flex: 1;
+
         object-fit: cover;
     }
     .recent-posts .post .image img {
@@ -59,6 +60,8 @@ const authors = await getCollection('authors');
     }
 
     .recent-posts .post .details {
+        flex: 2;
+
         display: flex;
         flex-direction: column;
 
