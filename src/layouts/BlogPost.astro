@@ -7,10 +7,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import Author from '../components/Author.astro';
+import { toTitleCase } from '../libs/lib';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, summary, pubDate, author, updatedDate, heroImage } = Astro.props;
+const { title, summary, category, pubDate, author, updatedDate, heroImage } = Astro.props;
 
 let postAuthor = await getEntry('authors', author);
 if(postAuthor === undefined) {
@@ -27,11 +28,7 @@ if(postAuthor === undefined) {
 				max-width: 100%;
 				margin: 0;
 			}
-			.hero-image {
-				width: 100%;
-			}
 			.hero-image img {
-				display: block;
 				margin: 0 auto;
 				border-radius: 12px;
 				box-shadow: var(--box-shadow);
@@ -48,11 +45,34 @@ if(postAuthor === undefined) {
                 margin-bottom: 2rem;
             }
 			.header {
+                display: flex;
+
+                align-items: center;
+                justify-content: center;
+
+                gap: 1rem;
+
 				margin-bottom: 1em;
 				padding: 1em 0;
-				text-align: center;
 				line-height: 1;
 			}
+            .header .info {
+                display: flex; 
+                flex-direction: column;
+                
+                justify-content: center;
+            }
+            .header .info .category {
+                color: gray;
+
+                font-size: 1.5rem;
+            }
+
+            @media (max-width: 720px) {
+                .header {
+                    flex-direction: column;
+                }
+            }
 		</style>
 	</head>
 
@@ -60,18 +80,21 @@ if(postAuthor === undefined) {
 		<Header />
 		<main>
 			<article>
-				<div class="hero-image">
-					{heroImage && <img src={heroImage} alt="" />}
-				</div>
+                <div class="header">
+                    
+                    {heroImage && <div class="hero-image"><img src={heroImage} alt="hero image" /></div>}
+
+                    <div class="info">
+                        <h1>{title}</h1>
+                        <span class="category">{toTitleCase(category)}</span>
+                        <p>{summary}</p>
+                        <Author name={postAuthor?.data.name} avatar={postAuthor.data.avatar} date={pubDate}></Author>
+                    </div>
+                </div>
+
+                <hr />  
 
 				<div class="prose">
-					<div class="header">
-                        <div style="display: flex; align-items: center; justify-content: center">
-                            <Author name={postAuthor?.data.name} avatar={postAuthor.data.avatar} date={pubDate}></Author>
-                        </div>
-                        
-						<hr />
-					</div>
 					<slot />
 				</div>
 			</article>
