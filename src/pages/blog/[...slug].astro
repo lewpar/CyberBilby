@@ -15,6 +15,50 @@ type Props = CollectionEntry<'blog'>;
 const post = Astro.props;
 const { headings, Content } = await post.render();
 ---
+<style>
+    .back-button {
+        color: white;
+        background-color: dodgerblue;
+
+        border-radius: 5px;
+
+        text-decoration: none;
+
+        padding: 0.5rem;
+        margin-top: 1rem;
+    }
+    .back-button:hover {
+        filter: brightness(110%);
+    }
+
+    .blog-container {
+        display: flex; 
+        flex-direction: row; 
+        
+        gap: 1rem;
+    }
+    .blog-toc {
+        flex: 2; 
+        margin-right: 1rem
+    }
+    .blog-content {
+        flex: 8;
+    }
+    .blog-content pre {
+        text-wrap: wrap;
+    }
+
+    hr {
+        margin-bottom: 2rem;
+    }
+
+    @media (max-width: 720px) {
+        .blog-toc {
+            display: none;
+        }
+    }
+</style>
+
 <BlogPost {...post.data}>
     <div class="blog-container">
         <div class="blog-toc">
@@ -22,6 +66,8 @@ const { headings, Content } = await post.render();
         </div>
         <div class="blog-content">
             <Content />
+            <hr/>
+            <a href="/blog" class="back-button">Read more posts..</a>
         </div>
     </div>
 </BlogPost>

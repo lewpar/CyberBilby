@@ -53,21 +53,6 @@ if(postAuthor === undefined) {
 				text-align: center;
 				line-height: 1;
 			}
-
-            .back-button {
-                color: white;
-                background-color: dodgerblue;
-
-                border-radius: 5px;
-
-                text-decoration: none;
-
-                padding: 0.5rem;
-                margin-top: 1rem;
-            }
-            .back-button:hover {
-                filter: brightness(110%);
-            }
 		</style>
 	</head>
 
@@ -87,10 +72,7 @@ if(postAuthor === undefined) {
                         
 						<hr />
 					</div>
-                    <h1 class="title">{title}</h1>
 					<slot />
-                    <hr/>
-                    <a href="/blog" class="back-button">Read more posts..</a>
 				</div>
 			</article>
 		</main>
