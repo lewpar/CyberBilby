@@ -9,8 +9,9 @@ category: tutorial
 
 heroImage: /blog-content/spoofing-your-mac/hero.png
 ---
-import CardWarn from '../../components/CardWarn.astro';
-import CardInfo from '../../components/CardInfo.astro';
+
+import InfoCard from '../../components/InfoCard.astro';
+import { InfoCardType } from '../../components/InfoCard';
 
 ## What is a MAC address?
 A Media Access Control (MAC) address is a 6 byte (48 bits) unique address that is applied to your Network Interface Card (NIC).
@@ -37,9 +38,9 @@ There is a variety of reasons that you may want to spoof your MAC address which 
 
 For the purpose of this tutorial we are focusing on Accessing MAC protected networks.
 
-<CardWarn>
+<InfoCard type={InfoCardType.WARNING}>
 It's not illegal to change or spoof your MAC address, but it is illegal to carry out attacks against networks you do not have permission to penetration test using this technique.
-</CardWarn>
+</InfoCard>
 
 ## My Scenario
 I recently bought a Nintendo Switch and I wanted to connect this directly via Ethernet due to the weak signal strength of the Wi-Fi NIC inside the Nintendo Switch.
@@ -73,9 +74,9 @@ Once you select the network adapter you are currently using:
 - Insert the MAC address you gathered from your target device (Nintendo Switch)
 - Press OK
 
-<CardInfo>
+<InfoCard type={InfoCardType.INFO}>
 If you are using an Ethernet-to-USB adapter like I am, you need to read the MAC address on that is written physically (usually on a sticker) on the adapter.
-</CardInfo>
+</InfoCard>
 
 ### Connecting & Re-connecting
 I have now spoofed the MAC address of my laptop to be the same as my Nintendo Switch Ethernet-to-USB adapter.
