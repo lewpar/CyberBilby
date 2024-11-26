@@ -4,6 +4,7 @@ summary: Create a new Cyber Bilby post.
 category: Tutorial
 author: lewpar
 pubDate: 2024-02-09T09:40:23+11:00
+heroImage: /blog-content/new/hero.png
 hidden: true
 ---
 
