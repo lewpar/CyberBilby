@@ -9,7 +9,7 @@ import Author from '../../components/Author.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+).filter(p => p.data.hidden !== true);
 
 const authors = await getCollection('authors');
 
@@ -104,12 +104,39 @@ function toTitleCase(input: string) {
 					width: 100%;
 				}
 			}
+
+            .new-post {
+                color: white;
+                background-color: dodgerblue;
+
+                padding: 0.25rem 0.5rem;
+
+                border-radius: 5px;
+
+                text-decoration: none;
+
+                transition: filter 0.25s;
+            }
+            .new-post:hover {
+                filter: brightness(125%);
+            }
+
+            .header {
+                display: flex;
+
+                align-items: center;
+
+                gap: 1rem;
+            }
 		</style>
 	</head>
 	<body>
 		<Header />
 		<main>
-            <h2>Posts</h2>
+            <div class="header">
+                <h2>Posts</h2>
+                <a href="/blog/new" class="new-post">+ New</a>
+            </div>
 			<section>
 				<ul>
 					{
