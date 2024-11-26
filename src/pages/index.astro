@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import RecentCommits from '../components/RecentCommits.astro';
+import RecentPosts from '../components/RecentPosts.astro';
 ---
 
 <!doctype html>
@@ -11,11 +12,19 @@ import RecentCommits from '../components/RecentCommits.astro';
 	<head>
 		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
 
-        
+        <style>
+            main {
+                display: flex;
+                flex-direction: column;
+
+                gap: 2rem;
+            }
+        </style>
 	</head>
 	<body>
 		<Header />
 		<main>
+            <RecentPosts max={3}></RecentPosts>
             <RecentCommits max={3}></RecentCommits>
 		</main>
 		<Footer />
