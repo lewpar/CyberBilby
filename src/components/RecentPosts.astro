@@ -1,0 +1,167 @@
+---
+import { getCollection } from "astro:content";
+import { toTitleCase } from "../libs/lib";
+
+interface Props {
+    max: number;
+}
+
+const { max } = Astro.props;
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+).filter(p => p.data.hidden !== true).slice(0, max);
+
+const authors = await getCollection('authors');
+---
+
+<style>
+    .recent-posts-title {
+        font-size: 2rem;
+    }
+    .recent-posts {
+        display: flex;
+        flex-direction: column;
+
+        gap: 0.5rem;
+    }
+    .recent-posts .post {
+        display: flex;
+        flex-direction: row;
+
+        gap: 0.5rem;
+
+        color: black;
+        background-color: white;
+        
+        text-decoration: none;
+
+        border: 1px solid rgb(220, 220, 220);
+        border-radius: 5px;
+
+        padding: 0.5rem;
+
+        transition: color 0.25s;
+    }
+    .recent-posts .post:hover {
+        color: dodgerblue;
+    }
+
+    .recent-posts .post .image {
+        max-width: 250px;
+        object-fit: cover;
+    }
+    .recent-posts .post .image img {
+        width: 100%;
+        height: 100%;
+
+        object-fit: cover;
+    }
+
+    .recent-posts .post .details {
+        display: flex;
+        flex-direction: column;
+
+        padding: 0.5rem;
+
+        line-height: 1rem;
+    }
+    .recent-posts .post .details .title {
+        font-size: 1.25rem;
+    }
+    .recent-posts .post .details .category {
+        font-size: 1rem;
+        color: gray;
+    }
+    .recent-posts .post .details .summary {
+        font-size: 1rem;
+    }
+
+    .recent-posts .post .details .author {
+        display: flex;
+        flex-direction: row;
+
+        align-items: center;
+    }
+
+    .recent-posts .post .details .author img {
+        max-width: 40px;
+        max-height: 40px;
+    }
+
+    .recent-posts .post .details .author .details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .recent-posts .post .details .author .name {
+        font-size: 1rem;
+    }
+
+    .recent-posts .post .details .author .date {
+        font-size: 0.75rem;
+    }
+
+    .all-posts {
+        padding: 0.5rem;
+
+        text-decoration: none;
+
+        color: white;
+        background-color: dodgerblue;
+
+        border-radius: 5px;
+
+        text-align: center;
+
+        transition: filter 0.25s;
+    }
+    .all-posts:hover {
+        filter: brightness(125%);
+    }
+
+    @media (max-width: 720px) {
+        .recent-posts .post {
+            flex-direction: column;
+        }
+        .recent-posts .post .image {
+            width: 100%;
+            max-width: 100%;
+            max-height: 100px;
+        }
+    }
+</style>
+
+<div>
+    <h2 class="recent-posts-title">Recent Posts</h2>
+    <div class="recent-posts">
+        {
+            posts.map(p => {
+                let author = authors.find(a => a.id == p.data.author);
+                if(author === undefined) {
+                    author = authors.find(a => a.id === "anonymous");
+                }
+    
+                return <a href={`/blog/${p.slug}`} class="post">
+                        <div class="image">
+                            <img src={p.data.heroImage} alt={p.data.title} />
+                        </div>
+    
+                        <div class="details">
+                            <h2 class="title">{p.data.title}</h2>
+                            <div class="category">{toTitleCase(p.data.category)}</div>
+                            <p class="summary">{p.data.summary}</p>
+                            <div class="author">
+                                {author && <img class="avatar" src={author.data.avatar}></div>}
+                                <div class="details">
+                                    <div class="name">{author?.data.name}</div>
+                                    <div class="date">{new Date(p.data.pubDate).toDateString()}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+            })
+        }
+        <a href="/blog" class="all-posts">All Posts</a>
+    </div>
+</div>

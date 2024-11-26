@@ -80,22 +80,24 @@ const authors = await getCollection('authors');
     }
 </style>
 
-<h2 class="recent-commits-title">Recent Commits</h2>
-<div class="recent-commits">
-    {
-        commits.map(c => {
-            let author = authors.find(a => a.id == c.author);
-
-            return <a href={c.link} class="commit">
-                <div class="author">
-                    {author && <img class="avatar" src={author.data.avatar}></div>}
-                    <div class="details">
-                        <div class="name">{author === undefined ? c.author : author.data.name}</div>
-                        <div class="date">{new Date(c.updated).toDateString()}</div>
+<div>
+    <h2 class="recent-commits-title">Recent Commits</h2>
+    <div class="recent-commits">
+        {
+            commits.map(c => {
+                let author = authors.find(a => a.id == c.author);
+    
+                return <a href={c.link} class="commit">
+                    <div class="author">
+                        {author && <img class="avatar" src={author.data.avatar}></div>}
+                        <div class="details">
+                            <div class="name">{author === undefined ? c.author : author.data.name}</div>
+                            <div class="date">{new Date(c.updated).toDateString()}</div>
+                        </div>
                     </div>
-                </div>
-                    <div class="message">{c.title}</div>
-                </a>
-        })
-    }
+                        <div class="message">{c.title}</div>
+                    </a>
+            })
+        }
+    </div>
 </div>
