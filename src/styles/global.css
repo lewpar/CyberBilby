@@ -86,9 +86,6 @@ a:hover {
 p {
 	margin-bottom: 1em;
 }
-.prose p {
-	margin-bottom: 2em;
-}
 textarea {
 	width: 100%;
 	font-size: 16px;
@@ -127,22 +124,6 @@ hr {
 	border-top: 1px solid rgb(var(--gray-light));
 }
 
-.blog-container {
-    display: flex; 
-    flex-direction: row; 
-    
-    gap: 1rem;
-}
-.blog-toc {
-    flex: 2; 
-    margin-right: 1rem
-}
-.blog-content {
-    flex: 8;
-}
-.blog-content pre {
-    text-wrap: wrap;
-}
 @media (max-width: 720px) {
 	body {
 		font-size: 18px;
@@ -150,9 +131,6 @@ hr {
 	main {
 		padding: 1em;
 	}
-    .blog-toc {
-        display: none;
-    }
 }
 
 .sr-only {
