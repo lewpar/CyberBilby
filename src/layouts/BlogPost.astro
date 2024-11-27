@@ -87,7 +87,7 @@ if(postAuthor === undefined) {
                         <h1>{title}</h1>
                         <span class="category">{toTitleCase(category)}</span>
                         <p>{summary}</p>
-                        <Author name={postAuthor?.data.name} avatar={postAuthor.data.avatar} date={pubDate}></Author>
+                        <Author id={postAuthor?.id} name={postAuthor?.data.name} date={pubDate}></Author>
                     </div>
                 </div>
 

@@ -1,13 +1,14 @@
 ---
 import FormattedDate from './FormattedDate.astro';
+import ProfileImage from './ProfileImage.astro';
 
 interface Props {
+    id: string;
     name: string;
-    avatar: string;
     date: Date;
 }
 
-const { name, avatar, date } = Astro.props;
+const { id, name, date } = Astro.props;
 ---
 
 <style>
@@ -37,7 +38,7 @@ const { name, avatar, date } = Astro.props;
 </style>
 
 <div class="author">
-    <img src={avatar} alt={name} />
+    <ProfileImage authorId={id} authorName={name} width={50} height={50}></ProfileImage>
     
     <div class="author-details">
         {name}

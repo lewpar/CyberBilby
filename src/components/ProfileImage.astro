@@ -1,0 +1,27 @@
+---
+import { Image } from 'astro:assets';
+
+interface Props {
+    authorName: string;
+    authorId: string;
+    width: number;
+    height: number;
+}
+
+const { authorName, authorId, width, height } = Astro.props;
+
+let authorImage: ImageMetadata | undefined;
+try {
+    let img = await import(`../content/images/authors/${authorId}.png`);
+    authorImage = img.default;
+}
+catch {
+    console.error(`Failed to load image for author ${authorId}.`);
+    let img = await import(`../content/images/authors/anonymous.png`);
+    authorImage = img.default;
+}
+---
+
+{ authorImage && <Image src={authorImage} alt={authorName} width={width} height={height} densities={[1, 2]}></Image> }
+
+
