@@ -4,15 +4,20 @@ import SocialLinks from "./SocialLinks.astro";
 const today = new Date();
 ---
 
+<style>
+	footer {
+		padding: 2em 1em 6em 1em;
+
+		background-color: white;
+		color: rgb(var(--gray));
+
+        box-shadow: rgb(210, 210, 210) 0 1px 10px;
+        
+		text-align: center;
+	}
+</style>
+
 <footer>
 	&copy; {today.getFullYear()} Cyber Bilby. All rights reserved.
 	<SocialLinks></SocialLinks>
 </footer>
-<style>
-	footer {
-		padding: 2em 1em 6em 1em;
-		background: linear-gradient(var(--gray-gradient)) no-repeat;
-		color: rgb(var(--gray));
-		text-align: center;
-	}
-</style>
