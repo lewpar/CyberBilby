@@ -89,7 +89,7 @@ const authors = await getCollection('authors');
     
                 return <a href={c.link} class="commit">
                     <div class="author">
-                        {author && <img class="avatar" src={author.data.avatar}></div>}
+                        {author && <img class="avatar" src={author.data.avatar} alt={author.data.name}></div>}
                         <div class="details">
                             <div class="name">{author === undefined ? c.author : author.data.name}</div>
                             <div class="date">{new Date(c.updated).toDateString()}</div>
