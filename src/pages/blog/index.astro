@@ -6,6 +6,7 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../../consts';
 import { getCollection } from 'astro:content';
 import Author from '../../components/Author.astro';
 import { toTitleCase } from '../../libs/lib';
+import ProfileImage from '../../components/ProfileImage.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -149,7 +150,7 @@ const authors = await getCollection('authors');
                                         <h4 class="title">{post.data.title}</h4>
                                         <span class="category">{toTitleCase(post.data.category)}</span>
                                         <p>{post.data.summary}</p>
-                                        <Author name={author!.data.name} avatar={author!.data.avatar} date={post.data.pubDate}></Author>
+                                        <Author id={author!.id} name={author!.data.name} date={post.data.pubDate}></Author>
                                     </div>
 								</a>
 							</li>
