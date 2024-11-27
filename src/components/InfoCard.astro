@@ -1,5 +1,8 @@
 ---
+import { Image } from 'astro:assets';
 import { InfoCardType } from './InfoCard'
+
+import exclaimImage from '../content/images/exclaim.png';
 
 interface Props {
     type: InfoCardType;
@@ -89,7 +92,7 @@ function getSecondaryColor() {
     </div>
     <div class="details" style={`border: 1px solid ${getPrimaryColor()}; background-color: ${getSecondaryColor()}`}>
         <div class="header" style={`color: ${getPrimaryColor()}`}>
-            <img src="/exclaim.png" width="24px" height="24px">
+            <Image src={exclaimImage} width={24} height={24} densities={[1, 2]} alt={type.toString()}></Image>
             <div>{type.toString()}</div>
         </div>
         <div class="body">
