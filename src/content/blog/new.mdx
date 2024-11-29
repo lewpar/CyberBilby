@@ -8,6 +8,9 @@ heroImage: /blog-content/new/hero.png
 hidden: true
 ---
 
+import InfoCard from '../../components/InfoCard.astro';
+import { InfoCardType } from '../../components/InfoCard';
+
 ## Creating a new Cyber Bilby post
 Cyber Bilby is an open source blogging platform for posting articles, tutorials, and blog posts. This means anybody can contribute to the website and make changes to existing posts.
 
@@ -59,8 +62,12 @@ Before you can create a post you first need to setup your author profile. This i
 Note: Anywhere in the following sub-sections that mention `USERNAME` must be replaced by your GitHub username in **_LOWERCASE_**.
 
 #### Avatar
-1. **Navigate** to `./public/avatars` in the codebase
-2. **Create or add an image** that you would like to use in your profile with the format `USERNAME.png` (other formats than png is supported)
+1. **Navigate** to `./src/content/images/authors` in the codebase
+2. **Create or add an image** that you would like to use in your profile with the format `USERNAME.png`
+
+<InfoCard type={InfoCardType.WARNING}>
+Ensure your username is set correctly, otherwise it will not be linked to your posts.
+</InfoCard>
 
 #### Profile
 1. **Navigate** to `./src/content/authors` in the codebase.
@@ -68,7 +75,6 @@ Note: Anywhere in the following sub-sections that mention `USERNAME` must be rep
 3. **Open the new yaml file** you just created and populate it accordingly:
 ```yml
 name: USERNAME
-avatar: /avatars/USERNAME.png
 ```
 
 Your author profile is now ready to be used for all your future posts.
