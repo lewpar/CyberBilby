@@ -2,6 +2,8 @@
 import { type CollectionEntry, getCollection } from 'astro:content';
 import BlogPost from '../../layouts/BlogPost.astro';
 import TableOfContent from '../../components/TableOfContent.astro';
+import InfoCard from '../../components/InfoCard.astro';
+import { InfoCardType } from '../../components/InfoCard';
 
 export async function getStaticPaths() {
 	const posts = await getCollection('blog');
@@ -54,6 +56,9 @@ const { headings, Content } = await post.render();
 
     hr {
         margin-bottom: 2rem;
+
+        border-top: 1px solid rgb(200, 200, 200);
+        border-bottom: 1px solid rgb(255, 255, 255);
     }
 
     @media (max-width: 720px) {
@@ -71,6 +76,10 @@ const { headings, Content } = await post.render();
         <div class="blog-content">
             <div class="content-container">
                 <Content />
+                <hr/>
+                <InfoCard type={InfoCardType.INFO}>
+                    Found a mistake? <a href="https://github.com/lewpar/CyberBilby/pulls">Open a pull request</a> and help improve the site.
+                </InfoCard>
             </div>
             <hr/>
             <a href="/blog" class="back-button">Read more posts..</a>
