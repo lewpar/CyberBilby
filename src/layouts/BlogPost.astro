@@ -38,11 +38,6 @@ if(postAuthor === undefined) {
 				padding: 1em;
 				color: rgb(var(--gray-dark));
 			}
-            .title {
-                text-align: center;
-
-                margin-bottom: 2rem;
-            }
 			.header {
                 display: flex;
 
@@ -61,10 +56,24 @@ if(postAuthor === undefined) {
                 
                 justify-content: center;
             }
+            .header .info .summary {
+                max-width: 50ch;
+            }
+            .header .info .title {
+                font-size: 2rem;
+                max-width: 30ch;
+            }
             .header .info .category {
                 color: gray;
 
                 font-size: 1.5rem;
+            }
+
+            hr {
+                margin-bottom: 2rem;
+
+                border-top: 1px solid rgb(200, 200, 200);
+                border-bottom: 1px solid rgb(255, 255, 255);
             }
 
             @media (max-width: 720px) {
@@ -84,9 +93,9 @@ if(postAuthor === undefined) {
                     {heroImage && <div class="hero-image"><img src={heroImage} alt="hero image" /></div>}
 
                     <div class="info">
-                        <h1>{title}</h1>
+                        <h1 class="title">{title}</h1>
                         <span class="category">{toTitleCase(category)}</span>
-                        <p>{summary}</p>
+                        <p class="summary">{summary}</p>
                         <Author id={postAuthor?.id} name={postAuthor?.data.name} date={pubDate}></Author>
                     </div>
                 </div>
