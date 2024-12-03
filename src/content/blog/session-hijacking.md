@@ -1,8 +1,9 @@
 ---
 pubDate: 2024-12-03T18:00:38.2581161+11:00
+updatedDate: 2024-12-03T18:00:38.2581161+11:00
 
-author: lewpar
 contributors:
+    - lewpar
     - fred-khan
 
 title: Session Hijacking

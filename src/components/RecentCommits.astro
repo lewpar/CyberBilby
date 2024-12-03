@@ -86,7 +86,8 @@ const authors = await getCollection('authors');
     <div class="recent-commits">
         {
             commits.map(c => {
-                let author = authors.find(a => a.id == c.author);
+                let author = authors.find(a => a.id.toLowerCase() === c.author.toLowerCase());
+                console.log(authors);
     
                 return <a href={c.link} class="commit">
                     <div class="author">

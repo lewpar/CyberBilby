@@ -1,7 +1,8 @@
 ---
 pubDate: 2024-02-09T09:40:23+11:00
 
-author: lewpar
+contributors: 
+    - lewpar
 
 title: First Post
 summary: This is the first post of Cyber Bilby, the open source tech blogging website.
