@@ -30,6 +30,10 @@ By following this guide you can create your first post.
 
     You can [download and install Git from here](https://git-scm.com/downloads).
 
+- **NodeJS**
+
+    The website is built on top of NodeJS using AstroJS. As such you will need to [install NodeJS](https://nodejs.org/en/download/prebuilt-installer).
+
 - **Code Editor**
 
     To create and edit the Cyber Bilby source, you need a code editor to make your life easier. I recommend VSCode as it has very good integration with AstroJS & TypeScript.
@@ -40,7 +44,9 @@ By following this guide you can create your first post.
 To author content you need to first fork and clone the CyberBilby repository.
 1. **Visit** https://github.com/lewpar/cyberbilby
 2. **Click** `Fork` at the top right of the page
-3. **Run** `git clone https://github.com/USERNAME/cyberbilby.git` in a location on your operating system where you would like to clone the repository. Make sure to replace `USERNAME` with your GitHub username.
+3. **Open a location** on your operating system where you want to clone the repository.
+4. **Open a terminal** at the location you have chosen.
+3. **Run** `git clone https://github.com/USERNAME/cyberbilby.git` to clone the repository, making sure to replace `USERNAME` with your GitHub username.
 
 ### Opening and learning the codebase
 To start, you should open the repository in your chosen code editor. If your chosen editor is VSCode you can follow these steps:
@@ -55,6 +61,15 @@ Once you have the repository open you will see a bunch of different folders and 
     - content (Contains the posts and authors)
         - authors (The authors in YAML format)
         - blog (The posts in Markdown format)
+
+### Install AstroJS & Run
+To test the changes later you first need to install the dependencies required to run the project.
+
+1. **Open Terminal** (Ctrl + `)
+2. **Run** `npm install` to install the dependencies
+4. **Run** `npm run dev` to run the website locally
+
+This will run a local version of the blog on your machine where you can view / test your changes live.
 
 ### Creating your author profile
 Before you can create a post you first need to setup your author profile. This is what links the posts to your identity.
