@@ -23,7 +23,7 @@ const { id, name, date } = Astro.props;
     .author img {
         max-width: 50px;
     }
-    .author-details {
+    .author .details {
         display: flex;
         flex-direction: column;
 
@@ -31,21 +31,25 @@ const { id, name, date } = Astro.props;
 
         line-height: 1.2;
     }
-    .date {
-        color: rgb(var(--gray));
+    .author .details .name {
         font-size: 1rem;
+    }
+    .author .details .date {
+        color: rgb(var(--gray));
+        font-size: 0.75rem;
     }
 </style>
 
 <div class="author">
     <ProfileImage authorId={id} authorName={name} width={50} height={50}></ProfileImage>
     
-    <div class="author-details">
-        {name}
+    <div class="details">
+        <span class="name">{name}</span>
         {
-        (date !== undefined) && <div class="date">
-            Posted <FormattedDate date={date} />
-        </div>
+            (date !== undefined) && 
+            <div class="date">
+                Posted <FormattedDate date={date} />
+            </div>
         }
     </div>
 </div>

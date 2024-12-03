@@ -1,7 +1,8 @@
 ---
 pubDate: 2024-12-03T14:50:57.2408330+08:00  
 
-author: bubblegumpussy
+contributors: 
+    - bubblegumpussy
 
 title: WPA3 The New Norm
 summary: Wi-Fi security takes a leap forward with WPA3, addressing vulnerabilities in WPA2 and providing robust protections for modern networks.

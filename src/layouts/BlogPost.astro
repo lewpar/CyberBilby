@@ -7,15 +7,11 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Author from '../components/Author.astro';
 import { toTitleCase } from '../libs/lib';
+import FormattedDate from '../components/FormattedDate.astro';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, summary, category, pubDate, author, contributors, heroImage } = Astro.props;
-
-let postAuthor = await getEntry('authors', author);
-if(postAuthor === undefined) {
-    postAuthor = await getEntry('authors', 'anonymous');
-}
+const { title, summary, category, pubDate, updatedDate, contributors, heroImage } = Astro.props;
 ---
 
 <html lang="en">
@@ -87,6 +83,11 @@ if(postAuthor === undefined) {
                 font-size: 1.25rem;
             }
 
+            .date {
+                color: rgb(100, 100, 100);
+                font-size: 1rem;
+            }
+
             @media (max-width: 720px) {
                 .header {
                     flex-direction: column;
@@ -107,7 +108,22 @@ if(postAuthor === undefined) {
                         <h1 class="title">{title}</h1>
                         <span class="category">{toTitleCase(category)}</span>
                         <p class="summary">{summary}</p>
-                        <Author id={postAuthor?.id} name={postAuthor?.data.name} date={pubDate}></Author>
+
+                        { 
+                            pubDate && 
+                            <span class="date">
+                                Posted 
+                                <FormattedDate date={pubDate} />
+                            </span> 
+                        }
+
+                        { 
+                            updatedDate && 
+                            <span class="date">
+                                Updated 
+                                <FormattedDate date={updatedDate} />
+                            </span> 
+                        }
                         
                         {
                             (contributors !== undefined && contributors.length > 0) && <div class="contributors">

@@ -2,7 +2,10 @@
 title: New Post
 summary: Create a new Cyber Bilby post.
 category: Tutorial
-author: lewpar
+
+contributors: 
+    - lewpar
+
 pubDate: 2024-02-09T09:40:23+11:00
 heroImage: /blog-content/new/hero.png
 hidden: true
@@ -103,14 +106,18 @@ Your author profile is now ready to be used for all your future posts.
     ```
     ---
     pubDate: 2024-08-14T12:30:42+11:00
+    updatedDate: 2024-10-14T12:30:42+11:00
 
-    author: lewpar
+    contributors: 
+        - lewpar
 
     title: My first blog post
     summary: This is my first blog post on the Cyber Bilby website
     category: blog
 
     heroImage: /blog-content/my-first-post/hero.png
+
+    hidden: false
     ---
 
     MARKDOWN HERE
@@ -125,9 +132,13 @@ Your author profile is now ready to be used for all your future posts.
         This is the publish date of your post, it is always in ISO 8601 format.
         If you don't want to write your own datetime you can [use an online converter](https://www.timestamp-converter.com/)
 
-    - **author** (Required)
+    - **updatedDate** (Optional)
 
-        This is the name of the author / GitHub username that was created earlier. This sets the author that should show on the post.
+        This the the last updated date for the post, it is always in ISO 8601 format.
+
+    - **contributors** (Required)
+
+        This is a list of the contributors for the post / name of the authors / GitHub username that was created earlier. This sets the contributors that should show on the post.
 
     - **title** (Required)
 
@@ -148,6 +159,11 @@ Your author profile is now ready to be used for all your future posts.
         The image size for this should be `512` pixels wide and `256` pixels high (`512x256`) to keep the file size low and consistent with other images.
 
         The next section explains how to setup the hero image.
+
+    - **hidden** (optional)
+
+        This sets the visibility of the post of the front page / blog page.
+        Useful if you need to push your page to the site but have it remain in draft mode.
 5. **Populate your post** with markdown content (you can use [common mark](https://commonmark.org/) as a cheatsheet), replacing `MARKDOWN HERE`
 
 ### Adding static content to your post

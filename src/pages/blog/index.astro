@@ -125,6 +125,15 @@ const authors = await getCollection('authors');
 
                 gap: 1rem;
             }
+
+            .authors {
+                display: flex;
+                flex-direction: row;
+
+                align-items: center;
+
+                gap: 0.5rem;
+            }
 		</style>
 	</head>
 	<body>
@@ -138,7 +147,7 @@ const authors = await getCollection('authors');
 				<ul>
 					{
 						posts.map((post) => {
-                            let author = authors.find(a => a.id == post.data.author);
+                            let author = authors.find(a => a.id == post.data.contributors[0]);
                             if(author === undefined) {
                                 author = authors.find(a => a.id == 'anonymous');
                             }
@@ -150,7 +159,13 @@ const authors = await getCollection('authors');
                                         <h4 class="title">{post.data.title}</h4>
                                         <span class="category">{toTitleCase(post.data.category)}</span>
                                         <p>{post.data.summary}</p>
-                                        <Author id={author!.id} name={author!.data.name} date={post.data.pubDate}></Author>
+                                        <div class="authors">
+                                            <Author id={author!.id} name={author!.data.name} date={post.data.pubDate}></Author>
+                                            {
+                                                (post.data.contributors.length > 1) &&
+                                                <span>+ {post.data.contributors.length - 1} other(s)</span>
+                                            }
+                                        </div>
                                     </div>
 								</a>
 							</li>
