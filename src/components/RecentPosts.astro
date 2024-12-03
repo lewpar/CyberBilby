@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import { toTitleCase } from "../libs/lib";
+import ProfileImage from "./ProfileImage.astro";
 
 interface Props {
     max: number;
@@ -155,7 +156,7 @@ const authors = await getCollection('authors');
                             <div class="category">{toTitleCase(p.data.category)}</div>
                             <p class="summary">{p.data.summary}</p>
                             <div class="author">
-                                {author && <img class="avatar" src={author.data.avatar} alt={author.data.name}></div>}
+                                {author && <ProfileImage authorId={author!.id} authorName={author!.data.name} width={40} height={40}></ProfileImage></div>}
                                 <div class="details">
                                     <div class="name">{author?.data.name}</div>
                                     <div class="date">{new Date(p.data.pubDate).toDateString()}</div>

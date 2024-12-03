@@ -5,7 +5,7 @@ import ProfileImage from './ProfileImage.astro';
 interface Props {
     id: string;
     name: string;
-    date: Date;
+    date?: Date;
 }
 
 const { id, name, date } = Astro.props;
@@ -42,8 +42,10 @@ const { id, name, date } = Astro.props;
     
     <div class="author-details">
         {name}
-        <div class="date">
+        {
+        (date !== undefined) && <div class="date">
             Posted <FormattedDate date={date} />
         </div>
+        }
     </div>
 </div>

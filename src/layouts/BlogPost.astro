@@ -10,7 +10,7 @@ import { toTitleCase } from '../libs/lib';
 
 type Props = CollectionEntry<'blog'>['data'];
 
-const { title, summary, category, pubDate, author, heroImage } = Astro.props;
+const { title, summary, category, pubDate, author, contributors, heroImage } = Astro.props;
 
 let postAuthor = await getEntry('authors', author);
 if(postAuthor === undefined) {
@@ -76,6 +76,17 @@ if(postAuthor === undefined) {
                 border-bottom: 1px solid rgb(255, 255, 255);
             }
 
+            .contributors {
+                display: flex;
+                flex-direction: column;
+
+                margin: 1rem 0;
+            }
+
+            .contributors h2 {
+                font-size: 1.25rem;
+            }
+
             @media (max-width: 720px) {
                 .header {
                     flex-direction: column;
@@ -97,6 +108,22 @@ if(postAuthor === undefined) {
                         <span class="category">{toTitleCase(category)}</span>
                         <p class="summary">{summary}</p>
                         <Author id={postAuthor?.id} name={postAuthor?.data.name} date={pubDate}></Author>
+                        
+                        {
+                            (contributors !== undefined && contributors.length > 0) && <div class="contributors">
+                                <h2>Contributors</h2>
+                                {
+                                    contributors.map(async contributor => {
+                                        let author = await getEntry('authors', contributor);
+                                        if(author === undefined) {
+                                            author = await getEntry('authors', 'anonymous');
+                                        }
+                                        return <Author id={author.id} name={author.data.name}></Author>
+                                    })
+                                }
+                            </div>
+                        }
+                        
                     </div>
                 </div>
 
