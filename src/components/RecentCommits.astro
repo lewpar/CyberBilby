@@ -2,6 +2,7 @@
 import { getCollection } from "astro:content";
 import { fetchAndParseCommitsWithRegex } from "../libs/lib";
 import ProfileImage from "./ProfileImage.astro";
+import { unescapeHTML } from "astro/runtime/server/escape.js";
 
 interface Props {
     max: number;
@@ -87,7 +88,6 @@ const authors = await getCollection('authors');
         {
             commits.map(c => {
                 let author = authors.find(a => a.id.toLowerCase() === c.author.toLowerCase());
-                console.log(authors);
     
                 return <a href={c.link} class="commit">
                     <div class="author">
@@ -97,7 +97,7 @@ const authors = await getCollection('authors');
                             <div class="date">{new Date(c.updated).toDateString()}</div>
                         </div>
                     </div>
-                        <div class="message">{c.title}</div>
+                        <div class="message">{unescapeHTML(c.title)}</div>
                     </a>
             })
         }
