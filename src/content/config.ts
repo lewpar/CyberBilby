@@ -10,6 +10,7 @@ const blog = defineCollection({
 		// Transform string to Date object
 		pubDate: z.coerce.date(),
         author: z.coerce.string(),
+        contributors: z.array(z.string()).optional(),
 		updatedDate: z.coerce.date().optional(),
 		heroImage: z.string().optional(),
         hidden: z.boolean().optional()
@@ -20,8 +21,7 @@ const authors = defineCollection({
     type: 'data',
 
     schema: z.object({
-        name: z.string(),
-        avatar: z.string()
+        name: z.string()
     })
 })
 
