@@ -1,12 +1,13 @@
 ---
-title: New Post
-summary: Create a new Cyber Bilby post.
+title: Creating a new post
+summary: This tutorial guides you through how to contribute to the Cyber Bilby, the open source blog.
 category: Tutorial
 
 contributors: 
     - lewpar
 
 pubDate: 2024-02-09T09:40:23+11:00
+updatedDate: 2024-12-04T13:57:04.7429456+11:00
 heroImage: /blog-content/new/hero.png
 hidden: true
 ---
@@ -14,7 +15,7 @@ hidden: true
 import InfoCard from '../../components/InfoCard.astro';
 import { InfoCardType } from '../../components/InfoCard';
 
-## Creating a new Cyber Bilby post
+## Prepare
 Cyber Bilby is an open source blogging platform for posting articles, tutorials, and blog posts. This means anybody can contribute to the website and make changes to existing posts.
 
 By following this guide you can create your first post.
@@ -51,13 +52,20 @@ To author content you need to first fork and clone the CyberBilby repository.
 4. **Open a terminal** at the location you have chosen.
 3. **Run** `git clone https://github.com/USERNAME/cyberbilby.git` to clone the repository, making sure to replace `USERNAME` with your GitHub username.
 
-### Opening and learning the codebase
+### Opening the Code Base
 To start, you should open the repository in your chosen code editor. If your chosen editor is VSCode you can follow these steps:
 1. **Open VSCode**
 2. **Click** `File` at the top left of the window
 3. **Select** `Open Folder`
 4. **Select the repository folder** you cloned earlier
 
+### Install Dependencies
+To test the changes later you first need to install the dependencies required to run the project.
+
+1. **Open Terminal** (Ctrl + `)
+2. **Run** `npm install` to install the dependencies
+
+### Learn Code Structure
 Once you have the repository open you will see a bunch of different folders and files, I am only going to list the relevant folders that you will be touching to create a new post.
 - public (Where static content is stored: images, stylesheets, etc..)
 - src (Where the source code of Cyber Bilby and the posts reside)
@@ -65,14 +73,7 @@ Once you have the repository open you will see a bunch of different folders and 
         - authors (The authors in YAML format)
         - blog (The posts in Markdown format)
 
-### Install AstroJS & Run
-To test the changes later you first need to install the dependencies required to run the project.
-
-1. **Open Terminal** (Ctrl + `)
-2. **Run** `npm install` to install the dependencies
-4. **Run** `npm run dev` to run the website locally
-
-This will run a local version of the blog on your machine where you can view / test your changes live.
+## Create
 
 ### Creating your author profile
 Before you can create a post you first need to setup your author profile. This is what links the posts to your identity.
@@ -174,6 +175,13 @@ You may also want to have other static images in your post, so you need an area 
 2. Create a folder with your blog post slug like so: `./public/blog-content/my-first-post`
 3. Move your hero image or static assets here
 
+## Review
+### Run Local website
+1. **Open Terminal** (Ctrl + `)
+4. **Run** `npm run dev`
+
+This will run a local version of the blog on your machine where you can view / test your changes live.
+
 ### Commit, push and merge your changes
 I will now walk you through committing your changes to a local repository, pushing those changes to your remote GitHub repository, and opening a pull request on the Cyber Bilby official repository.
 
@@ -219,5 +227,5 @@ I will now walk you through committing your changes to a local repository, pushi
    - Example description: *"This PR adds a blog post titled 'My First Post'."*
 5. Click **Create Pull Request**
 
-### Review
+### Peer Review
 Your pull request is now submitted. At this point, all you need to do is wait for me to review it. Once it's approved, your changes will be merged into the Cyber Bilby repository, and your post will go live. 
